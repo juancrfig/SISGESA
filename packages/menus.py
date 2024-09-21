@@ -48,3 +48,13 @@ def login():
     print()
     print(art.type_password_message, end='')
     password = art.input_password()
+
+    if data.check_correct_login(user, password) == 0:
+        return 0
+    else:
+        return 401
+    
+def main():
+    art.limpiar_pantalla()
+    print("Ha llegado usted al menú del programa! Felicidades!")
+    input()

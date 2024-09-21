@@ -6,6 +6,7 @@ Este módulo almacena variables y funciones que mejoran la estética del program
 import sys
 import tty
 import termios
+import time
 
 def limpiar_pantalla():
     """Función para limpiar la pantalla de la terminal.
@@ -132,3 +133,20 @@ def despedida():
     """Genera una pantalla de despedida cuando el usuario sale del programa."""
     limpiar_pantalla()
     print(adios)
+
+user_pass_incorrect_message = f'Ha ingresado un usuario y/o contraseña incorrectos!'
+
+def data_processing_animation(message, duration=3):
+    print(f"{white}{bold}{message}")
+    loading_symbols = ['-', '\\', '|', '/']  # Animation symbols
+    start_time = time.time()
+    
+    while time.time() - start_time < duration:
+        for symbol in loading_symbols:
+            sys.stdout.write(f"\r {symbol}")
+            sys.stdout.flush()
+            time.sleep(0.2)  # Adjust the speed of the animation here
+
+    # Clear the loading message
+    sys.stdout.write("\rLoading complete!   \n")
+

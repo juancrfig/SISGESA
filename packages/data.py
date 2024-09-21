@@ -20,4 +20,16 @@ def data_encryption(text):
 def register_new_user(info):
     with open('password.json', 'w+' ) as file:
         json.dump(info, file)
+
+def check_correct_login(user, password):
+
+    with open('password.json') as file:
+        data = json.load(file)
+    
+    
+    if user == data['user'] and data_encryption(password) == data['password']:
+        return 0
+    else:
+        return 401
+
         
