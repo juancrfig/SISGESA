@@ -21,6 +21,7 @@ def first_login():
         'password': 'SISGESA'
     }
 
+    info['password'] = data.data_encryption(info['password'])
     data.register_new_user(info)
 
     print(art.first_login_m3)

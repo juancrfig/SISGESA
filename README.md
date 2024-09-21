@@ -11,7 +11,7 @@ REQUERIMIENTOS:
 
    - Al iniciar el programa se solicita nombre de usuario y contraseña
    - Primera vez que se ejecute el programa la contraseña predefinida será "SISGESA" 
-   - Guardar contraseña en un archivo y asegurada mediante algoritmos de encriptación nativos de Python
+   - Guardar contraseña en un archivo y asegurarla mediante algoritmos de encriptación nativos de Python
    - Debe permitirse el cambio de contraseña desde el menú
 
 2. Menú de Opciones
