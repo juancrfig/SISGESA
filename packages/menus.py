@@ -8,6 +8,22 @@ El módulo importa el módulo 'art' para añadir efectos estéticos a las funcio
 """
 from packages import art
 
+def first_login():
+
+    art.limpiar_pantalla()
+    print(art.first_login_m1)
+    print(art.SISGESA)
+    print(art.first_login_m2, end='')
+    user = input()
+    print(art.first_login_m3)
+    respuesta = input(art.mensaje_cont_salir)
+    
+    if respuesta.lower() == 'c':
+        return 0
+    else:
+        return 1
+
+
 def login():
     """Función para manejar el inicio de sesión del usuario.
 

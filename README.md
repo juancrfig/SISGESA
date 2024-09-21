@@ -100,6 +100,6 @@ REQUERIMIENTOS:
 
 RESTRICCIONES TECNICAS
 
-Usar lo visto en el modulo 2
-No instalar modulos adicionales
-Implementar la persistencia de datos mediante JSON
+   Usar lo visto en el modulo 2
+   No instalar modulos adicionales
+   Implementar la persistencia de datos mediante JSON

@@ -18,6 +18,15 @@ def limpiar_pantalla():
     print('\033c')
     return 0
 
+# Variables para personalizar la estética del texto en la terminal
+bold = "\033[1m"
+white = "\033[37m"
+red = "\033[31m"
+green = "\033[32m"
+yellow = "\033[33m"
+blue = "\033[34m"
+reset = "\033[0m"
+
 #  Arte ASCII del acrónimo del nombre del programa.
 SISGESA_base = """
 ++----------------------------------------------------------------------------------++
@@ -35,6 +44,12 @@ SISGESA_base = """
 ++----------------------------------------------------------------------------------++
 ++----------------------------------------------------------------------------------++
 """
+
+first_login_m1 = f'{bold}{white}Bienvenido a SISGESA! El software perfecto para administrar y supervisar la asistencia en su institución educativa!{reset}'
+first_login_m2 = f'{bold}{white}Dado que es la primera vez que ingresa, debemos registrar el usuario que desea usar.\nIngrese a continuación el nombre de usuario\n>>> {reset}'
+first_login_m3 =  f'{bold}{white}\nUsuario registrado exitosamente!\nSu contraseña es {blue}"SISGESA"{white}{bold}, recomendamos cambiarla para una mayor seguridad!{reset}'
+mensaje_cont_salir = f'\nPRESIONE "C" para continuar o cualquier otra tecla para salir\n{bold}>>> '
+
 
 def center_text(text, width):
     """Función para centrar cadenas de texto multilínea.
@@ -56,15 +71,6 @@ def center_text(text, width):
 terminal_width = 160
 SISGESA = center_text(SISGESA_base, terminal_width)
 
-# Variables para personalizar la estética del texto en la terminal
-bold = "\033[1m"
-white = "\033[37m"
-red = "\033[31m"
-green = "\033[32m"
-yellow = "\033[33m"
-blue = "\033[34m"
-reset = "\033[0m"
-
 user_prompt = f'{bold}{white}Ingrese su usuario{reset}'.center(170)
 prompt_symbol = f'{bold}{white}>>> {reset}'.rjust(85)
 type_user_message = f'{user_prompt}\n\n{prompt_symbol}'
@@ -72,7 +78,14 @@ pass_prompt = f'{bold}{white}Ingrese su contraseña{reset}'.center(170)
 type_password_message = f'{pass_prompt}\n\n{prompt_symbol}'
 
 def getch():
-    """Get a single character from standard input without echoing."""
+    """Recibe carácteres del usuario sin mostrarlos en pantalla.
+    
+    Hablando de forma más técnica, esta función recibe un carácter a la vez
+    del 'standard input'.
+
+    Falta todavía entender la función!!!
+    El logo ASCII del programa se distorsiona si cambio el nombre de la funcion!!!????
+    """
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
     try:
@@ -83,20 +96,39 @@ def getch():
     return ch
 
 def input_password():
+    """Falta todavía entender la función!!!"""
 
     password = ""
     
     while True:
         char = getch()
-        if char in ('\n', '\r'):  # Enter key
-            print()  # Newline
+        if char in ('\n', '\r'):
+            print() 
             break
-        elif char == '\x7f':  # Backspace key
+        elif char == '\x7f':
             if password:
                 password = password[:-1]
-                print('\b \b', end='', flush=True)  # Remove last asterisk
+                print('\b \b', end='', flush=True)
         else:
             password += char
-            print('*', end='', flush=True)  # Display an asterisk for each character
+            print('*', end='', flush=True)
 
     return password
+
+adios = r"""
+
+   █████████       █████  ███                   ███
+  ███░░░░░███     ░░███  ░░░                   ░███
+ ░███    ░███   ███████  ████   ██████   █████ ░███
+ ░███████████  ███░░███ ░░███  ███░░███ ███░░  ░███
+ ░███░░░░░███ ░███ ░███  ░███ ░███ ░███░░█████ ░███
+ ░███    ░███ ░███ ░███  ░███ ░███ ░███ ░░░░███░░░ 
+ █████   █████░░████████ █████░░██████  ██████  ███
+░░░░░   ░░░░░  ░░░░░░░░ ░░░░░  ░░░░░░  ░░░░░░  ░░░ 
+
+"""
+
+def despedida():
+    """Genera una pantalla de despedida cuando el usuario sale del programa."""
+    limpiar_pantalla()
+    print(adios)
