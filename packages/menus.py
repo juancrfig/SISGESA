@@ -6,7 +6,7 @@ para manejar el inicio de sesión y otras interacciones con el usuario.
 
 El módulo importa el módulo 'art' para añadir efectos estéticos a las funciones.
 """
-from packages import art
+from packages import art, data
 
 def first_login():
 
@@ -15,6 +15,14 @@ def first_login():
     print(art.SISGESA)
     print(art.first_login_m2, end='')
     user = input()
+
+    info = {
+        'user': f'{user}',
+        'password': 'SISGESA'
+    }
+
+    data.register_new_user(info)
+
     print(art.first_login_m3)
     respuesta = input(art.mensaje_cont_salir)
     

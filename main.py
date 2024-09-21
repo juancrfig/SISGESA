@@ -12,7 +12,7 @@ def main():
     iniciando el proceso de inicio de sesión del usuario.
     """
     while True:
-        if data.first_time():
+        if data.check_first_time():
             if menus.first_login() == 1:
                 break
         else:
