@@ -1,5 +1,7 @@
+from packages import menus
+
 def main():
-    pass
+    menus.login()
 
 
 if __name__ == '__main__':
