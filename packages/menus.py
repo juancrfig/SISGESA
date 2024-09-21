@@ -30,7 +30,7 @@ def first_login():
     if respuesta.lower() == 'c':
         return 0
     else:
-        return 1
+        return 9
 
 
 def login():
@@ -56,5 +56,42 @@ def login():
     
 def main():
     art.limpiar_pantalla()
-    print("Ha llegado usted al menú del programa! Felicidades!")
-    input()
+    art.main_menu()
+    answer = int(input())
+
+    return answer
+
+
+def registro_grupos():
+    art.limpiar_pantalla()
+    input("Llegaste al registro de grupos!")
+
+def registro_modulos():
+    art.limpiar_pantalla()
+    input("Llegaste al registro de modulos!")
+
+
+def registro_estudiantes():
+    art.limpiar_pantalla()
+    input("Llegaste al registro de estudiantes!")
+
+def registro_docentes():
+    art.limpiar_pantalla()
+    input("Llegaste al registro de docentes!")
+
+def registro_asistencia():
+    art.limpiar_pantalla()
+    input("Llegaste al registro de asistencia!")
+
+def consultar_info():
+    art.limpiar_pantalla()
+    input("Llegaste a la consulta de información!")
+
+def generar_informe():
+    art.limpiar_pantalla()
+    input("Llegaste a la generación de informes!")
+
+def cambio_contra():
+    art.limpiar_pantalla()
+    input("Llegaste al cambio de contraseña!")
+

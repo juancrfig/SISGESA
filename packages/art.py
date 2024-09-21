@@ -2,7 +2,7 @@
 
 Este módulo almacena variables y funciones que mejoran la estética del programa.
 """
-
+from colorama import Fore, Back, Style, init
 import sys
 import tty
 import termios
@@ -149,4 +149,22 @@ def data_processing_animation(message, duration=3):
 
     # Clear the loading message
     sys.stdout.write("\rLoading complete!   \n")
+
+def main_menu():
+    print(Fore.CYAN + Style.BRIGHT + "╔═════════════════════════════════╗")
+    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.WHITE + "  MENÚ PRINCIPAL               " + Fore.CYAN + "║")
+    print(Fore.CYAN + Style.BRIGHT + "╠═════════════════════════════════╣")
+    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 1. Registro de grupos         " + Fore.CYAN + "║")
+    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 2. Registro de módulos        " + Fore.CYAN + "║")
+    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 3. Registro de estudiantes    " + Fore.CYAN + "║")
+    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 4. Registro de docentes       " + Fore.CYAN + "║")
+    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 5. Registro de asistencia     " + Fore.CYAN + "║")
+    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 6. Consultas de información   " + Fore.CYAN + "║")
+    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 7. Generación de informes     " + Fore.CYAN + "║")
+    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 8. Cambio de contraseña       " + Fore.CYAN + "║")
+    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.RED + " 9. Salida del sistema         " + Fore.CYAN + "║")
+    print(Fore.CYAN + Style.BRIGHT + "╚═════════════════════════════════╝")
+    print()
+    print("Ingrese el número de la opción deseada")
+    print(">>> ", end='')
 

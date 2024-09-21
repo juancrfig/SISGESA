@@ -26,7 +26,6 @@ REQUERIMIENTOS:
    - Cambio de contraseña
    - Salida del sistema
 
-
 3. Registro de Grupos
 
    Se debe permitir el registro de grupos de estudiantes. Cada grupo se identifica por un codigo, un nombre y una sigla
