@@ -184,6 +184,8 @@ cambio_clave_m1 = f'{bold}{white}Ingrese su usuario\n>>>{reset} '
 cambio_clave_m2 = f'{bold}{white}Ingrese la clave actual\n>>>{reset} '
 cambio_clave_m3 = f'{bold}{white}Ingrese la nueva clave\n>>>{reset} '
 cambio_clave_m4 = f'{bold}{white}Se ha cambiado la clave exitosamente!\nVolviendo al menú!{reset}'
+cambio_clave_m5 = f'{bold}{white}Ingrese la nueva clave otra vez\n>>>{reset} '
+cambio_clave_m6 = f'{bold}{white}Las claves no coinciden!\n>>>{reset} '
 
 registro_grupos_ascii = """
 

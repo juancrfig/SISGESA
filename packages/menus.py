@@ -179,8 +179,16 @@ def cambio_contra():
     if data.check_correct_login(user, password) == 0:
         print(art.validacion_exito_mensaje)
         print(art.cambio_clave_m3, end='')
-        password = art.input_password()
-        data.change_password(user, password)
+        new_pass = art.input_password()
+        print(art.cambio_clave_m5, end='')
+        new_pass2 = art.input_password()
+
+        if new_pass != new_pass2:
+            print(art.seguridad_mensaje)
+            art.data_processing_animation(art.cambio_clave_m6)
+            return 401
+        
+        data.change_password(user, new_pass)
         print(art.cambio_clave_m4)
         art.data_processing_animation('')
         return 0
