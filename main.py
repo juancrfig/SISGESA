@@ -46,21 +46,29 @@ def main():
                                 return 0
                             case _:
                                 raise ValueError
-                    except Exception as error:
+                    except (ValueError, FileNotFoundError) as error:
+
                         if isinstance(error, ValueError):
+
                             art.data_processing_animation(art.user_invalid_input_message)
                             continue
+
                         if isinstance(error, FileNotFoundError):
+
                             data.crear_estructura_json()
                             print(art.error_archivo_m1)
                             art.data_processing_animation('Cargando', 8)
                             continue
+                        
                         else:
-                            print(f"Ha ocurrido el error {error}")
+
+                            print(f"Ha ocurrido el error {error}.\nComuniquese con el desarrollador...")
                             return 401
             else:
+
                 art.data_processing_animation(art.user_pass_incorrect_message)
                 continue
+
     art.despedida()
 
 if __name__ == '__main__':

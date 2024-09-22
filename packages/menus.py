@@ -89,7 +89,28 @@ def registro_grupos():
 def registro_modulos():
     art.limpiar_pantalla()
     print(art.nuevo_modulo_ascii)
-    input()
+    print(art.modulo_mensaje1, art.modulo_mensaje2)
+    print(art.modulo_mensaje3, end='')
+    codigo = input()
+
+    if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
+        raise ValueError
+
+    print(art.modulo_mensaje4, end='')
+    nombre = input().strip().replace(' ', '_')
+
+    if not (not nombre.isnumeric()  and 4 <= len(nombre) <= 55):
+        raise ValueError
+    
+    print(art.modulo_mensaje5, end='')
+    duracion = input()
+
+    if not (duracion.isnumeric() and 1 <= int(duracion) <= 99):
+        raise ValueError
+    
+    data.cargar_modulo(codigo, nombre, duracion)
+    art.data_processing_animation(art.cargando_mensaje)
+    return 0
 
 def registro_estudiantes():
     art.limpiar_pantalla()

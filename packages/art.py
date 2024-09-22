@@ -228,6 +228,11 @@ nuevo_modulo_ascii = """
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 """
 
+modulo_mensaje1 = f'{bold}{white}Para registrar un grupo debe ingresar los siguientes datos:{reset}'
+modulo_mensaje2 = f'\n{white}{bold}> Codigo numerico\n> Nombre\n> Duracion en semanas\n{reset}'
+modulo_mensaje3 = f'{white}{bold}Ingrese el codigo numerico ({yellow}Debe tener entre 4 y 9 digitos{white})\n>>>{reset} '
+modulo_mensaje4 = f'{white}{bold}Ingrese el nombre del modulo ({yellow}Debe tener entre 4 y 55 letras{white})\n>>>{reset} '
+modulo_mensaje5 = f'{white}{bold}Ingrese la duracion del modulo en semanas ({yellow}Debe tener entre 1 y 2 digitos{white})\n>>>{reset} '
 nuevo_alumno_ascii = """
  ██████   █████                                               █████████   ████                                                
 ░░██████ ░░███                                               ███░░░░░███ ░░███                                                

@@ -1,12 +1,18 @@
 {
     "grupos": {
-        "11111": [
+        "12369": [
             "GAMINES",
-            "GAM"
+            "GAMI"
+        ]
+    },
+    "modulos": {
+        "6969": [
+            "INTRODUCCION_A_LA_PROGRAMACION",
+            "9"
         ],
         "12369": [
-            "BINARIES",
-            "BIN"
+            "ENTREVISTAS_LABORALES",
+            "7"
         ]
     }
 }

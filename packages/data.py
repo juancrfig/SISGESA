@@ -4,7 +4,8 @@ import sys
 
 def crear_estructura_json():
     data = {
-        "grupos": {}
+        "grupos": {},
+        "modulos": {}
     }
     with open('./app_data/data.json', 'w') as json_file:
         json.dump(data, json_file, indent=4)
@@ -59,3 +60,16 @@ def cargar_grupo(codigo, nombre, sigla):
 
     with open('./app_data/data.json', 'w+') as file:
         json.dump(data, file, indent=4)
+
+
+def cargar_modulo(codigo, nombre, duracion):
+
+    with open('./app_data/data.json') as file:
+        data = json.load(file)
+    
+    data["modulos"][codigo] = [nombre, duracion]
+
+    with open('./app_data/data.json', 'w+') as file:
+        json.dump(data, file, indent=4)
+
+    
