@@ -60,9 +60,30 @@ def main():
     return answer
 
 def registro_grupos():
+
     art.limpiar_pantalla()
+    print(art.registro_grupos_ascii)
     print(art.grupos_mensaje1, art.grupos_mensaje2)
-    input()
+    print(art.grupos_mensaje3, end='')
+    codigo = input()
+
+    if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
+        raise ValueError
+    
+    print(art.grupos_mensaje4, end='')
+    nombre = input()
+
+    if not (nombre.isalpha() and 4 <= len(nombre) <= 9):
+        raise ValueError
+    
+    print(art.grupos_mensaje5, end='')
+    sigla = input()
+
+    if not (sigla.isalpha() and 3 <= len(sigla) <= 6):
+        raise ValueError
+    
+    data.cargar_grupo(codigo, nombre, sigla)
+    art.data_processing_animation(art.cargando_mensaje)
 
 def registro_modulos():
     art.limpiar_pantalla()

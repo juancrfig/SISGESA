@@ -1,8 +1,16 @@
 import json
 import hashlib
+import sys
+
+def crear_estructura_json():
+    data = {
+        "grupos": {}
+    }
+    with open('./app_data/data.json', 'w') as json_file:
+        json.dump(data, json_file, indent=4)
 
 def check_first_time():
-    with open('password.json', 'a+') as pass_file:
+    with open('./app_data/password.json', 'a+') as pass_file:
         pass_file.seek(0)
         lines = pass_file.readlines()
         if lines:
@@ -18,12 +26,12 @@ def data_encryption(text):
     return hash_hex
 
 def register_new_user(info):
-    with open('password.json', 'w+' ) as file:
+    with open('./app_data/password.json', 'w+' ) as file:
         json.dump(info, file)
 
 def check_correct_login(user, password):
 
-    with open('password.json') as file:
+    with open('./app_data/password.json') as file:
         data = json.load(file)
     
     
@@ -39,5 +47,15 @@ def change_password(user, password):
         'password': data_encryption(password)
     }
 
-    with open('password.json', 'w+') as file:
+    with open('./app_data/password.json', 'w+') as file:
         json.dump(info, file)
+
+def cargar_grupo(codigo, nombre, sigla):
+
+    with open('./app_data/data.json') as file:
+        data = json.load(file)
+
+    data["grupos"][codigo] = [nombre, sigla]
+
+    with open('./app_data/data.json', 'w+') as file:
+        json.dump(data, file, indent=4)

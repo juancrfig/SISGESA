@@ -17,6 +17,7 @@ def main():
     """
     while True:
         if data.check_first_time():
+            data.crear_estructura_json()
             if menus.first_login() == 9:
                 break
         else:
@@ -45,9 +46,18 @@ def main():
                                 return 0
                             case _:
                                 raise ValueError
-                    except ValueError:
-                        art.data_processing_animation(art.user_invalid_input_message)
-                        continue
+                    except Exception as error:
+                        if isinstance(error, ValueError):
+                            art.data_processing_animation(art.user_invalid_input_message)
+                            continue
+                        if isinstance(error, FileNotFoundError):
+                            data.crear_estructura_json()
+                            print(art.error_archivo_m1)
+                            art.data_processing_animation('Cargando', 8)
+                            continue
+                        else:
+                            print(f"Ha ocurrido el error {error}")
+                            return 401
             else:
                 art.data_processing_animation(art.user_pass_incorrect_message)
                 continue

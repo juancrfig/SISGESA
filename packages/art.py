@@ -150,19 +150,19 @@ def data_processing_animation(message, duration=3):
 
 
 def main_menu():
-    print(Fore.CYAN + Style.BRIGHT + "╔═════════════════════════════════╗")
-    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.WHITE + "  MENÚ PRINCIPAL               " + Fore.CYAN + "║")
-    print(Fore.CYAN + Style.BRIGHT + "╠═════════════════════════════════╣")
+    print(Fore.CYAN + Style.BRIGHT + "╔═══════════════════════════════╗")
+    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.WHITE + "  MENU PRINCIPAL               " + Fore.CYAN + "║")
+    print(Fore.CYAN + Style.BRIGHT + "╠═══════════════════════════════╣")
     print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 1. Registro de grupos         " + Fore.CYAN + "║")
-    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 2. Registro de módulos        " + Fore.CYAN + "║")
+    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 2. Registro de modulos        " + Fore.CYAN + "║")
     print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 3. Registro de estudiantes    " + Fore.CYAN + "║")
     print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 4. Registro de docentes       " + Fore.CYAN + "║")
     print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 5. Registro de asistencia     " + Fore.CYAN + "║")
-    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 6. Consultas de información   " + Fore.CYAN + "║")
-    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 7. Generación de informes     " + Fore.CYAN + "║")
+    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 6. Consultas de informacion   " + Fore.CYAN + "║")
+    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 7. Generacion de informes     " + Fore.CYAN + "║")
     print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 8. Cambio de clave            " + Fore.CYAN + "║")
     print(Fore.CYAN + Style.BRIGHT + "║" + Fore.RED + " 9. Salida del sistema         " + Fore.CYAN + "║")
-    print(Fore.CYAN + Style.BRIGHT + "╚═════════════════════════════════╝")
+    print(Fore.CYAN + Style.BRIGHT + "╚═══════════════════════════════╝")
     print()
     print("Ingrese el número de la opción deseada")
     print(">>> ", end='')
@@ -184,11 +184,37 @@ cambio_clave_m1 = f'{bold}{white}Ingrese su usuario\n>>>{reset} '
 cambio_clave_m2 = f'{bold}{white}Ingrese la clave actual\n>>>{reset} '
 cambio_clave_m3 = f'{bold}{white}Ingrese la nueva clave\n>>>{reset} '
 cambio_clave_m4 = f'{bold}{white}Se ha cambiado la clave exitosamente!\nVolviendo al menú!{reset}'
-grupos_mensaje1 = f'{bold}{white}Para registrar un grupo debe ingresar los siguientes datos:'
-grupos_mensaje2 = '\n> Codigo numerico\n> Nombre\n> Sigla'
 
+registro_grupos_ascii = """
+
+ ██████   █████                                               █████████                                         
+░░██████ ░░███                                               ███░░░░░███                                        
+ ░███░███ ░███  █████ ████  ██████  █████ █████  ██████     ███     ░░░  ████████  █████ ████ ████████   ██████ 
+ ░███░░███░███ ░░███ ░███  ███░░███░░███ ░░███  ███░░███   ░███         ░░███░░███░░███ ░███ ░░███░░███ ███░░███
+ ░███ ░░██████  ░███ ░███ ░███████  ░███  ░███ ░███ ░███   ░███    █████ ░███ ░░░  ░███ ░███  ░███ ░███░███ ░███
+ ░███  ░░█████  ░███ ░███ ░███░░░   ░░███ ███  ░███ ░███   ░░███  ░░███  ░███      ░███ ░███  ░███ ░███░███ ░███
+ █████  ░░█████ ░░████████░░██████   ░░█████   ░░██████     ░░█████████  █████     ░░████████ ░███████ ░░██████ 
+░░░░░    ░░░░░   ░░░░░░░░  ░░░░░░     ░░░░░     ░░░░░░       ░░░░░░░░░  ░░░░░       ░░░░░░░░  ░███░░░   ░░░░░░  
+                                                                                              ░███              
+                                                                                              █████             
+                                                                                             ░░░░░ 
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+"""
+
+grupos_mensaje1 = f'{bold}{white}Para registrar un grupo debe ingresar los siguientes datos:{reset}'
+grupos_mensaje2 = f'\n{white}{bold}> Codigo numerico\n> Nombre\n> Sigla\n{reset}'
+grupos_mensaje3 = f'{white}{bold}Ingrese el codigo numerico ({yellow}Debe tener entre 4 y 9 digitos{white})\n>>>{reset} '
+grupos_mensaje4 = f'{white}{bold}Ingrese el nombre del grupo ({yellow}Debe tener entre 4 y 9 letras{white})\n>>>{reset} '
+grupos_mensaje5 = f'{white}{bold}Ingrese la sigla del grupo ({yellow}Debe tener entre 3 y 6 letras{white})\n>>>{reset} '
+
+cargando_mensaje = f'{white}{bold}Cargando la informacion...Un momento...{reset}'
 validacion_exito_mensaje = f'{white}{bold}Validación exitosa!{reset}'
 seguridad_mensaje = f'{white}{bold}Por razones de seguridad, volverá al menú anterior...{reset}'
+
+
+error_archivo_m1 = f'''\033c{white}{bold}Alguien a averiado el archivo en el que se guardaba la informacion!\n
+No te preocupes, hemos creado un nuevo archivo para que vuelvas a intentarlo!\n
+({yellow}Tenias un respaldo de la informacion, cierto? D:{white}){reset}'''
 
 
 
