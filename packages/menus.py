@@ -84,29 +84,36 @@ def registro_grupos():
     
     data.cargar_grupo(codigo, nombre, sigla)
     art.data_processing_animation(art.cargando_mensaje)
+    return 0
 
 def registro_modulos():
     art.limpiar_pantalla()
-    input("Llegaste al registro de modulos!")
+    print(art.nuevo_modulo_ascii)
+    input()
 
 def registro_estudiantes():
     art.limpiar_pantalla()
+    print(art.nuevo_alumno_ascii)
     input("Llegaste al registro de estudiantes!")
 
 def registro_docentes():
     art.limpiar_pantalla()
+    print(art.nuevo_docente_ascii)
     input("Llegaste al registro de docentes!")
 
 def registro_asistencia():
     art.limpiar_pantalla()
+    print(art.asistencia_ascii)
     input("Llegaste al registro de asistencia!")
 
 def consultar_info():
     art.limpiar_pantalla()
+    print(art.consultas_ascii)
     input("Llegaste a la consulta de información!")
 
 def generar_informe():
     art.limpiar_pantalla()
+    print(art.generar_informe_ascii)
     input("Llegaste a la generación de informes!")
 
 def cambio_contra():
