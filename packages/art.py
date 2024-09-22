@@ -229,10 +229,17 @@ nuevo_modulo_ascii = """
 """
 
 modulo_mensaje1 = f'{bold}{white}Para registrar un grupo debe ingresar los siguientes datos:{reset}'
-modulo_mensaje2 = f'\n{white}{bold}> Codigo numerico\n> Nombre\n> Duracion en semanas\n{reset}'
+modulo_mensaje2 = f'\n{white}{bold}> Codigo numerico\n> Nombre\n> Duracion en semanas\n> Horario{reset}'
 modulo_mensaje3 = f'{white}{bold}Ingrese el codigo numerico ({yellow}Debe tener entre 4 y 9 digitos{white})\n>>>{reset} '
 modulo_mensaje4 = f'{white}{bold}Ingrese el nombre del modulo ({yellow}Debe tener entre 4 y 55 letras{white})\n>>>{reset} '
 modulo_mensaje5 = f'{white}{bold}Ingrese la duracion del modulo en semanas ({yellow}Debe tener entre 1 y 2 digitos{white})\n>>>{reset} '
+modulo_mensaje6 = f'{white}{bold}Ingrese el horario de inicio ({yellow}"YYYY-MM-DD HH:MM" formato 24 horas"{white})\n>>>{reset} '
+modulo_mensaje7 = f'{white}{bold}Ingrese el horario de fin de la clase ({yellow}"YYYY-MM-DD HH:MM" formato 24 horas"{white})\n>>>{reset} '
+modulo_mensaje8 = f'{white}{bold}Formato invalido. Por favor, ingrese fecha y hora en formato {bold}{yellow}"YYYY-MM-DD HH:MM".{reset} '
+modulo_mensaje9 = f'{white}{bold}La hora de fin de la clase no puede ser antes que la de inicio D: {bold}{yellow}.{reset} '
+modulo_mensaje10 = f'{white}{bold}La clase debe durar entre 1 y 8 horas {bold}{yellow}.{reset} '
+
+
 
 nuevo_alumno_ascii = """
  ██████   █████                                               █████████   ████                                                
