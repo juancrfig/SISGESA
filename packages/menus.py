@@ -17,7 +17,7 @@ def first_login():
     user = input()
 
     info = {
-        'user': f'{user}',
+        'user': user,
         'password': 'SISGESA'
     }
 
@@ -31,7 +31,6 @@ def first_login():
         return 0
     else:
         return 9
-
 
 def login():
     """Función para manejar el inicio de sesión del usuario.
@@ -58,18 +57,16 @@ def main():
     art.limpiar_pantalla()
     art.main_menu()
     answer = int(input())
-
     return answer
-
 
 def registro_grupos():
     art.limpiar_pantalla()
-    input("Llegaste al registro de grupos!")
+    print(art.grupos_mensaje1, art.grupos_mensaje2)
+    input()
 
 def registro_modulos():
     art.limpiar_pantalla()
     input("Llegaste al registro de modulos!")
-
 
 def registro_estudiantes():
     art.limpiar_pantalla()
@@ -92,6 +89,24 @@ def generar_informe():
     input("Llegaste a la generación de informes!")
 
 def cambio_contra():
-    art.limpiar_pantalla()
-    input("Llegaste al cambio de contraseña!")
 
+    art.limpiar_pantalla()
+    print(art.cambio_contra_ascii)
+    print(art.cambio_clave_m1, end='')
+    user = input()
+    print(art.cambio_clave_m2, end='')
+    password = art.input_password()
+
+    if data.check_correct_login(user, password) == 0:
+        print(art.validacion_exito_mensaje)
+        print(art.cambio_clave_m3, end='')
+        password = art.input_password()
+        data.change_password(user, password)
+        print(art.cambio_clave_m4)
+        art.data_processing_animation('')
+        return 0
+
+    else:
+        print(art.seguridad_mensaje)
+        art.data_processing_animation(art.user_invalid_input_message)
+        return 401

@@ -135,20 +135,19 @@ def despedida():
     print(adios)
 
 user_pass_incorrect_message = f'Ha ingresado un usuario y/o contraseña incorrectos!'
+user_invalid_input_message = f'Ha ingresado un dato invalido!'
 
 def data_processing_animation(message, duration=3):
     print(f"{white}{bold}{message}")
-    loading_symbols = ['-', '\\', '|', '/']  # Animation symbols
+    loading_symbols = ['/', '|', '\\', '-']  # Reverse spinner
     start_time = time.time()
     
     while time.time() - start_time < duration:
         for symbol in loading_symbols:
-            sys.stdout.write(f"\r {symbol}")
+            sys.stdout.write(f"\r{symbol}")
             sys.stdout.flush()
-            time.sleep(0.2)  # Adjust the speed of the animation here
+            time.sleep(0.2)
 
-    # Clear the loading message
-    sys.stdout.write("\rLoading complete!   \n")
 
 def main_menu():
     print(Fore.CYAN + Style.BRIGHT + "╔═════════════════════════════════╗")
@@ -161,10 +160,35 @@ def main_menu():
     print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 5. Registro de asistencia     " + Fore.CYAN + "║")
     print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 6. Consultas de información   " + Fore.CYAN + "║")
     print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 7. Generación de informes     " + Fore.CYAN + "║")
-    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 8. Cambio de contraseña       " + Fore.CYAN + "║")
+    print(Fore.CYAN + Style.BRIGHT + "║" + Fore.GREEN + " 8. Cambio de clave            " + Fore.CYAN + "║")
     print(Fore.CYAN + Style.BRIGHT + "║" + Fore.RED + " 9. Salida del sistema         " + Fore.CYAN + "║")
     print(Fore.CYAN + Style.BRIGHT + "╚═════════════════════════════════╝")
     print()
     print("Ingrese el número de la opción deseada")
     print(">>> ", end='')
+
+cambio_contra_ascii = """
+
+   █████████                            █████      ███                  █████               █████████  ████                                
+  ███░░░░░███                          ░░███      ░░░                  ░░███               ███░░░░░███░░███                                
+ ███     ░░░   ██████   █████████████   ░███████  ████   ██████      ███████   ██████     ███     ░░░  ░███   ██████   █████ █████  ██████ 
+░███          ░░░░░███ ░░███░░███░░███  ░███░░███░░███  ███░░███    ███░░███  ███░░███   ░███          ░███  ░░░░░███ ░░███ ░░███  ███░░███
+░███           ███████  ░███ ░███ ░███  ░███ ░███ ░███ ░███ ░███   ░███ ░███ ░███████    ░███          ░███   ███████  ░███  ░███ ░███████ 
+░░███     ███ ███░░███  ░███ ░███ ░███  ░███ ░███ ░███ ░███ ░███   ░███ ░███ ░███░░░     ░░███     ███ ░███  ███░░███  ░░███ ███  ░███░░░  
+ ░░█████████ ░░████████ █████░███ █████ ████████  █████░░██████    ░░████████░░██████     ░░█████████  █████░░████████  ░░█████   ░░██████ 
+  ░░░░░░░░░   ░░░░░░░░ ░░░░░ ░░░ ░░░░░ ░░░░░░░░  ░░░░░  ░░░░░░      ░░░░░░░░  ░░░░░░       ░░░░░░░░░  ░░░░░  ░░░░░░░░    ░░░░░     ░░░░░░ 
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+"""
+
+cambio_clave_m1 = f'{bold}{white}Ingrese su usuario\n>>>{reset} '
+cambio_clave_m2 = f'{bold}{white}Ingrese la clave actual\n>>>{reset} '
+cambio_clave_m3 = f'{bold}{white}Ingrese la nueva clave\n>>>{reset} '
+cambio_clave_m4 = f'{bold}{white}Se ha cambiado la clave exitosamente!\nVolviendo al menú!{reset}'
+grupos_mensaje1 = f'{bold}{white}Para registrar un grupo debe ingresar los siguientes datos:'
+grupos_mensaje2 = '\n> Codigo numerico\n> Nombre\n> Sigla'
+
+validacion_exito_mensaje = f'{white}{bold}Validación exitosa!{reset}'
+seguridad_mensaje = f'{white}{bold}Por razones de seguridad, volverá al menú anterior...{reset}'
+
+
 

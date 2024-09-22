@@ -21,32 +21,37 @@ def main():
                 break
         else:
             if menus.login() == 0:
-                match menus.main(): 
-                    case 1:
-                        menus.registro_grupos()
-                    case 2:
-                        menus.registro_modulos()
-                    case 3:
-                        menus.registro_estudiantes()
-                    case 4:
-                        menus.registro_docentes()
-                    case 5:
-                        menus.registro_asistencia()
-                    case 6:
-                        menus.consultar_info()
-                    case 7:
-                        menus.generar_informe()
-                    case 8:
-                        menus.cambio_contra()
-                    case 9:
-                        break
-                    case _:
-                        raise ValueError
+                while True:
+                    try:
+                        match menus.main(): 
+                            case 1:
+                                menus.registro_grupos()
+                            case 2:
+                                menus.registro_modulos()
+                            case 3:
+                                menus.registro_estudiantes()
+                            case 4:
+                                menus.registro_docentes()
+                            case 5:
+                                menus.registro_asistencia()
+                            case 6:
+                                menus.consultar_info()
+                            case 7:
+                                menus.generar_informe()
+                            case 8:
+                                menus.cambio_contra()
+                            case 9:
+                                art.despedida()
+                                return 0
+                            case _:
+                                raise ValueError
+                    except ValueError:
+                        art.data_processing_animation(art.user_invalid_input_message)
+                        continue
             else:
                 art.data_processing_animation(art.user_pass_incorrect_message)
                 continue
     art.despedida()
-
 
 if __name__ == '__main__':
     main()

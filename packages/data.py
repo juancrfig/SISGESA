@@ -32,4 +32,12 @@ def check_correct_login(user, password):
     else:
         return 401
 
-        
+def change_password(user, password):
+    
+    info = {
+        'user': user,
+        'password': data_encryption(password)
+    }
+
+    with open('password.json', 'w+') as file:
+        json.dump(info, file)
