@@ -259,7 +259,7 @@ nuevo_alumno_ascii = """
 alumno_mensaje1 = f'{bold}{white}Para registrar un alumno debe ingresar los siguientes datos:{reset}'
 alumno_mensaje2 = f'\n{white}{bold}> Codigo numerico\n> Nombre\n> Sexo\n> Edad{reset}'
 alumno_mensaje3 = f'{white}{bold}Ingrese el codigo numerico ({yellow}Debe tener entre 4 y 9 digitos{white})\n>>>{reset} '
-alumno_mensaje4 = f'{white}{bold}Ingrese el nombre del alumno ({yellow}Debe tener entre 4 y 55 letras{white})\n>>>{reset} '
+alumno_mensaje4 = f'{white}{bold}Ingrese el nombre del alumno ({yellow}Debe tener entre 3 y 55 letras{white})\n>>>{reset} '
 alumno_mensaje5 = f'{white}{bold}Ingrese el sexo del alumno ({yellow}Debe ser F o M{white})\n>>>{reset} '
 alumno_mensaje6 = f'{white}{bold}Ingrese la edad del alumno ({yellow}Debe ser entre 8 y 99{white})\n>>>{reset} '
 

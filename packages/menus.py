@@ -99,7 +99,7 @@ def registro_modulos():
     print(art.modulo_mensaje4, end='')
     nombre = input().strip().replace(' ', '_').upper()
 
-    if not (not nombre.isnumeric()  and 4 <= len(nombre) <= 55):
+    if not (not nombre.isnumeric()  and 3 <= len(nombre) <= 55):
         raise ValueError
     
     print(art.modulo_mensaje5, end='')
