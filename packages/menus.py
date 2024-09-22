@@ -71,13 +71,13 @@ def registro_grupos():
         raise ValueError
     
     print(art.grupos_mensaje4, end='')
-    nombre = input()
+    nombre = input().strip().replace(' ', '_').upper()
 
-    if not (nombre.isalpha() and 4 <= len(nombre) <= 9):
+    if not (not nombre.isdigit() and 4 <= len(nombre) <= 20):
         raise ValueError
     
     print(art.grupos_mensaje5, end='')
-    sigla = input()
+    sigla = input().strip().upper()
 
     if not (sigla.isalpha() and 3 <= len(sigla) <= 6):
         raise ValueError
@@ -97,7 +97,7 @@ def registro_modulos():
         raise ValueError
 
     print(art.modulo_mensaje4, end='')
-    nombre = input().strip().replace(' ', '_')
+    nombre = input().strip().replace(' ', '_').upper()
 
     if not (not nombre.isnumeric()  and 4 <= len(nombre) <= 55):
         raise ValueError
@@ -115,7 +115,34 @@ def registro_modulos():
 def registro_estudiantes():
     art.limpiar_pantalla()
     print(art.nuevo_alumno_ascii)
-    input("Llegaste al registro de estudiantes!")
+    print(art.alumno_mensaje1, art.alumno_mensaje2)
+    print(art.alumno_mensaje3, end='')
+
+    codigo = input()
+    if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
+        raise ValueError
+    
+    print(art.alumno_mensaje4, end='')
+    nombre = input().strip().replace(' ', '_').upper()
+
+    if not (not nombre.isnumeric()  and 4 <= len(nombre) <= 55):
+        raise ValueError
+    
+    print(art.alumno_mensaje5, end='')
+    sexo = input().strip().upper()
+
+    if sexo not in ('M', 'F'):
+        raise ValueError
+    
+    print(art.alumno_mensaje6, end='')
+    edad = input()
+
+    if not (edad.isdigit() and 8 <= int(edad) <= 99):
+        raise ValueError
+    
+    data.cargar_alumno(codigo, nombre, sexo, edad)
+    art.data_processing_animation(art.cargando_mensaje)
+    return 0
 
 def registro_docentes():
     art.limpiar_pantalla()
