@@ -108,7 +108,7 @@ def registro_modulos():
     if not (duracion.isnumeric() and 1 <= int(duracion) <= 99):
         raise ValueError
 
-    horario = data.pedir_horario()
+    horario = data.pedir_horario(duracion)
 
     
     data.cargar_modulo(codigo, nombre, duracion, horario)

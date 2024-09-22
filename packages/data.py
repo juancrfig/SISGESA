@@ -1,6 +1,6 @@
 import json
 import hashlib
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 from packages import art
 
 def crear_estructura_json():
@@ -64,7 +64,7 @@ def cargar_grupo(codigo, nombre, sigla):
     with open('./app_data/data.json', 'w+') as file:
         json.dump(data, file, indent=4)
 
-def pedir_horario():
+def pedir_horario(weeks):
 
     while True:
 
@@ -74,16 +74,34 @@ def pedir_horario():
         try:
             # Parse the input using strptime with the correct format
             inicio_clase = datetime.strptime(user_input_inicio, "%Y-%m-%d %H:%M")
+            inicio_hora = inicio_clase.time()
+            
+            if not (time(5, 0) <= inicio_hora <= time(18, 0)): 
+                art.data_processing_animation(art.modulo_mensaje11)
+                raise ValueError           
             while True:
 
                 print(art.modulo_mensaje7, end='')
-                fin_clase = datetime.strptime(input(), "%Y-%m-%d %H:%M")
+
+                fin_hora = datetime.strptime(input(), "%H:%M").time()
+                if not (time(6, 0) <= fin_hora <= time(23, 0)):
+                    art.data_processing_animation(art.modulo_mensaje12)
+                    raise ValueError
+
+                fin_fecha = inicio_clase + timedelta(weeks=int(weeks))
+
+                fin_clase = datetime.combine(fin_fecha.date(), fin_hora)
 
                 if fin_clase <= inicio_clase:
                     art.data_processing_animation(art.modulo_mensaje9)
                     raise ValueError
                 else:
-                    duracion = fin_clase - inicio_clase
+
+                    hoy = datetime.today()
+                    tmp_inicial = datetime.combine(hoy, inicio_hora)
+                    tmp_final = datetime.combine(hoy, fin_hora)
+                    duracion = tmp_final - tmp_inicial
+
                     if timedelta(hours=1) <= duracion <= timedelta(hours=8):
 
                         inicio_clase, fin_clase = str(inicio_clase), str(fin_clase)
@@ -95,7 +113,7 @@ def pedir_horario():
 
         except ValueError:
             # Catch any format errors and ask again
-            art.data_processing_animation(art.modulo_mensaje8)
+            art.data_processing_animation(art.volviendo_mensaje_mal_input)
 
 
 def cargar_modulo(codigo, nombre, duracion, horario):

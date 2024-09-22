@@ -1,0 +1,25 @@
+{
+    "grupos": {
+        "12369": {
+            "nombre": "GAMINES",
+            "sigla": "GAMIN"
+        }
+    },
+    "modulos": {
+        "6969": {
+            "nombre": "PYTHON_PARA_TONTOS",
+            "duracion": "8",
+            "horario": {
+                "inicio": "2024-01-01 14:00:00",
+                "fin": "2024-02-26 18:00:00"
+            }
+        }
+    },
+    "alumnos": {
+        "4948484": {
+            "nombre": "PEPITO_RODRIGUEZ",
+            "edad": "20",
+            "sexo": "M"
+        }
+    }
+}

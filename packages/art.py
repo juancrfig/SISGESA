@@ -210,6 +210,7 @@ grupos_mensaje5 = f'{white}{bold}Ingrese la sigla del grupo ({yellow}Debe tener 
 cargando_mensaje = f'{white}{bold}Cargando la informacion...Un momento...{reset}'
 validacion_exito_mensaje = f'{white}{bold}Validación exitosa!{reset}'
 seguridad_mensaje = f'{white}{bold}Por razones de seguridad, volverá al menú anterior...{reset}'
+volviendo_mensaje_mal_input = f'{white}{bold}Se ha detectado un dato invalido. Volviendo al paso anterior...{reset}'
 
 
 error_archivo_m1 = f'''\033c{white}{bold}Alguien a averiado el archivo en el que se guardaba la informacion!\n
@@ -233,11 +234,13 @@ modulo_mensaje2 = f'\n{white}{bold}> Codigo numerico\n> Nombre\n> Duracion en se
 modulo_mensaje3 = f'{white}{bold}Ingrese el codigo numerico ({yellow}Debe tener entre 4 y 9 digitos{white})\n>>>{reset} '
 modulo_mensaje4 = f'{white}{bold}Ingrese el nombre del modulo ({yellow}Debe tener entre 4 y 55 letras{white})\n>>>{reset} '
 modulo_mensaje5 = f'{white}{bold}Ingrese la duracion del modulo en semanas ({yellow}Debe tener entre 1 y 2 digitos{white})\n>>>{reset} '
-modulo_mensaje6 = f'{white}{bold}Ingrese el horario de inicio ({yellow}"YYYY-MM-DD HH:MM" formato 24 horas"{white})\n>>>{reset} '
-modulo_mensaje7 = f'{white}{bold}Ingrese el horario de fin de la clase ({yellow}"YYYY-MM-DD HH:MM" formato 24 horas"{white})\n>>>{reset} '
+modulo_mensaje6 = f'{white}{bold}Ingrese la fecha y hora de inicio del modulo ({yellow}"YYYY-MM-DD HH:MM" formato 24 horas"{white})\n>>>{reset} '
+modulo_mensaje7 = f'{white}{bold}Ingrese el horario de fin del modulo ({yellow}"HH:MM" formato 24 horas"{white})\n>>>{reset} '
 modulo_mensaje8 = f'{white}{bold}Formato invalido. Por favor, ingrese fecha y hora en formato {bold}{yellow}"YYYY-MM-DD HH:MM".{reset} '
 modulo_mensaje9 = f'{white}{bold}La hora de fin de la clase no puede ser antes que la de inicio D: {bold}{yellow}.{reset} '
 modulo_mensaje10 = f'{white}{bold}La clase debe durar entre 1 y 8 horas {bold}{yellow}.{reset} '
+modulo_mensaje11 = f'{white}{bold}Los modulos puede comenzar a las 05:00 y el ultimo puede empezar a las 18:00 como maximo{bold}{yellow}.{reset} '
+modulo_mensaje12 = f'{white}{bold}Los modulos puede acabar desde las 06:00 y el ultimo puede acabar a las 23:00 como maximo{bold}{yellow}.{reset} '
 
 
 
