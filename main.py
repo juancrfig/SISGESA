@@ -8,8 +8,11 @@ from packages import menus, data, art
 def main():
     """Función principal para iniciar el programa
 
-    Esta función llama a la función 'login' contenida en el módulo 'menus',
-    iniciando el proceso de inicio de sesión del usuario.
+    Esta función llama a la función 'ingresar', iniciando el proceso de inicio 
+    de sesión del usuario.
+
+    Si es el primer ingreso al programa, se crean los archivos JSON en los que se
+    almacenarán las creendenciales del usuario y toda la información de la institución.
     """
     while True:
         if data.primera_vez():
@@ -17,10 +20,10 @@ def main():
             if menus.registro_usuario() == 1:
                 break
         else:
-            if menus.login() == 0:
+            if menus.ingresar():
                 while True:
                     try:
-                        match menus.main(): 
+                        match menus.menu_principal(): 
                             case 1:
                                 menus.registro_grupos()
                             case 2:
@@ -44,17 +47,17 @@ def main():
                                 raise ValueError
                     except (ValueError, FileNotFoundError) as error:
                         if isinstance(error, ValueError):
-                            art.data_processing_animation(art.colorear("Opcion invalida. Intente nuevamente...", "rojo"))
+                            art.animacion_cargando(art.colorear("Opcion invalida. Intente nuevamente...", "rojo"))
                             continue
                         if isinstance(error, FileNotFoundError):
                             data.crear_estructura_json()
                             print(art.error_archivo_m1)
-                            art.data_processing_animation('Cargando', 8)
+                            art.animacion_cargando('Cargando', 8)
                             continue
             else:
-                art.data_processing_animation(art.user_pass_incorrect_message)
+                art.animacion_cargando(art.colorear("Ha ingresado un usuario y/o contraseña incorrectos!\nIntente nuevamente!", "rojo"))
                 continue
-    art.data_processing_animation(art.colorear("Cerrando el programa\nUn momento, por favor...", "verde"))
+    art.animacion_cargando(art.colorear("Cerrando el programa\nUn momento, por favor...", "verde"))
     art.despedida()
 
 

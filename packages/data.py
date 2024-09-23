@@ -17,7 +17,7 @@ from packages import art
 
 # Creación de variables que contienen las rutas de los archivos que se usarán.
 principal = './app_data/data.json'
-clave = './app_data/password.json'
+clave = './app_data/credenciales.json'
       
 def primera_vez():
     """Comprueba si es la primera vez que se ejecuta el programa.
@@ -89,16 +89,24 @@ def nuevo_usuario(usuario, clave_inicial="SISGESA", archivo_final='credenciales.
     
     return clave_inicial
 
-def check_correct_login(user, password):
+def validacion_usuario_clave(user, password):
+    """Revisa si el usuario y la contraseña ingresada coinciden con la base de datos.
 
+    Esta función abre el archivo json en el que se guardan las credenciales del usuario, de
+    esta manera compara la información ingresada por el usuario para autorizar el ingreso o no.
+
+    Args:
+        user (str): El nombre de usuario ingresado al intentar iniciar sesión.
+        password (str): La representación hexadecimal del hash SHA-256 de la clave ingresada
+
+    Returns:
+        bool : True si la validación es exitosa, False si no. 
+    """
     with open(clave) as file:
-        data = json.load(file)
-    
-    
-    if user == data['user'] and encriptador(password) == data['password']:
-        return 0
-    else:
-        return 401
+        data = json.load(file)  
+    if user == data['usuario'] and encriptador(password) == data['clave']:
+        return True
+    return False
 
 def change_password(user, password):
     
@@ -111,7 +119,8 @@ def change_password(user, password):
         json.dump(info, file)
 
 def cargar_grupo(codigo, nombre, sigla):
-
+    """
+    """
     with open(principal) as file:
         data = json.load(file)
 
@@ -133,7 +142,7 @@ def pedir_horario(weeks):
             inicio_hora = inicio_clase.time()
             
             if not (time(5, 0) <= inicio_hora <= time(18, 0)): 
-                art.data_processing_animation(art.modulo_mensaje11)
+                art.animacion_cargando(art.modulo_mensaje11)
                 raise ValueError           
             while True:
 
@@ -141,7 +150,7 @@ def pedir_horario(weeks):
 
                 fin_hora = datetime.strptime(input(), "%H:%M").time()
                 if not (time(6, 0) <= fin_hora <= time(23, 0)):
-                    art.data_processing_animation(art.modulo_mensaje12)
+                    art.animacion_cargando(art.modulo_mensaje12)
                     raise ValueError
 
                 fin_fecha = inicio_clase + timedelta(weeks=int(weeks))
@@ -149,7 +158,7 @@ def pedir_horario(weeks):
                 fin_clase = datetime.combine(fin_fecha.date(), fin_hora)
 
                 if fin_clase <= inicio_clase:
-                    art.data_processing_animation(art.modulo_mensaje9)
+                    art.animacion_cargando(art.modulo_mensaje9)
                     raise ValueError
                 else:
 
@@ -163,13 +172,13 @@ def pedir_horario(weeks):
                         inicio_clase, fin_clase = str(inicio_clase), str(fin_clase)
                         return (inicio_clase, fin_clase)
                     else:
-                        art.data_processing_animation(art.modulo_mensaje10)
+                        art.animacion_cargando(art.modulo_mensaje10)
                         raise ValueError
 
 
         except ValueError:
             # Catch any format errors and ask again
-            art.data_processing_animation(art.volviendo_mensaje_mal_input)
+            art.animacion_cargando(art.volviendo_mensaje_mal_input)
 
 
 def cargar_modulo(codigo, nombre, duracion, horario):

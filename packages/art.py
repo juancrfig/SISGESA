@@ -71,73 +71,13 @@ def center_text(text, width=160):
     centered_lines = [line.center(width) for line in lines] 
     return "\n".join(centered_lines) 
 
-user_prompt = f'{bold}{white}Ingrese su usuario{reset}'.center(170)
-prompt_symbol = f'{bold}{white}>>> {reset}'.rjust(85)
-type_user_message = f'{user_prompt}\n\n{prompt_symbol}'
-pass_prompt = f'{bold}{white}Ingrese su contraseña{reset}'.center(170)
-type_password_message = f'{pass_prompt}\n\n{prompt_symbol}'
-
-def getch():
-    """Recibe carácteres del usuario sin mostrarlos en pantalla.
-    
-    Hablando de forma más técnica, esta función recibe un carácter a la vez
-    del 'standard input'.
-
-    Falta todavía entender la función!!!
-    El logo ASCII del programa se distorsiona si cambio el nombre de la funcion!!!????
-    """
-    fd = sys.stdin.fileno()
-    old_settings = termios.tcgetattr(fd)
-    try:
-        tty.setraw(sys.stdin.fileno())
-        ch = sys.stdin.read(1)
-    finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-    return ch
-
-def input_password():
-    """Falta todavía entender la función!!!"""
-
-    password = ""
-    
-    while True:
-        char = getch()
-        if char in ('\n', '\r'):
-            print() 
-            break
-        elif char == '\x7f':
-            if password:
-                password = password[:-1]
-                print('\b \b', end='', flush=True)
-        else:
-            password += char
-            print('*', end='', flush=True)
-
-    return password
-
-
-
 def despedida():
     """Genera una pantalla de despedida cuando el usuario sale del programa."""
     limpiar_pantalla()
     print(adios)
 
-user_pass_incorrect_message = f'Ha ingresado un usuario y/o contraseña incorrectos!'
-user_invalid_input_message = f'Ha ingresado un dato invalido!'
-
-def data_processing_animation(message, duration=3):
-    print(f"{white}{bold}{message}")
-    loading_symbols = ['/', '|', '\\', '-']  # Reverse spinner
-    start_time = time.time()
-    
-    while time.time() - start_time < duration:
-        for symbol in loading_symbols:
-            sys.stdout.write(f"\r{symbol}")
-            sys.stdout.flush()
-            time.sleep(0.2)
-
-
-def main_menu():
+def tabla_menu_principal():
+    """Imprime en pantalla la tabla que contiene el menú de opciones principales del programa."""
     print(Fore.CYAN + Style.BRIGHT + "╔═══════════════════════════════╗")
     print(Fore.CYAN + Style.BRIGHT + "║" + Fore.WHITE + "  MENU PRINCIPAL               " + Fore.CYAN + "║")
     print(Fore.CYAN + Style.BRIGHT + "╠═══════════════════════════════╣")
@@ -155,22 +95,12 @@ def main_menu():
     print("Ingrese el número de la opción deseada")
     print(f">>> {white}", end='')
 
-
-
 cambio_clave_m1 = f'{bold}{white}Ingrese su usuario\n>>>{reset} '
 cambio_clave_m2 = f'{bold}{white}Ingrese la clave actual\n>>>{reset} '
 cambio_clave_m3 = f'{bold}{white}Ingrese la nueva clave\n>>>{reset} '
 cambio_clave_m4 = f'{bold}{white}Se ha cambiado la clave exitosamente!\nVolviendo al menú!{reset}'
 cambio_clave_m5 = f'{bold}{white}Ingrese la nueva clave otra vez\n>>>{reset} '
 cambio_clave_m6 = f'{bold}{white}Las claves no coinciden!\n>>>{reset} '
-
-
-
-grupos_mensaje1 = f'{bold}{white}Para registrar un grupo debe ingresar los siguientes datos:{reset}'
-grupos_mensaje2 = f'\n{white}{bold}> Codigo numerico\n> Nombre\n> Sigla\n{reset}'
-grupos_mensaje3 = f'{white}{bold}Ingrese el codigo numerico ({yellow}Debe tener entre 4 y 9 digitos{white})\n>>>{reset} '
-grupos_mensaje4 = f'{white}{bold}Ingrese el nombre del grupo ({yellow}Debe tener entre 4 y 9 letras{white})\n>>>{reset} '
-grupos_mensaje5 = f'{white}{bold}Ingrese la sigla del grupo ({yellow}Debe tener entre 3 y 6 letras{white})\n>>>{reset} '
 
 cargando_mensaje = f'{white}{bold}Cargando la informacion...Un momento...{reset}'
 validacion_exito_mensaje = f'{white}{bold}Validación exitosa!{reset}'
@@ -250,6 +180,75 @@ docentes_mensaje8 = f'{white}{bold}El docente tiene ya asignada la cantidad maxi
 docentes_mensaje9 = f'{white}{bold}El docente no tiene ningun modulo asignado!{white}!{reset} '
 
 salir = f'{bold}{white}Para salir presione la tecla espaciadora'
+
+def getch():
+    """Recibe carácteres del usuario sin mostrarlos en pantalla.
+    
+    Hablando de forma más técnica, esta función recibe un carácter a la vez
+    del 'standard input'.
+
+    Falta todavía entender la función!!!
+    El logo ASCII del programa se distorsiona si cambio el nombre de la funcion!!!????
+    """
+    fd = sys.stdin.fileno()
+    old_settings = termios.tcgetattr(fd)
+    try:
+        tty.setraw(sys.stdin.fileno())
+        ch = sys.stdin.read(1)
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+    return ch
+
+def ingresar_clave():
+    """Falta todavía entender la función!!!"""
+
+    password = ""
+    
+    while True:
+        char = getch()
+        if char in ('\n', '\r'):
+            print() 
+            break
+        elif char == '\x7f':
+            if password:
+                password = password[:-1]
+                print('\b \b', end='', flush=True)
+        else:
+            password += char
+            print('*', end='', flush=True)
+
+    return password
+
+def animacion_barra_progreso(message, duration=3):
+    print(f"\n{message}")
+    width = 40
+    start_time = time.time()
+
+    while time.time() - start_time < duration:
+            elapsed = time.time() - start_time
+            filled = int(width * elapsed / duration)
+            bar = f"[{'=' * filled}{' ' * (width - filled)}]"
+            percent = int(100 * elapsed / duration)
+            print(f"\r{bar} {percent}%", end="", flush=True)
+            time.sleep(0.1)
+
+    while time.time() - start_time < duration:
+            for symbol in loading_symbols:
+                sys.stdout.write(f"\r{symbol}")
+                sys.stdout.flush()
+                time.sleep(0.2)
+
+def animacion_cargando(message, duration=3):
+    print(f"\n{message}")
+    start_time = time.time()
+    
+    while time.time() - start_time < duration:
+        for i in range(4):
+            print(f"\r{'.' * i}", end="", flush=True)
+            time.sleep(0.2)
+        for i in range(4, 0, -1):
+            print(f"\r{'.' * i}", end="", flush=True)
+            time.sleep(0.2)
 
 # Arte ASCII para los diferentes menus del programa.
 sisgesa = """
@@ -398,3 +397,10 @@ adios = r"""
  █████   █████░░████████ █████░░██████  ██████  ███
 ░░░░░   ░░░░░  ░░░░░░░░ ░░░░░  ░░░░░░  ░░░░░░  ░░░ 
 """
+
+
+x = f'{bold}{white}Ingrese su usuario{reset}'.center(170)
+prompt_symbol = f'{bold}{white}>>> {reset}'.rjust(85)
+mensaje_ingresar_usuario = f'{x}\n\n{prompt_symbol}'
+y = f'{bold}{white}Ingrese su contraseña{reset}'.center(170)
+mensaje_ingresar_contraseña = f'{y}\n\n{prompt_symbol}'
