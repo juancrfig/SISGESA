@@ -213,6 +213,7 @@ cargando_mensaje = f'{white}{bold}Cargando la informacion...Un momento...{reset}
 validacion_exito_mensaje = f'{white}{bold}Validación exitosa!{reset}'
 seguridad_mensaje = f'{white}{bold}Por razones de seguridad, volverá al menú anterior...{reset}'
 volviendo_mensaje_mal_input = f'{white}{bold}Se ha detectado un dato invalido. Volviendo al paso anterior...{reset}'
+borrando = f'{white}{bold}Borrando la informacion...{reset}'
 volviendo = f'{white}{bold}Regresando al menu anterior...{reset}'
 
 
@@ -315,7 +316,7 @@ generar_informe_ascii = """
 
 """
 
-pregunta_menu_alumno = f'{bold}{white}\nIngrese 1 para agregar un nuevo alumno\nIngrese 2 para asignar un alumno existente a un grupo y/o modulo\n>>>{reset} '
+pregunta_menu_alumno = f'{bold}{white}\nIngrese 1 para agregar un nuevo alumno\nIngrese 2 para asignar o editar el grupo asignado a un alumno\nIngrese 3 para editar los modulos asignados a un estudiante\n>>>{reset} '
 
 asignacion_ascii =r"""
 /================================================================================================\
@@ -335,14 +336,30 @@ asignacion_ascii =r"""
 
 asignacion_mensaje1 = f'{bold}{white}Ingrese el codigo del estudiante\n>>> {reset}'
 asignacion_mensaje2 = f'{bold}{white}Ingrese el codigo del grupo al que desea asignar al alumno\n>>> {reset}'
-asignacion_mensaje3 = f'{bold}{white}Para registrar alumno en un grupo ingrese 1\nPara registrar alumno en un modulo ingrese 2\n>>> {reset}'
+asignacion_mensaje3 = f'{bold}{white}\nPara registrar alumno en un modulo ingrese 1\nPara eliminar modulos asociados con un estudiante escriba 2\n>>> {reset}'
 asignacion_mensaje4 = f'{bold}{white}Ingrese el codigo del modulo al que desea asignar al estudiante\n>>> {reset}'
 asignacion_mensaje5 = f'{bold}{white}Recuerde que puede asignar hasta 3 modulos por estudiante\nPara {yellow}parar {white}de asignar modulos presione la {yellow}barra espaciadora{reset}'
 asignacion_mensaje6 = f'{bold}{white}El alumno ha alcanzado el limite de modulos a los que puede estar matriculado!{reset}'
-asignacion_mensaje7 = f'{bold}{white}El alumno se encuentra matriculado actualmente en al menos un modulo\nPara eliminar un modulo presione 1\nPara matricular al estudiante en mas modulos presione 2{reset}'
-asignacion_mensaje8 = f'{bold}{white}Ingrese el codigo del modulo que desea eliminar\n>>> {reset}'
+asignacion_mensaje7 = f'{bold}{white}El alumno se encuentra matriculado actualmente en al menos un modulo\n\nPara matricular al estudiante en mas modulos presione 2{reset}'
+asignacion_mensaje8 = f'{bold}{white}\nIngrese el codigo del modulo que desea eliminar\nPara salir presione la tecla espaciadora\n>>> {reset}'
 asignacion_mensaje9 = f'{bold}{white}El alumno esta inscrito actualmente en los siguientes modulos...\n{reset}'
+asignacion_mensaje10 = f'{bold}{white}No se registran modulos asociados para el estudiante{reset}'
+asignacion_mensaje11 = f'{bold}{white}Recuerde que puede asignar hasta 3 modulos por estudiante{reset}'
+asignacion_mensaje12 = f'{bold}{white}El estudiante no esta asociado a ningun modulo!{reset}'
 asignacion_mensaje_error1 = f'{bold}{white}El codigo de estudiante no existe!{reset}'
+
+borrar_modulo_ascii = """
+▐▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▌
+▐ ███████████                                                      ██████   ██████              █████            ████          ▌
+▐░░███░░░░░███                                                    ░░██████ ██████              ░░███            ░░███          ▌
+▐ ░███    ░███  ██████  ████████  ████████   ██████   ████████     ░███░█████░███   ██████   ███████  █████ ████ ░███   ██████ ▌
+▐ ░██████████  ███░░███░░███░░███░░███░░███ ░░░░░███ ░░███░░███    ░███░░███ ░███  ███░░███ ███░░███ ░░███ ░███  ░███  ███░░███▌
+▐ ░███░░░░░███░███ ░███ ░███ ░░░  ░███ ░░░   ███████  ░███ ░░░     ░███ ░░░  ░███ ░███ ░███░███ ░███  ░███ ░███  ░███ ░███ ░███▌
+▐ ░███    ░███░███ ░███ ░███      ░███      ███░░███  ░███         ░███      ░███ ░███ ░███░███ ░███  ░███ ░███  ░███ ░███ ░███▌
+▐ ███████████ ░░██████  █████     █████    ░░████████ █████        █████     █████░░██████ ░░████████ ░░████████ █████░░██████ ▌
+▐░░░░░░░░░░░   ░░░░░░  ░░░░░     ░░░░░      ░░░░░░░░ ░░░░░        ░░░░░     ░░░░░  ░░░░░░   ░░░░░░░░   ░░░░░░░░ ░░░░░  ░░░░░░  ▌
+▐▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▌
+"""
 
 
 docentes_mensaje1 = f'{bold}{white}Ingrese 1 para agregar un nuevo docente\nIngrese 2 para asignar un docente existence a un modulo\n>>>{reset} '

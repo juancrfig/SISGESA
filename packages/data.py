@@ -139,15 +139,13 @@ def cargar_alumno(codigo, nombre, sexo, edad):
     with open(data_json, 'w+') as file:
         json.dump(data, file, indent=4)
 
-def check_alumno(codigo):
+def check_alumno_exists(codigo):
 
     with open(data_json) as file:
         data = json.load(file)
     
     if data["alumnos"].get(codigo):
         return True
-    else:
-        return False
     
 def asignar_grupo_alumno(codigo, grupo):
 
@@ -164,10 +162,7 @@ def check_student_modules(codigo):
     with open(data_json) as file:
         data = json.load(file)
 
-    if data["alumnos"][codigo].get("modulos"):
-        return True
-    else:
-        return False
+    return data["alumnos"][codigo].get("modulos")
 
 def asignar_modulo(codigo, modulo):
 
@@ -192,8 +187,17 @@ def cuales_modulos(codigo):
 
     return art.asignacion_mensaje9 + data["alumnos"][codigo]["modulos"]
 
-def eliminar_modulo(codigo):
-    input()
+def eliminar_modulo(codigo, modulo):
+    
+    with open(data_json) as file:
+        data = json.load(file)
+
+    data["alumnos"][codigo]["modulos"].remove(modulo)
+
+    with open(data_json, "w+") as file:
+        json.dump(data, file, indent=4)
+
+    return 0  
     
 def cargar_docente(cedula, nombre):
 

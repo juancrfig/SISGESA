@@ -121,17 +121,23 @@ def menu_estudiantes():
     print(art.pregunta_menu_alumno, end='')
     answer = input()
 
-    if answer == '1':
-
-        registro_estudiantes()
-    
-    elif answer == '2':
-
-        if asignacion() == 401:
-            return 401
-    
-    else:
-        raise ValueError
+    match answer:
+        case '1':
+            registro_estudiantes()
+        case '2':
+            art.limpiar_pantalla()
+            print(art.asignacion_ascii)
+            print(art.asignacion_mensaje1, end='')
+            codigo = input()
+            print(art.asignacion_mensaje2, end='')
+            grupo = input()
+            data.asignar_grupo_alumno(codigo, grupo)
+            art.data_processing_animation(art.cargando_mensaje)
+        case '3':
+            if asignacion_modulos() == 401:
+                return 401  
+        case _:
+            raise ValueError
 
 def registro_estudiantes():
 
@@ -167,66 +173,52 @@ def registro_estudiantes():
     return 0
 
 
-def asignacion():
+def asignacion_modulos():
 
     art.limpiar_pantalla()
     print(art.asignacion_ascii)
     print(art.asignacion_mensaje1, end='')
     codigo = input()
 
-    if data.check_alumno(codigo):
+    if data.check_alumno_exists(codigo):
         print(art.asignacion_mensaje3, end='')
         answer = input()
 
         if answer == '1':
-            print(art.asignacion_mensaje2, end='')
-            grupo = input()
-            data.asignar_grupo_alumno(codigo, grupo)
-            art.data_processing_animation(art.cargando_mensaje)
-
-        elif answer == '2':
             while True:
 
-                if data.check_student_modules(codigo):
+                if len(data.check_student_modules(codigo)) >= 3:
+                       
+                    print(art.volviendo)
+                    art.data_processing_animation(art.asignacion_mensaje6)
+                    return 401
+                
+        elif answer == '2':
 
-                    print(art.asignacion_mensaje7)
-                    answer = input()
+            while True:
 
-                    if answer == '1':
-                        print(data.cuales_modulos(codigo))
-                        data.eliminar_modulo(codigo)
-                    elif answer == '2':
-                        print(art.asignacion_mensaje4, end='')
-                        modulo = input()
-                        if not data.asignar_modulo(codigo, modulo):
-                            print(art.volviendo)
-                            art.data_processing_animation(art.asignacion_mensaje6)
-                            return 401
-                        else:
-                            art.data_processing_animation(art.validacion_exito_mensaje)
-                    else:
-                        art.data_processing_animation(art.user_invalid_input_message)
-                        raise ValueError
+                art.limpiar_pantalla()
+                print(art.borrar_modulo_ascii)
 
-                else:
-                    print(art.asignacion_mensaje5)
-                    print(art.asignacion_mensaje4, end='')
-                    modulo = input()
-                    if not data.asignar_modulo(codigo, modulo):
-                        print(art.asignacion_mensaje6)
-                        art.data_processing_animation(art.volviendo)
-                        return 401
+                if len(data.check_student_modules(codigo)) == 0:
 
-            
+                    print(art.asignacion_mensaje12)
+                    art.data_processing_animation(art.volviendo)
+                    return 401
+                
+                print(art.asignacion_mensaje9)
+                print('-'.join(data.check_student_modules(codigo)))
+                print(art.asignacion_mensaje8, end='')
+                modulo = input()
 
-        else:
-            raise ValueError
+                if modulo.isspace():
+                    art.data_processing_animation(art.volviendo)
+                    return 401
 
-    else:
-        print(art.asignacion_mensaje_error1)
-        raise ValueError
+                data.eliminar_modulo(codigo, modulo)
+                art.data_processing_animation(art.borrando)
 
-    
+ 
 
 def docentes():
 
