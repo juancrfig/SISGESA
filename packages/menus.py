@@ -12,19 +12,21 @@ def registro_usuario():
 
     art.limpiar_pantalla()
     print(art.colorear("Bienvenido a SISGESA! El software perfecto para administrar y supervisar la asistencia en su institución educativa!", "blanco"))
-    print(art.SISGESA)
+    print(art.center_text(art.sisgesa))
     print(art.colorear("Dado que es la primera vez que ingresa, debemos registrar el usuario que desea usar.\nIngrese a continuación el nombre de usuario\n>>> ", "blanco"), end='')
     
     usuario = input()
-    data.nuevo_usuario(usuario)
+    clave_inicial = data.nuevo_usuario(usuario)
 
-    print(art.first_login_m3)
-    respuesta = input(art.mensaje_cont_salir)
+    print(art.colorear(f"\nUsuario registrado exitosamente!\nSu contraseña es ", "blanco"), end='')
+    print(art.colorear(clave_inicial, "amarillo"), end='')
+    print(art.colorear(", recomendamos cambiarla para una mayor seguridad!", "blanco"))
+    print("\nPRESIONE 'C' para continuar o cualquier otra tecla para salir")
     
-    if respuesta.lower() == 'c':
+    if input().lower() == 'c':
         return 0
     else:
-        return 9
+        return 1
 
 def login():
     """Función para manejar el inicio de sesión del usuario.
@@ -36,7 +38,7 @@ def login():
         ValueError: Si el nombre de usuario o la contraseña son inválidos.
     """
     art.limpiar_pantalla()
-    print(art.SISGESA, '\n')
+    print(art.center_text(art.sisgesa), '\n')
     user = input(art.type_user_message)
     print()
     print(art.type_password_message, end='')

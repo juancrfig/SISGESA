@@ -14,7 +14,7 @@ def main():
     while True:
         if data.primera_vez():
             data.crear_estructura_json()
-            if menus.registro_usuario() == 9:
+            if menus.registro_usuario() == 1:
                 break
         else:
             if menus.login() == 0:
@@ -54,6 +54,7 @@ def main():
             else:
                 art.data_processing_animation(art.user_pass_incorrect_message)
                 continue
+    art.data_processing_animation(art.colorear("Cerrando el programa\nUn momento, por favor...", "verde"))
     art.despedida()
 
 

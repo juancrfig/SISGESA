@@ -33,9 +33,9 @@ def primera_vez():
     Returns:
         bool: True si es la primera vez que se ejecuta el programa, False en caso contrario.
     """
-    with open(clave, 'a+') as pass_file:
-        pass_file.seek(0)
-        return not bool(pass_file.readlines())
+    with open(clave, 'a+') as file:
+        file.seek(0)
+        return not bool(file.readlines())
 
 def crear_estructura_json():
     """Crea una estructura JSON básica y la guarda en un archivo."""
@@ -64,7 +64,7 @@ def encriptador(texto):
     hash_objeto = hashlib.sha256(data)
     return hash_objeto.hexdigest()
 
-def nuevo_usuario(usuario, clave_inicial="SISGESA", archivo='credenciales.json'):
+def nuevo_usuario(usuario, clave_inicial="SISGESA", archivo_final='credenciales.json'):
     """Crea un nuevo usuario y guarda sus credenciales en un archivo JSON.
 
     Esta función toma el nombre de usuario y una clave inicial, y 
@@ -76,13 +76,18 @@ def nuevo_usuario(usuario, clave_inicial="SISGESA", archivo='credenciales.json')
             por defecto es "SISGESA".
         clave (str, optional): El nombre del archivo donde se guardarán 
             las credenciales, por defecto es 'credenciales.json'.
+    
+    Returns:
+        str : La clave inicial del usuario
     """
     usuario_y_clave = {
         "usuario": usuario,
         "clave": encriptador(clave_inicial)
     }
-    with open(archivo, 'w+' ) as file:
+    with open(clave, 'w+' ) as file:
         json.dump(usuario_y_clave, file)
+    
+    return clave_inicial
 
 def check_correct_login(user, password):
 
