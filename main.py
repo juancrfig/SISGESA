@@ -30,9 +30,9 @@ def main():
                             case 2:
                                 menus.registro_modulos()
                             case 3:
-                                menus.registro_estudiantes()
+                                menus.menu_estudiantes()
                             case 4:
-                                menus.registro_docentes()
+                                menus.docentes()
                             case 5:
                                 menus.registro_asistencia()
                             case 6:

@@ -115,7 +115,25 @@ def registro_modulos():
     art.data_processing_animation(art.cargando_mensaje)
     return 0
 
+def menu_estudiantes():
+
+    art.limpiar_pantalla()
+    print(art.pregunta_menu_alumno, end='')
+    answer = input()
+
+    if answer == '1':
+
+        registro_estudiantes()
+    
+    elif answer == '2':
+
+        asignacion()
+    
+    else:
+        raise ValueError
+
 def registro_estudiantes():
+
     art.limpiar_pantalla()
     print(art.nuevo_alumno_ascii)
     print(art.alumno_mensaje1, art.alumno_mensaje2)
@@ -140,17 +158,69 @@ def registro_estudiantes():
     print(art.alumno_mensaje6, end='')
     edad = input()
 
-    if not (edad.isdigit() and 8 <= int(edad) <= 99):
+    if not (edad.isdigit() and 16 <= int(edad) <= 27):
         raise ValueError
     
     data.cargar_alumno(codigo, nombre, sexo, edad)
     art.data_processing_animation(art.cargando_mensaje)
     return 0
 
-def registro_docentes():
+def asignacion():
+
+    art.limpiar_pantalla()
+    print(art.asignacion_ascii)
+    print(art.asignacion_mensaje1, end='')
+    codigo = input()
+
+    if data.check_alumno(codigo):
+        print("El alumno existe!")
+    else:
+
+        raise ValueError
+
+def docentes():
+
     art.limpiar_pantalla()
     print(art.nuevo_docente_ascii)
-    input("Llegaste al registro de docentes!")
+    print(art.docentes_mensaje1, end='')
+    answer = input()
+
+    if answer == '1':
+
+        registro_docente()
+
+    elif answer == '2':
+
+        asignar_modulo()
+    
+    else:
+        raise ValueError
+
+def registro_docente():
+
+    art.limpiar_pantalla()
+    print(art.nuevo_docente_ascii)
+    print(art.docentes_mensaje2, art.docentes_mensaje3)
+    print(art.docentes_mensaje4, end='')
+    cedula = input()
+
+    if not (cedula.isdigit() and 1 <= len(cedula) <= 10):
+        raise ValueError
+    
+    print(art.docentes_mensaje5,end='')
+    nombre = input().strip().replace(' ', '_').upper()
+
+    if not (not nombre.isdigit() and 3 <= len(nombre) <= 55):
+        raise ValueError
+    
+    data.cargar_docente(cedula, nombre)
+    art.data_processing_animation(art.cargando_mensaje)
+    return 0
+
+
+def asignar_modulo():
+    pass
+    
 
 def registro_asistencia():
     art.limpiar_pantalla()

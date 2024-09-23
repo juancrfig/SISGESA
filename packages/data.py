@@ -8,7 +8,7 @@ def crear_estructura_json():
         "grupos": {},
         "modulos": {},
         "alumnos": {},
-
+        "docentes": {},
     }
     with open('./app_data/data.json', 'w') as json_file:
         json.dump(data, json_file, indent=4)
@@ -121,7 +121,7 @@ def cargar_modulo(codigo, nombre, duracion, horario):
     with open('./app_data/data.json') as file:
         data = json.load(file)
     
-    data["modulos"][codigo] = {"nombre": nombre, "duracion": duracion, "horario": {"inicio": horario[0], "fin": horario[1]}}
+    data["modulos"][codigo] = {"nombre": nombre, "duracion": int(duracion), "horario": {"inicio": horario[0], "fin": horario[1]}}
 
     with open('./app_data/data.json', 'w+') as file:
         json.dump(data, file, indent=4)
@@ -131,7 +131,27 @@ def cargar_alumno(codigo, nombre, sexo, edad):
     with open('./app_data/data.json') as file:
         data = json.load(file)
 
-    data["alumnos"][codigo] = {"nombre": nombre, "edad": edad, "sexo": sexo}
+    data["alumnos"][codigo] = {"nombre": nombre, "edad": int(edad), "sexo": sexo}
+
+    with open('./app_data/data.json', 'w+') as file:
+        json.dump(data, file, indent=4)
+
+def check_alumno(codigo):
+
+    with open('./app_data/data.json') as file:
+        data = json.load(file)
+    
+    if data["alumnos"].get(codigo):
+        return True
+    else:
+        return False
+    
+def cargar_docente(cedula, nombre):
+
+    with open('./app_data/data.json') as file:
+        data = json.load(file)
+
+    data["docentes"][f'{cedula}'] = nombre
 
     with open('./app_data/data.json', 'w+') as file:
         json.dump(data, file, indent=4)

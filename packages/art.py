@@ -231,7 +231,7 @@ nuevo_modulo_ascii = """
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 """
 
-modulo_mensaje1 = f'{bold}{white}Para registrar un grupo debe ingresar los siguientes datos:{reset}'
+modulo_mensaje1 = f'{bold}{white}Para registrar un modulo debe ingresar los siguientes datos:{reset}'
 modulo_mensaje2 = f'\n{white}{bold}> Codigo numerico\n> Nombre\n> Duracion en semanas\n> Horario{reset}'
 modulo_mensaje3 = f'{white}{bold}Ingrese el codigo numerico ({yellow}Debe tener entre 4 y 9 digitos{white})\n>>>{reset} '
 modulo_mensaje4 = f'{white}{bold}Ingrese el nombre del modulo ({yellow}Debe tener entre 4 y 55 letras{white})\n>>>{reset} '
@@ -263,7 +263,7 @@ alumno_mensaje2 = f'\n{white}{bold}> Codigo numerico\n> Nombre\n> Sexo\n> Edad{r
 alumno_mensaje3 = f'{white}{bold}Ingrese el codigo numerico ({yellow}Debe tener entre 4 y 9 digitos{white})\n>>>{reset} '
 alumno_mensaje4 = f'{white}{bold}Ingrese el nombre del alumno ({yellow}Debe tener entre 3 y 55 letras{white})\n>>>{reset} '
 alumno_mensaje5 = f'{white}{bold}Ingrese el sexo del alumno ({yellow}Debe ser F o M{white})\n>>>{reset} '
-alumno_mensaje6 = f'{white}{bold}Ingrese la edad del alumno ({yellow}Debe ser entre 8 y 99{white})\n>>>{reset} '
+alumno_mensaje6 = f'{white}{bold}Ingrese la edad del alumno ({yellow}Debe ser entre 17 y 27{white})\n>>>{reset} '
 
 nuevo_docente_ascii = """
  ██████   █████                                             ██████████                                          █████            
@@ -314,5 +314,28 @@ generar_informe_ascii = """
 
 """
 
+pregunta_menu_alumno = f'{bold}{white}\nIngrese 1 para agregar un nuevo alumno\nIngrese 2 para asignar un alumno existente a un grupo y/o modulo\n>>>{reset} '
 
+asignacion_ascii =r"""
+/================================================================================================\
+||   █████████            ███                                          ███                      ||
+||  ███░░░░░███          ░░░                                          ░░░                       ||
+|| ░███    ░███   █████  ████   ███████ ████████    ██████    ██████  ████   ██████  ████████   ||
+|| ░███████████  ███░░  ░░███  ███░░███░░███░░███  ░░░░░███  ███░░███░░███  ███░░███░░███░░███  ||
+|| ░███░░░░░███ ░░█████  ░███ ░███ ░███ ░███ ░███   ███████ ░███ ░░░  ░███ ░███ ░███ ░███ ░███  ||
+|| ░███    ░███  ░░░░███ ░███ ░███ ░███ ░███ ░███  ███░░███ ░███  ███ ░███ ░███ ░███ ░███ ░███  ||
+|| █████   █████ ██████  █████░░███████ ████ █████░░████████░░██████  █████░░██████  ████ █████ ||
+||░░░░░   ░░░░░ ░░░░░░  ░░░░░  ░░░░░███░░░░ ░░░░░  ░░░░░░░░  ░░░░░░  ░░░░░  ░░░░░░  ░░░░ ░░░░░  ||
+||                             ███ ░███                                                         ||
+||                            ░░██████                                                          ||
+||                             ░░░░░░                                                           ||
+\================================================================================================/
+"""
 
+asignacion_mensaje1 = f'{bold}{white}Ingrese el codigo del estudiante\n>>> {reset}'
+
+docentes_mensaje1 = f'{bold}{white}Ingrese 1 para agregar un nuevo docente\nIngrese 2 para asignar un docente existence a un modulo\n>>>{reset} '
+docentes_mensaje2 = f'{bold}{white}Para registrar un docente debe ingresar los siguientes datos:{reset}'
+docentes_mensaje3 = f'\n{white}{bold}> Cedula\n> Nombre{reset}'
+docentes_mensaje4 = f'{white}{bold}Ingrese la cedula ({yellow}Debe tener entre 1 y 10 digitos{white})\n>>>{reset} '
+docentes_mensaje5 = f'{white}{bold}Ingrese el nombre del docente ({yellow}Debe tener entre 3 y 55 letras{white})\n>>>{reset} '
