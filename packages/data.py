@@ -1,48 +1,96 @@
+"""Módulo "data".
+
+Este módulo proporciona funciones para manipular y leer la información generada 
+por el programa. También incluye utilidades para manejar archivos JSON, calcular
+hashes y gestionar operaciones relacionadas con el tiempo.
+
+Imports:
+    json: Módulo para trabajar con archivos JSON.
+    hashlib: Módulo para generar hashes (MD5, SHA, etc.).
+    datetime, timedelta, time: Módulos para trabajar con fechas y tiempos.
+    art: Módulo personalizado para añadir efectivos estéticos al programa.
+"""
 import json
 import hashlib
 from datetime import datetime, timedelta, time
 from packages import art
 
-data_json = './app_data/data.json'
-pass_json = './app_data/password.json'
+# Creación de variables que contienen las rutas de los archivos que se usarán.
+principal = './app_data/data.json'
+clave = './app_data/password.json'
+      
+def primera_vez():
+    """Comprueba si es la primera vez que se ejecuta el programa.
+
+    Intenta abrir el archivo "clave" para determinar si el programa ha sido ejecutado antes. 
+    Si el archivo contiene datos, se asume que no es la primera vez que se ejecuta. 
+    Si el archivo está vacío o no existe, se asume que es la primera ejecución.
+    En el caso que el archivo no exista, lo crea automaticamente.
+
+    Args:
+        clave (str): La ruta del archivo que contiene la clave o información.
+
+    Returns:
+        bool: True si es la primera vez que se ejecuta el programa, False en caso contrario.
+    """
+    with open(clave, 'a+') as pass_file:
+        pass_file.seek(0)
+        return not bool(pass_file.readlines())
 
 def crear_estructura_json():
+    """Crea una estructura JSON básica y la guarda en un archivo."""
     data = {
         "grupos": {},
         "modulos": {},
         "alumnos": {},
         "docentes": {},
     }
-    with open(data_json, 'w') as json_file:
-        json.dump(data, json_file, indent=4)
+    with open(principal, 'w') as file:
+        json.dump(data, file, indent=4)
 
-def check_first_time():
-    with open(pass_json, 'a+') as pass_file:
-        pass_file.seek(0)
-        lines = pass_file.readlines()
-        if lines:
-            return False
-        else:
-            return True
+def encriptador(texto):
+    """Genera el hash SHA-256 de un texto.
 
-def data_encryption(text):
+    Esta función toma una cadena de texto, la codifica en UTF-8, y devuelve 
+    su representación en hexadecimal del hash SHA-256.
 
-    data = text.encode('utf-8')
+    Args:
+        text (str): El texto que se va a cifrar.
+
+    Returns:
+        str: La representación hexadecimal del hash SHA-256.
+    """
+    data = texto.encode('utf-8')
     hash_objeto = hashlib.sha256(data)
-    hash_hex = hash_objeto.hexdigest()
-    return hash_hex
+    return hash_objeto.hexdigest()
 
-def register_new_user(info):
-    with open(pass_json, 'w+' ) as file:
-        json.dump(info, file)
+def nuevo_usuario(usuario, clave_inicial="SISGESA", archivo='credenciales.json'):
+    """Crea un nuevo usuario y guarda sus credenciales en un archivo JSON.
+
+    Esta función toma el nombre de usuario y una clave inicial, y 
+    guarda esta información en un archivo JSON después de encriptar la clave.
+
+    Args:
+        usuario (str): El nombre del nuevo usuario.
+        clave_inicial (str, optional): La clave inicial del usuario, 
+            por defecto es "SISGESA".
+        clave (str, optional): El nombre del archivo donde se guardarán 
+            las credenciales, por defecto es 'credenciales.json'.
+    """
+    usuario_y_clave = {
+        "usuario": usuario,
+        "clave": encriptador(clave_inicial)
+    }
+    with open(archivo, 'w+' ) as file:
+        json.dump(usuario_y_clave, file)
 
 def check_correct_login(user, password):
 
-    with open(pass_json) as file:
+    with open(clave) as file:
         data = json.load(file)
     
     
-    if user == data['user'] and data_encryption(password) == data['password']:
+    if user == data['user'] and encriptador(password) == data['password']:
         return 0
     else:
         return 401
@@ -51,20 +99,20 @@ def change_password(user, password):
     
     info = {
         'user': user,
-        'password': data_encryption(password)
+        'password': encriptador(password)
     }
 
-    with open(pass_json, 'w+') as file:
+    with open(clave, 'w+') as file:
         json.dump(info, file)
 
 def cargar_grupo(codigo, nombre, sigla):
 
-    with open(data_json) as file:
+    with open(principal) as file:
         data = json.load(file)
 
     data["grupos"][codigo] = {"nombre": nombre, "sigla": sigla}
 
-    with open(data_json, 'w+') as file:
+    with open(principal, 'w+') as file:
         json.dump(data, file, indent=4)
 
 def pedir_horario(weeks):
@@ -121,27 +169,27 @@ def pedir_horario(weeks):
 
 def cargar_modulo(codigo, nombre, duracion, horario):
 
-    with open(data_json) as file:
+    with open(principal) as file:
         data = json.load(file)
     
     data["modulos"][codigo] = {"nombre": nombre, "duracion": int(duracion), "horario": {"inicio": horario[0], "fin": horario[1]}}
 
-    with open(data_json, 'w+') as file:
+    with open(principal, 'w+') as file:
         json.dump(data, file, indent=4)
 
 def cargar_alumno(codigo, nombre, sexo, edad):
 
-    with open(data_json) as file:
+    with open(principal) as file:
         data = json.load(file)
 
     data["alumnos"][codigo] = {"nombre": nombre, "edad": int(edad), "sexo": sexo, "modulos": []}
 
-    with open(data_json, 'w+') as file:
+    with open(principal, 'w+') as file:
         json.dump(data, file, indent=4)
 
 def check_alumno_exists(codigo):
 
-    with open(data_json) as file:
+    with open(principal) as file:
         data = json.load(file)
     
     if data["alumnos"].get(codigo):
@@ -149,30 +197,30 @@ def check_alumno_exists(codigo):
     
 def asignar_grupo_alumno(codigo, grupo):
 
-    with open(data_json) as file:
+    with open(principal) as file:
         data = json.load(file)
 
     data["alumnos"][codigo]["grupo"] = grupo
 
-    with open(data_json, 'w+') as file:
+    with open(principal, 'w+') as file:
         json.dump(data, file, indent=4)
 
 def check_student_modules(codigo):
 
-    with open(data_json) as file:
+    with open(principal) as file:
         data = json.load(file)
 
     return data["alumnos"][codigo].get("modulos")
 
 def asignar_modulo(codigo, modulo):
 
-    with open(data_json) as file:
+    with open(principal) as file:
         data = json.load(file)
         
         if len(data["alumnos"][codigo]["modulos"]) < 3:
             data["alumnos"][codigo]["modulos"].append(modulo)
 
-            with open(data_json, 'w+') as file:
+            with open(principal, 'w+') as file:
                 json.dump(data, file, indent=4)
 
             return True
@@ -182,57 +230,57 @@ def asignar_modulo(codigo, modulo):
 
 def cuales_modulos(codigo):
 
-    with open(data_json) as file:
+    with open(principal) as file:
         data = json.load(file)
 
     return art.asignacion_mensaje9 + data["alumnos"][codigo]["modulos"]
 
 def eliminar_modulo(codigo, modulo):
     
-    with open(data_json) as file:
+    with open(principal) as file:
         data = json.load(file)
 
     data["alumnos"][codigo]["modulos"].remove(modulo)
 
-    with open(data_json, "w+") as file:
+    with open(principal, "w+") as file:
         json.dump(data, file, indent=4)
 
     return 0  
     
 def cargar_docente(cedula, nombre):
 
-    with open(data_json) as file:
+    with open(principal) as file:
         data = json.load(file)
 
     data["docentes"][f'{cedula}'] = {"nombre": nombre, "modulos": []}
 
-    with open(data_json, 'w+') as file:
+    with open(principal, 'w+') as file:
         json.dump(data, file, indent=4)
 
 def cuales_modulos_docente(cedula):
 
-    with open(data_json) as file:
+    with open(principal) as file:
         data = json.load(file)
 
     return data["docentes"][cedula]["modulos"]
 
 def asignar_modulo_docente(cedula, modulo):
 
-    with open(data_json) as file:
+    with open(principal) as file:
         data = json.load(file)
 
     data["docentes"][cedula]["modulos"].append(modulo)
 
-    with open(data_json, "w+") as file:
+    with open(principal, "w+") as file:
         json.dump(data, file, indent=4)
 
 def borrar_modulo_docente(cedula, modulo):
 
-    with open(data_json) as file:
+    with open(principal) as file:
         data = json.load(file)
 
     data["docentes"][cedula]["modulos"].remove(modulo)
 
-    with open(data_json, "w+") as file:
+    with open(principal, "w+") as file:
         json.dump(data, file, indent=4)
     

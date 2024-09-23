@@ -8,21 +8,15 @@ El módulo importa el módulo 'art' para añadir efectos estéticos a las funcio
 """
 from packages import art, data
 
-def first_login():
+def registro_usuario():
 
     art.limpiar_pantalla()
-    print(art.first_login_m1)
+    print(art.colorear("Bienvenido a SISGESA! El software perfecto para administrar y supervisar la asistencia en su institución educativa!", "blanco"))
     print(art.SISGESA)
-    print(art.first_login_m2, end='')
-    user = input()
-
-    info = {
-        'user': user,
-        'password': 'SISGESA'
-    }
-
-    info['password'] = data.data_encryption(info['password'])
-    data.register_new_user(info)
+    print(art.colorear("Dado que es la primera vez que ingresa, debemos registrar el usuario que desea usar.\nIngrese a continuación el nombre de usuario\n>>> ", "blanco"), end='')
+    
+    usuario = input()
+    data.nuevo_usuario(usuario)
 
     print(art.first_login_m3)
     respuesta = input(art.mensaje_cont_salir)
@@ -62,7 +56,7 @@ def main():
 def registro_grupos():
 
     art.limpiar_pantalla()
-    print(art.registro_grupos_ascii)
+    print(art.nuevo_grupo)
     print(art.grupos_mensaje1, art.grupos_mensaje2)
     print(art.grupos_mensaje3, end='')
     codigo = input()
@@ -88,7 +82,7 @@ def registro_grupos():
 
 def registro_modulos():
     art.limpiar_pantalla()
-    print(art.nuevo_modulo_ascii)
+    print(art.nuevo_modulo)
     print(art.modulo_mensaje1, art.modulo_mensaje2)
     print(art.modulo_mensaje3, end='')
     codigo = input()
@@ -126,7 +120,7 @@ def menu_estudiantes():
             registro_estudiantes()
         case '2':
             art.limpiar_pantalla()
-            print(art.asignacion_ascii)
+            print(art.asignacion)
             print(art.asignacion_mensaje1, end='')
             codigo = input()
             print(art.asignacion_mensaje2, end='')
@@ -142,7 +136,7 @@ def menu_estudiantes():
 def registro_estudiantes():
 
     art.limpiar_pantalla()
-    print(art.nuevo_alumno_ascii)
+    print(art.nuevo_alumno)
     print(art.alumno_mensaje1, art.alumno_mensaje2)
     print(art.alumno_mensaje3, end='')
 
@@ -176,7 +170,7 @@ def registro_estudiantes():
 def asignacion_modulos():
 
     art.limpiar_pantalla()
-    print(art.asignacion_ascii)
+    print(art.asignacion)
     print(art.asignacion_mensaje1, end='')
     codigo = input()
 
@@ -198,7 +192,7 @@ def asignacion_modulos():
             while True:
 
                 art.limpiar_pantalla()
-                print(art.borrar_modulo_ascii)
+                print(art.borrar_modulo)
 
                 if len(data.check_student_modules(codigo)) == 0:
 
@@ -223,7 +217,7 @@ def asignar_modulo_docente():
     while True:
 
         art.limpiar_pantalla()
-        print(art.asignacion_ascii)
+        print(art.asignacion)
         print(art.salir)
         print(art.docentes_mensaje7, end='')
         cedula = input()
@@ -244,7 +238,7 @@ def asignar_modulo_docente():
 def docentes():
 
     art.limpiar_pantalla()
-    print(art.nuevo_docente_ascii)
+    print(art.nuevo_docente)
     print(art.docentes_mensaje1, end='')
     answer = input()
 
@@ -269,14 +263,14 @@ def docentes():
 def eliminar_modulo_docente():
 
     art.limpiar_pantalla()
-    print(art.borrar_modulo_ascii)
+    print(art.borrar_modulo)
     print(art.docentes_mensaje7, end='')
     cedula = input()
 
     while True:
 
         art.limpiar_pantalla()
-        print(art.borrar_modulo_ascii)
+        print(art.borrar_modulo)
         if len(data.cuales_modulos_docente(cedula)) == 0:
 
             print(art.docentes_mensaje9)
@@ -302,7 +296,7 @@ def eliminar_modulo_docente():
 def registro_docente():
 
     art.limpiar_pantalla()
-    print(art.nuevo_docente_ascii)
+    print(art.nuevo_docente)
     print(art.docentes_mensaje2, art.docentes_mensaje3)
     print(art.docentes_mensaje4, end='')
     cedula = input()
@@ -321,24 +315,26 @@ def registro_docente():
     return 0    
 
 def registro_asistencia():
+
     art.limpiar_pantalla()
-    print(art.asistencia_ascii)
-    input("Llegaste al registro de asistencia!")
+    print(art.asistencia)
+    print(art.colorear("Ingresa el codigo del estudiante\n>>> ", "white"))
+    codigo = input()
 
 def consultar_info():
     art.limpiar_pantalla()
-    print(art.consultas_ascii)
+    print(art.consultas)
     input("Llegaste a la consulta de información!")
 
 def generar_informe():
     art.limpiar_pantalla()
-    print(art.generar_informe_ascii)
+    print(art.generar_informe)
     input("Llegaste a la generación de informes!")
 
 def cambio_contra():
 
     art.limpiar_pantalla()
-    print(art.cambio_contra_ascii)
+    print(art.cambio_de_clave)
     print(art.cambio_clave_m1, end='')
     user = input()
     print(art.cambio_clave_m2, end='')
