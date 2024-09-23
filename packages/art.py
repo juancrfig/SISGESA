@@ -333,6 +333,11 @@ asignacion_ascii =r"""
 """
 
 asignacion_mensaje1 = f'{bold}{white}Ingrese el codigo del estudiante\n>>> {reset}'
+asignacion_mensaje2 = f'{bold}{white}Ingrese el codigo del grupo al que desea asignar al alumno\n>>> {reset}'
+asignacion_mensaje3 = f'{bold}{white}Para registrar alumno en un grupo ingrese 1\nPara registrar alumno en un modulo ingrese 2\n>>> {reset}'
+asignacion_mensaje4 = f'{bold}{white}Ingrese el codigo del modulo al que desea asignar al estudiante\n>>> {reset}'
+asignacion_mensaje_error1 = f'{bold}{white}El codigo de estudiante no existe!{reset}'
+
 
 docentes_mensaje1 = f'{bold}{white}Ingrese 1 para agregar un nuevo docente\nIngrese 2 para asignar un docente existence a un modulo\n>>>{reset} '
 docentes_mensaje2 = f'{bold}{white}Para registrar un docente debe ingresar los siguientes datos:{reset}'

@@ -146,6 +146,16 @@ def check_alumno(codigo):
     else:
         return False
     
+def asignar_grupo_alumno(codigo, grupo):
+
+    with open('./app_data/data.json') as file:
+        data = json.load(file)
+
+    data["alumnos"][codigo]["grupo"] = grupo
+
+    with open('./app_data/data.json', 'w+') as file:
+        json.dump(data, file, indent=4)
+    
 def cargar_docente(cedula, nombre):
 
     with open('./app_data/data.json') as file:

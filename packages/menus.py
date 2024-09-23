@@ -165,6 +165,7 @@ def registro_estudiantes():
     art.data_processing_animation(art.cargando_mensaje)
     return 0
 
+
 def asignacion():
 
     art.limpiar_pantalla()
@@ -173,10 +174,26 @@ def asignacion():
     codigo = input()
 
     if data.check_alumno(codigo):
-        print("El alumno existe!")
-    else:
+        print(art.asignacion_mensaje3, end='')
+        answer = input()
 
+        if answer == '1':
+            print(art.asignacion_mensaje2, end='')
+            grupo = input()
+            data.asignar_grupo_alumno(codigo, grupo)
+            art.data_processing_animation(art.cargando_mensaje)
+
+        elif answer == '2':
+            print(art.asignacion_mensaje4, end='')
+            modulo = input()
+        else:
+            raise ValueError
+
+    else:
+        print(art.asignacion_mensaje_error1)
         raise ValueError
+
+    
 
 def docentes():
 
