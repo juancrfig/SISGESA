@@ -274,10 +274,29 @@
         }
     },
     "docentes": {
-        "438845": "EDUARDO_FIALLOS",
-        "384737": "ROCIO_VELANDIA",
-        "4834762": "MARIA_VANEGAS",
-        "6852294": "JUAN_REYES",
-        "428295": "ESTEBAN_ESCOBAR"
+        "438845": {
+            "nombre": "EDUARDO_FIALLOS",
+            "modulos": [
+                "0001"
+            ]
+        },
+        "384737": {
+            "nombre": "ROCIO_VELANDIA",
+            "modulos": [
+                "00445"
+            ]
+        },
+        "4834762": {
+            "nombre": "MARIA_VANEGAS",
+            "modulos": []
+        },
+        "6852294": {
+            "nombre": "JUAN_REYES",
+            "modulos": []
+        },
+        "428295": {
+            "nombre": "ESTEBAN_ESCOBAR",
+            "modulos": []
+        }
     }
 }

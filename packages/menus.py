@@ -218,7 +218,28 @@ def asignacion_modulos():
                 data.eliminar_modulo(codigo, modulo)
                 art.data_processing_animation(art.borrando)
 
- 
+def asignar_modulo_docente():
+    
+    while True:
+
+        art.limpiar_pantalla()
+        print(art.asignacion_ascii)
+        print(art.salir)
+        print(art.docentes_mensaje7, end='')
+        cedula = input()
+
+        if cedula.isspace():
+            break
+
+        if len(data.cuales_modulos_docente(cedula)) == 3:
+            print(art.docentes_mensaje8)
+            art.data_processing_animation(art.volviendo)
+            return 401
+        else:
+            print(art.asignacion_mensaje4, end='')
+            modulo = input()
+            data.asignar_modulo_docente(cedula, modulo)
+            art.data_processing_animation(art.cargando_mensaje)
 
 def docentes():
 
@@ -233,10 +254,50 @@ def docentes():
 
     elif answer == '2':
 
-        asignar_modulo()
+        asignar_modulo_docente()
+        return 401
     
+    elif answer == '3':
+
+        eliminar_modulo_docente()
+        return 401
+
     else:
         raise ValueError
+
+
+def eliminar_modulo_docente():
+
+    art.limpiar_pantalla()
+    print(art.borrar_modulo_ascii)
+    print(art.docentes_mensaje7, end='')
+    cedula = input()
+
+    while True:
+
+        art.limpiar_pantalla()
+        print(art.borrar_modulo_ascii)
+        if len(data.cuales_modulos_docente(cedula)) == 0:
+
+            print(art.docentes_mensaje9)
+            art.data_processing_animation(art.volviendo)
+            return 401
+        
+        print(art.docentes_mensaje6)
+        print('-'.join(data.cuales_modulos_docente(cedula)))
+        print(art.asignacion_mensaje8, end='')
+        modulo = input()
+
+        if modulo.isspace():
+            return 401
+        
+        data.borrar_modulo_docente(cedula, modulo)
+        art.data_processing_animation(art.borrando)
+
+
+
+
+  
 
 def registro_docente():
 
@@ -257,12 +318,7 @@ def registro_docente():
     
     data.cargar_docente(cedula, nombre)
     art.data_processing_animation(art.cargando_mensaje)
-    return 0
-
-
-def asignar_modulo():
-    pass
-    
+    return 0    
 
 def registro_asistencia():
     art.limpiar_pantalla()

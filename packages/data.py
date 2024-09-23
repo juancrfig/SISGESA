@@ -204,9 +204,35 @@ def cargar_docente(cedula, nombre):
     with open(data_json) as file:
         data = json.load(file)
 
-    data["docentes"][f'{cedula}'] = nombre
+    data["docentes"][f'{cedula}'] = {"nombre": nombre, "modulos": []}
 
     with open(data_json, 'w+') as file:
         json.dump(data, file, indent=4)
 
+def cuales_modulos_docente(cedula):
+
+    with open(data_json) as file:
+        data = json.load(file)
+
+    return data["docentes"][cedula]["modulos"]
+
+def asignar_modulo_docente(cedula, modulo):
+
+    with open(data_json) as file:
+        data = json.load(file)
+
+    data["docentes"][cedula]["modulos"].append(modulo)
+
+    with open(data_json, "w+") as file:
+        json.dump(data, file, indent=4)
+
+def borrar_modulo_docente(cedula, modulo):
+
+    with open(data_json) as file:
+        data = json.load(file)
+
+    data["docentes"][cedula]["modulos"].remove(modulo)
+
+    with open(data_json, "w+") as file:
+        json.dump(data, file, indent=4)
     

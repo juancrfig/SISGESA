@@ -337,7 +337,7 @@ asignacion_ascii =r"""
 asignacion_mensaje1 = f'{bold}{white}Ingrese el codigo del estudiante\n>>> {reset}'
 asignacion_mensaje2 = f'{bold}{white}Ingrese el codigo del grupo al que desea asignar al alumno\n>>> {reset}'
 asignacion_mensaje3 = f'{bold}{white}\nPara registrar alumno en un modulo ingrese 1\nPara eliminar modulos asociados con un estudiante escriba 2\n>>> {reset}'
-asignacion_mensaje4 = f'{bold}{white}Ingrese el codigo del modulo al que desea asignar al estudiante\n>>> {reset}'
+asignacion_mensaje4 = f'{bold}{white}Ingrese el codigo del modulo al que desea asignar\n>>> {reset}'
 asignacion_mensaje5 = f'{bold}{white}Recuerde que puede asignar hasta 3 modulos por estudiante\nPara {yellow}parar {white}de asignar modulos presione la {yellow}barra espaciadora{reset}'
 asignacion_mensaje6 = f'{bold}{white}El alumno ha alcanzado el limite de modulos a los que puede estar matriculado!{reset}'
 asignacion_mensaje7 = f'{bold}{white}El alumno se encuentra matriculado actualmente en al menos un modulo\n\nPara matricular al estudiante en mas modulos presione 2{reset}'
@@ -362,8 +362,14 @@ borrar_modulo_ascii = """
 """
 
 
-docentes_mensaje1 = f'{bold}{white}Ingrese 1 para agregar un nuevo docente\nIngrese 2 para asignar un docente existence a un modulo\n>>>{reset} '
+docentes_mensaje1 = f'{bold}{white}Ingrese 1 para agregar un nuevo docente\nIngrese 2 para asignar un docente existente a un modulo\nIngrese 3 para borrar modulos asociados con un docentes\n>>>{reset} '
 docentes_mensaje2 = f'{bold}{white}Para registrar un docente debe ingresar los siguientes datos:{reset}'
 docentes_mensaje3 = f'\n{white}{bold}> Cedula\n> Nombre{reset}'
 docentes_mensaje4 = f'{white}{bold}Ingrese la cedula ({yellow}Debe tener entre 1 y 10 digitos{white})\n>>>{reset} '
 docentes_mensaje5 = f'{white}{bold}Ingrese el nombre del docente ({yellow}Debe tener entre 3 y 55 letras{white})\n>>>{reset} '
+docentes_mensaje6 = f'{white}{bold}El docente tiene asignados los siguientes modulos...{reset} '
+docentes_mensaje7 = f'{white}{bold}Ingrese la cedula del docente\n>>>{reset} '
+docentes_mensaje8 = f'{white}{bold}El docente tiene ya asignada la cantidad maxima de modulos {yellow}(3){white}!{reset} '
+docentes_mensaje9 = f'{white}{bold}El docente no tiene ningun modulo asignado!{white}!{reset} '
+
+salir = f'{bold}{white}Para salir presione la tecla espaciadora'
