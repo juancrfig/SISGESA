@@ -9,7 +9,11 @@ El módulo importa el módulo 'art' para añadir efectos estéticos a las funcio
 from packages import art, data
 
 def registro_usuario():
+    """Muestra las instrucciones a seguir por el usuario la primera vez que usa el programa.
 
+    Returns:
+        1 (int): Para señalar que el usuario desea continuar en el programa, en vez de salir.
+    """
     art.limpiar_pantalla()
     print(art.colorear("Bienvenido a SISGESA! El software perfecto para administrar y supervisar la asistencia en su institución educativa!", "blanco"))
     print(art.center_text(art.sisgesa))
@@ -56,27 +60,56 @@ def menu_principal():
     answer = int(input())
     return answer
 
+def quiere_salir(text):
+    """Comprueba si el usuario quiere salir al menú principal.
+    
+    Args:
+        text (str): Representa la última respuesta dada por el usuario.
+
+    Returns:
+        bool: True si el usuario indicó que quiere salir, False de lo contrario.
+    """
+    if text.isspace():
+        art.animacion_cargando(art.volviendo_mensaje)
+        return True
+    return False
+
 def registro_grupos():
     """Función que pide al usuario los datos requeridos para registrar un grupo."""
     art.limpiar_pantalla()
     print(art.nuevo_grupo)
+    print(art.colorear("Recuerde que si desea volver al menu principial en cualquier momento solo debe presionar la barra espaciadora\n", "rojo"))
     print(art.colorear("Para registrar un grupo debe ingresar los siguientes datos:", "blanco"))
     print(art.colorear("> Codigo numerico\n> Nombre\n> Sigla\n", "blanco"))
     print(art.colorear("Ingrese el codigo numerico", "blanco"), art.colorear("(Debe tener entre 4 y 9 digitos)\n", "amarillo"), art.colorear(">>> ", "blanco"), end='')
-    codigo = input()
-    if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
-        raise ValueError
-    print(art.colorear("Ingrese el nombre del grupo", "blanco"), art.colorear("(Debe tener entre 4 y 9 letras)\n", "amarillo"), art.colorear(">>> ", "blanco"), end='')
-    nombre = input().strip().replace(' ', '_').upper()
-    if not (not nombre.isdigit() and 4 <= len(nombre) <= 20):
-        raise ValueError
-    print(art.colorear("Ingrese la sigla del grupo", "blanco"), art.colorear("(Debe tener entre 3 y 6 letras)\n", "amarillo"), art.colorear(">>> ", "blanco"), end='')
-    sigla = input().strip().upper()
-    if not (sigla.isalpha() and 3 <= len(sigla) <= 6):
-        raise ValueError
+
+    while True:
+        try:
+            codigo = input()
+            if quiere_salir(codigo):
+                return 
+            if not (codigo.strip().isdigit() and 4 <= len(codigo.strip()) <= 9):
+                raise ValueError
+            print(art.colorear("Ingrese el nombre del grupo", "blanco"), art.colorear("(Debe tener entre 4 y 9 letras)\n", "amarillo"), art.colorear(">>> ", "blanco"), end='')
+            nombre = input()
+            if quiere_salir(nombre):
+                return
+            nombre = nombre.strip().replace(' ', '_').upper()
+            if not (not nombre.isdigit() and 4 <= len(nombre) <= 20):
+                raise ValueError
+            print(art.colorear("Ingrese la sigla del grupo", "blanco"), art.colorear("(Debe tener entre 3 y 6 letras)\n", "amarillo"), art.colorear(">>> ", "blanco"), end='')
+            sigla = input()
+            if quiere_salir(sigla):
+                return
+            sigla = sigla.strip().upper()
+            if not (sigla.isalpha() and 3 <= len(sigla) <= 6):
+                raise ValueError
+        except ValueError:
+            art.animacion_cargando(art.dato_invalido_mensaje)
+            continue
     
     data.cargar_grupo(codigo, nombre, sigla)
-    art.animacion_cargando(art.cargando_mensaje)
+    art.animacion_cargando(art.cargando_informacion_mensaje)
     return 0
 
 def registro_modulos():
@@ -105,7 +138,7 @@ def registro_modulos():
 
     
     data.cargar_modulo(codigo, nombre, duracion, horario)
-    art.animacion_cargando(art.cargando_mensaje)
+    art.animacion_cargando(art.cargando_informacion_mensaje)
     return 0
 
 def menu_estudiantes():
@@ -125,7 +158,7 @@ def menu_estudiantes():
             print(art.asignacion_mensaje2, end='')
             grupo = input()
             data.asignar_grupo_alumno(codigo, grupo)
-            art.animacion_cargando(art.cargando_mensaje)
+            art.animacion_cargando(art.cargando_informacion_mensaje)
         case '3':
             if asignacion_modulos() == 401:
                 return 401  
@@ -162,7 +195,7 @@ def registro_estudiantes():
         raise ValueError
     
     data.cargar_alumno(codigo, nombre, sexo, edad)
-    art.animacion_cargando(art.cargando_mensaje)
+    art.animacion_cargando(art.cargando_informacion_mensaje)
     return 0
 
 
@@ -182,7 +215,7 @@ def asignacion_modulos():
 
                 if len(data.check_student_modules(codigo)) >= 3:
                        
-                    print(art.volviendo)
+                    print(art.volviendo_mensaje)
                     art.animacion_cargando(art.asignacion_mensaje6)
                     return 401
                 
@@ -196,7 +229,7 @@ def asignacion_modulos():
                 if len(data.check_student_modules(codigo)) == 0:
 
                     print(art.asignacion_mensaje12)
-                    art.animacion_cargando(art.volviendo)
+                    art.animacion_cargando(art.volviendo_mensaje)
                     return 401
                 
                 print(art.asignacion_mensaje9)
@@ -205,7 +238,7 @@ def asignacion_modulos():
                 modulo = input()
 
                 if modulo.isspace():
-                    art.animacion_cargando(art.volviendo)
+                    art.animacion_cargando(art.volviendo_mensaje)
                     return 401
 
                 data.eliminar_modulo(codigo, modulo)
@@ -217,7 +250,7 @@ def asignar_modulo_docente():
 
         art.limpiar_pantalla()
         print(art.asignacion)
-        print(art.salir)
+        print(art.salir_tecla_espaciadora_mensaje)
         print(art.docentes_mensaje7, end='')
         cedula = input()
 
@@ -226,13 +259,13 @@ def asignar_modulo_docente():
 
         if len(data.cuales_modulos_docente(cedula)) == 3:
             print(art.docentes_mensaje8)
-            art.animacion_cargando(art.volviendo)
+            art.animacion_cargando(art.volviendo_mensaje)
             return 401
         else:
             print(art.asignacion_mensaje4, end='')
             modulo = input()
             data.asignar_modulo_docente(cedula, modulo)
-            art.animacion_cargando(art.cargando_mensaje)
+            art.animacion_cargando(art.cargando_informacion_mensaje)
 
 def docentes():
 
@@ -273,7 +306,7 @@ def eliminar_modulo_docente():
         if len(data.cuales_modulos_docente(cedula)) == 0:
 
             print(art.docentes_mensaje9)
-            art.animacion_cargando(art.volviendo)
+            art.animacion_cargando(art.volviendo_mensaje)
             return 401
         
         print(art.docentes_mensaje6)
@@ -310,14 +343,14 @@ def registro_docente():
         raise ValueError
     
     data.cargar_docente(cedula, nombre)
-    art.animacion_cargando(art.cargando_mensaje)
+    art.animacion_cargando(art.cargando_informacion_mensaje)
     return 0    
 
 def registro_asistencia():
 
     art.limpiar_pantalla()
     print(art.asistencia)
-    print(art.colorear("Ingresa el codigo del estudiante\n>>> ", "white"))
+    print(art.colorear("Ingresa el codigo del estudiante\n>>> ", "blanco"))
     codigo = input()
 
 def consultar_info():
@@ -358,5 +391,5 @@ def cambio_contra():
 
     else:
         print(art.seguridad_mensaje)
-        art.animacion_cargando(art.user_invalid_input_message)
+        art.animacion_cargando(art.error_archivo_m1)
         return 401

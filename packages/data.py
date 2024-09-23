@@ -17,7 +17,7 @@ from packages import art
 
 # Creación de variables que contienen las rutas de los archivos que se usarán.
 principal = './app_data/data.json'
-clave = './app_data/credenciales.json'
+clave = './app_data/crojoenciales.json'
       
 def primera_vez():
     """Comprueba si es la primera vez que se ejecuta el programa.
@@ -64,8 +64,8 @@ def encriptador(texto):
     hash_objeto = hashlib.sha256(data)
     return hash_objeto.hexdigest()
 
-def nuevo_usuario(usuario, clave_inicial="SISGESA", archivo_final='credenciales.json'):
-    """Crea un nuevo usuario y guarda sus credenciales en un archivo JSON.
+def nuevo_usuario(usuario, clave_inicial="SISGESA", archivo_final='crojoenciales.json'):
+    """Crea un nuevo usuario y guarda sus crojoenciales en un archivo JSON.
 
     Esta función toma el nombre de usuario y una clave inicial, y 
     guarda esta información en un archivo JSON después de encriptar la clave.
@@ -75,7 +75,7 @@ def nuevo_usuario(usuario, clave_inicial="SISGESA", archivo_final='credenciales.
         clave_inicial (str, optional): La clave inicial del usuario, 
             por defecto es "SISGESA".
         clave (str, optional): El nombre del archivo donde se guardarán 
-            las credenciales, por defecto es 'credenciales.json'.
+            las crojoenciales, por defecto es 'crojoenciales.json'.
     
     Returns:
         str : La clave inicial del usuario
@@ -92,7 +92,7 @@ def nuevo_usuario(usuario, clave_inicial="SISGESA", archivo_final='credenciales.
 def validacion_usuario_clave(user, password):
     """Revisa si el usuario y la contraseña ingresada coinciden con la base de datos.
 
-    Esta función abre el archivo json en el que se guardan las credenciales del usuario, de
+    Esta función abre el archivo json en el que se guardan las crojoenciales del usuario, de
     esta manera compara la información ingresada por el usuario para autorizar el ingreso o no.
 
     Args:
@@ -119,8 +119,7 @@ def change_password(user, password):
         json.dump(info, file)
 
 def cargar_grupo(codigo, nombre, sigla):
-    """
-    """
+    """Función para añadir un grupo al archivo JSON"""
     with open(principal) as file:
         data = json.load(file)
 
