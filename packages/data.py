@@ -3,6 +3,9 @@ import hashlib
 from datetime import datetime, timedelta, time
 from packages import art
 
+data_json = './app_data/data.json'
+pass_json = './app_data/password.json'
+
 def crear_estructura_json():
     data = {
         "grupos": {},
@@ -10,11 +13,11 @@ def crear_estructura_json():
         "alumnos": {},
         "docentes": {},
     }
-    with open('./app_data/data.json', 'w') as json_file:
+    with open(data_json, 'w') as json_file:
         json.dump(data, json_file, indent=4)
 
 def check_first_time():
-    with open('./app_data/password.json', 'a+') as pass_file:
+    with open(pass_json, 'a+') as pass_file:
         pass_file.seek(0)
         lines = pass_file.readlines()
         if lines:
@@ -30,12 +33,12 @@ def data_encryption(text):
     return hash_hex
 
 def register_new_user(info):
-    with open('./app_data/password.json', 'w+' ) as file:
+    with open(pass_json, 'w+' ) as file:
         json.dump(info, file)
 
 def check_correct_login(user, password):
 
-    with open('./app_data/password.json') as file:
+    with open(pass_json) as file:
         data = json.load(file)
     
     
@@ -51,17 +54,17 @@ def change_password(user, password):
         'password': data_encryption(password)
     }
 
-    with open('./app_data/password.json', 'w+') as file:
+    with open(pass_json, 'w+') as file:
         json.dump(info, file)
 
 def cargar_grupo(codigo, nombre, sigla):
 
-    with open('./app_data/data.json') as file:
+    with open(data_json) as file:
         data = json.load(file)
 
     data["grupos"][codigo] = {"nombre": nombre, "sigla": sigla}
 
-    with open('./app_data/data.json', 'w+') as file:
+    with open(data_json, 'w+') as file:
         json.dump(data, file, indent=4)
 
 def pedir_horario(weeks):
@@ -118,27 +121,27 @@ def pedir_horario(weeks):
 
 def cargar_modulo(codigo, nombre, duracion, horario):
 
-    with open('./app_data/data.json') as file:
+    with open(data_json) as file:
         data = json.load(file)
     
     data["modulos"][codigo] = {"nombre": nombre, "duracion": int(duracion), "horario": {"inicio": horario[0], "fin": horario[1]}}
 
-    with open('./app_data/data.json', 'w+') as file:
+    with open(data_json, 'w+') as file:
         json.dump(data, file, indent=4)
 
 def cargar_alumno(codigo, nombre, sexo, edad):
 
-    with open('./app_data/data.json') as file:
+    with open(data_json) as file:
         data = json.load(file)
 
-    data["alumnos"][codigo] = {"nombre": nombre, "edad": int(edad), "sexo": sexo}
+    data["alumnos"][codigo] = {"nombre": nombre, "edad": int(edad), "sexo": sexo, "modulos": []}
 
-    with open('./app_data/data.json', 'w+') as file:
+    with open(data_json, 'w+') as file:
         json.dump(data, file, indent=4)
 
 def check_alumno(codigo):
 
-    with open('./app_data/data.json') as file:
+    with open(data_json) as file:
         data = json.load(file)
     
     if data["alumnos"].get(codigo):
@@ -148,22 +151,58 @@ def check_alumno(codigo):
     
 def asignar_grupo_alumno(codigo, grupo):
 
-    with open('./app_data/data.json') as file:
+    with open(data_json) as file:
         data = json.load(file)
 
     data["alumnos"][codigo]["grupo"] = grupo
 
-    with open('./app_data/data.json', 'w+') as file:
+    with open(data_json, 'w+') as file:
         json.dump(data, file, indent=4)
+
+def check_student_modules(codigo):
+
+    with open(data_json) as file:
+        data = json.load(file)
+
+    if data["alumnos"][codigo].get("modulos"):
+        return True
+    else:
+        return False
+
+def asignar_modulo(codigo, modulo):
+
+    with open(data_json) as file:
+        data = json.load(file)
+        
+        if len(data["alumnos"][codigo]["modulos"]) < 3:
+            data["alumnos"][codigo]["modulos"].append(modulo)
+
+            with open(data_json, 'w+') as file:
+                json.dump(data, file, indent=4)
+
+            return True
+
+        else:
+            return False
+
+def cuales_modulos(codigo):
+
+    with open(data_json) as file:
+        data = json.load(file)
+
+    return art.asignacion_mensaje9 + data["alumnos"][codigo]["modulos"]
+
+def eliminar_modulo(codigo):
+    input()
     
 def cargar_docente(cedula, nombre):
 
-    with open('./app_data/data.json') as file:
+    with open(data_json) as file:
         data = json.load(file)
 
     data["docentes"][f'{cedula}'] = nombre
 
-    with open('./app_data/data.json', 'w+') as file:
+    with open(data_json, 'w+') as file:
         json.dump(data, file, indent=4)
 
     

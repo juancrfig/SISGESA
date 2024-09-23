@@ -213,6 +213,7 @@ cargando_mensaje = f'{white}{bold}Cargando la informacion...Un momento...{reset}
 validacion_exito_mensaje = f'{white}{bold}Validación exitosa!{reset}'
 seguridad_mensaje = f'{white}{bold}Por razones de seguridad, volverá al menú anterior...{reset}'
 volviendo_mensaje_mal_input = f'{white}{bold}Se ha detectado un dato invalido. Volviendo al paso anterior...{reset}'
+volviendo = f'{white}{bold}Regresando al menu anterior...{reset}'
 
 
 error_archivo_m1 = f'''\033c{white}{bold}Alguien a averiado el archivo en el que se guardaba la informacion!\n
@@ -336,6 +337,11 @@ asignacion_mensaje1 = f'{bold}{white}Ingrese el codigo del estudiante\n>>> {rese
 asignacion_mensaje2 = f'{bold}{white}Ingrese el codigo del grupo al que desea asignar al alumno\n>>> {reset}'
 asignacion_mensaje3 = f'{bold}{white}Para registrar alumno en un grupo ingrese 1\nPara registrar alumno en un modulo ingrese 2\n>>> {reset}'
 asignacion_mensaje4 = f'{bold}{white}Ingrese el codigo del modulo al que desea asignar al estudiante\n>>> {reset}'
+asignacion_mensaje5 = f'{bold}{white}Recuerde que puede asignar hasta 3 modulos por estudiante\nPara {yellow}parar {white}de asignar modulos presione la {yellow}barra espaciadora{reset}'
+asignacion_mensaje6 = f'{bold}{white}El alumno ha alcanzado el limite de modulos a los que puede estar matriculado!{reset}'
+asignacion_mensaje7 = f'{bold}{white}El alumno se encuentra matriculado actualmente en al menos un modulo\nPara eliminar un modulo presione 1\nPara matricular al estudiante en mas modulos presione 2{reset}'
+asignacion_mensaje8 = f'{bold}{white}Ingrese el codigo del modulo que desea eliminar\n>>> {reset}'
+asignacion_mensaje9 = f'{bold}{white}El alumno esta inscrito actualmente en los siguientes modulos...\n{reset}'
 asignacion_mensaje_error1 = f'{bold}{white}El codigo de estudiante no existe!{reset}'
 
 

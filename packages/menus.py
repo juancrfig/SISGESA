@@ -127,7 +127,8 @@ def menu_estudiantes():
     
     elif answer == '2':
 
-        asignacion()
+        if asignacion() == 401:
+            return 401
     
     else:
         raise ValueError
@@ -184,8 +185,40 @@ def asignacion():
             art.data_processing_animation(art.cargando_mensaje)
 
         elif answer == '2':
-            print(art.asignacion_mensaje4, end='')
-            modulo = input()
+            while True:
+
+                if data.check_student_modules(codigo):
+
+                    print(art.asignacion_mensaje7)
+                    answer = input()
+
+                    if answer == '1':
+                        print(data.cuales_modulos(codigo))
+                        data.eliminar_modulo(codigo)
+                    elif answer == '2':
+                        print(art.asignacion_mensaje4, end='')
+                        modulo = input()
+                        if not data.asignar_modulo(codigo, modulo):
+                            print(art.volviendo)
+                            art.data_processing_animation(art.asignacion_mensaje6)
+                            return 401
+                        else:
+                            art.data_processing_animation(art.validacion_exito_mensaje)
+                    else:
+                        art.data_processing_animation(art.user_invalid_input_message)
+                        raise ValueError
+
+                else:
+                    print(art.asignacion_mensaje5)
+                    print(art.asignacion_mensaje4, end='')
+                    modulo = input()
+                    if not data.asignar_modulo(codigo, modulo):
+                        print(art.asignacion_mensaje6)
+                        art.data_processing_animation(art.volviendo)
+                        return 401
+
+            
+
         else:
             raise ValueError
 

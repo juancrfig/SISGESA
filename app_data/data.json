@@ -128,121 +128,151 @@
             "nombre": "SOFIA_GONZALEZ",
             "sexo": "F",
             "edad": 22,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": [
+                "0002",
+                "0001",
+                "0003"
+            ]
         },
         "0002": {
             "nombre": "JUAN_PEREZ",
             "sexo": "M",
             "edad": 19,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0003": {
             "nombre": "MARIO_CASTRO",
             "sexo": "M",
             "edad": 24,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0004": {
             "nombre": "VALENTINA_LUNA",
             "sexo": "F",
             "edad": 20,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0005": {
             "nombre": "CARLA_RAMIREZ",
             "sexo": "F",
             "edad": 21,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0006": {
             "nombre": "CARLOS_SANCHEZ",
             "sexo": "M",
             "edad": 23,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0007": {
             "nombre": "LUCIA_TORRES",
             "sexo": "F",
             "edad": 18,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0008": {
             "nombre": "MIGUEL_DIAZ",
             "sexo": "M",
             "edad": 25,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0009": {
             "nombre": "FERNANDA_VAZQUEZ",
             "sexo": "F",
             "edad": 27,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0010": {
             "nombre": "DAVID_RAMIREZ",
             "sexo": "M",
             "edad": 21,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0011": {
             "nombre": "JAVIER_LOPEZ",
             "sexo": "M",
             "edad": 22,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0012": {
             "nombre": "ANA_MARTINEZ",
             "sexo": "F",
             "edad": 19,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0013": {
             "nombre": "ROBERTO_RUIZ",
             "sexo": "M",
             "edad": 26,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0014": {
             "nombre": "ISABEL_GARCIA",
             "sexo": "F",
             "edad": 23,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0015": {
             "nombre": "MARTIN_HERRERA",
             "sexo": "M",
             "edad": 24,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0016": {
             "nombre": "ANDREA_GUTIERREZ",
             "sexo": "F",
             "edad": 20,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0017": {
             "nombre": "FELIPE_ORTIZ",
             "sexo": "M",
             "edad": 27,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0018": {
             "nombre": "MARIANA_ALVAREZ",
             "sexo": "F",
             "edad": 18,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0019": {
             "nombre": "JORGE_FLORES",
             "sexo": "M",
             "edad": 22,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
         },
         "0020": {
             "nombre": "PAULA_REYES",
             "sexo": "F",
             "edad": 25,
-            "grupo": "0001"
+            "grupo": "0001",
+            "modulos": []
+        },
+        "23654": {
+            "nombre": "JUAN_FIGUEROA",
+            "edad": 23,
+            "sexo": "M",
+            "modulos": []
         }
     },
     "docentes": {
