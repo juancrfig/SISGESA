@@ -1,26 +1,25 @@
 import json
 
-grupo = "0001"
+modulo = "0003"
 principal = './app_data/data.json'
 
-def consultar_alumnos_en_grupo(grupo):
-    """Consulta qué alumnos están en un grupo.
+def consultar_alumnos_en_modulo(modulo):
+    """Consulta los alumnos registrados en un modulo elegido.
     
     Args:
-        grupo (str): El código del grupo.
-    
+        modulo (str): El codigo del modulo que se desea consultar.
+
     Returns:
-        alumnos (lista): Una lista que contiene los codigos de todos
-        los estudiantes que pertenecen al grupo ingresado.
+        alumnos (list): La lista con los codigos de los alumnos
+        registrados en el módulo elegido.
     """
     alumnos = []
     with open(principal) as file:
         data = json.load(file)
     for codigo in data["alumnos"].keys():
-        if data["alumnos"][codigo].get("grupo") == grupo:
+        modulos_alumno = data["alumnos"][codigo].get("modulos")
+        if modulo in modulos_alumno:
             alumnos.append(codigo)
     return alumnos
-
-
-
-consultar_alumnos_en_grupo(grupo)
+        
+consultar_alumnos_en_modulo(modulo)
