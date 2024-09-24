@@ -126,6 +126,23 @@ def cambiar_clave(usuario, clave):
     with open(credenciales, 'w+') as file:
         json.dump(info, file)
 
+def revisar_codigo_existe(codigo, llave):
+    """Revisa si un código, o cédula para el caso de los docentes, ya existe 
+    en el archivo JSON.
+    
+    Args:
+        codigo (str): Código ingresado por el usuario.
+        llave (str): Llave en la que se desea buscar dentro del archivo JSON.
+
+    Returns:
+        bool : True si el código ya existe, de lo contrario False.
+    """
+    with open(principal) as file:
+        data = json.load(file)
+    if data[llave].get(codigo, False):
+        return True
+    return False
+
 def cargar_grupo(codigo, nombre, sigla):
     """Función para añadir un grupo al archivo JSON"""
     with open(principal) as file:

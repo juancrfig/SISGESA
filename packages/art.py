@@ -23,7 +23,7 @@ volviendo_mensaje = f'{amarillo}{negrita}Regresando al menu anterior...{reset}'
 dato_invalido_mensaje = f'{rojo}{negrita}Ha ingresado un dato invalido...Vuelva a intentarlo, por favor.'
 validando_mensaje = f'{amarillo}{negrita}Validando informacion\nUn momento, por favor...{reset}'
 validacion_exito_mensaje = f'{verde}{negrita}Validación exitosa!{reset}'
-
+cargando_informacion_mensaje = f'{verde}{negrita}Cargando la informacion...Un momento...{reset}'
 
 def limpiar_pantalla():
     """Función para limpiar la pantalla de la terminal.
@@ -86,7 +86,6 @@ def despedida():
     print(adios)
     sys.exit()
 
-cargando_informacion_mensaje = f'{blanco}{negrita}Cargando la informacion...Un momento...{reset}'
 volviendo_mensaje_mal_input = f'{blanco}{negrita}Se ha detectado un dato invalido. Volviendo al paso anterior...{reset}'
 borrando = f'{blanco}{negrita}Borrando la informacion...{reset}'
 

@@ -104,29 +104,33 @@ def registro_grupos():
                 return 
             codigo = codigo.strip()
             if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
-                raise ValueError
-            
-            print(art.colorear("Ingrese el nombre del grupo", "blanco"), art.colorear("(Debe tener entre 4 y 9 letras)\n", "amarillo"), art.colorear(">>> ", "blanco"), end='')
-            nombre = input()
-            if quiere_salir(nombre):
-                return
-            nombre = nombre.strip().replace(' ', '_').upper()
-            if not (not nombre.isdigit() and 4 <= len(nombre) <= 20):
-                raise ValueError
-            print(art.colorear("Ingrese la sigla del grupo", "blanco"), art.colorear("(Debe tener entre 3 y 6 letras)\n", "amarillo"), art.colorear(">>> ", "blanco"), end='')
-            sigla = input()
-            if quiere_salir(sigla):
-                return
-            sigla = sigla.strip().upper()
-            if not (sigla.isalpha() and 3 <= len(sigla) <= 6):
-                raise ValueError
+                        raise ValueError
+            if data.revisar_codigo_existe(codigo, "grupos"):
+                print(art.colorear("El codigo ingresado ya esta asignado a un grupo!\nSi desea sobreescribirlo presione 1, de lo contrario presione cualquier tecla para ingresar un codigo diferente\n>>> ", "amarillo"), end='')
+                if input() == '1':
+                    print(art.colorear("Ingrese el nombre del grupo", "blanco"), art.colorear("(Debe tener entre 4 y 9 letras)\n", "amarillo"), art.colorear(">>> ", "blanco"), end='')
+                    nombre = input()
+                    if quiere_salir(nombre):
+                        return
+                    nombre = nombre.strip().replace(' ', '_').upper()
+                    if not (not nombre.isdigit() and 4 <= len(nombre) <= 20):
+                        raise ValueError
+                    print(art.colorear("Ingrese la sigla del grupo", "blanco"), art.colorear("(Debe tener entre 3 y 6 letras)\n", "amarillo"), art.colorear(">>> ", "blanco"), end='')
+                    sigla = input()
+                    if quiere_salir(sigla):
+                        return
+                    sigla = sigla.strip().upper()
+                    if not (sigla.isalpha() and 3 <= len(sigla) <= 6):
+                        raise ValueError
+                else:
+                    continue
         except ValueError:
             art.animacion_cargando(art.dato_invalido_mensaje)
             continue
         else:   
             data.cargar_grupo(codigo, nombre, sigla)
-            art.animacion_cargando(art.cargando_informacion_mensaje)
-            return
+            art.animacion_barra_progreso(art.cargando_informacion_mensaje)
+            return            
 
 def registro_modulos():
     """Función que pide al usuario los datos requeridos para registrar un grupo."""
