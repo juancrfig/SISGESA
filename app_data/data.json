@@ -2,7 +2,7 @@
     "grupos": {
         "0001": {
             "nombre": "GAMINES",
-            "sigla": "GAM"
+            "sigla": "GAMI"
         },
         "0002": {
             "nombre": "BETAS",
@@ -43,11 +43,11 @@
     },
     "modulos": {
         "0001": {
-            "nombre": "INTRODUCCION_A_PYTHON",
-            "duracion": 4,
+            "nombre": "JAVASCRIPT",
+            "duracion": 7,
             "horario": {
-                "inicio": "2024-01-15 06:00:00",
-                "fin": "2024-02-12 12:00:00"
+                "inicio": "2024-01-01 10:00:00",
+                "fin": "2024-02-19 14:00:00"
             }
         },
         "0002": {

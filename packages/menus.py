@@ -129,7 +129,8 @@ def registro_grupos():
             continue
         else:   
             data.cargar_grupo(codigo, nombre, sigla)
-            art.animacion_barra_progreso(art.cargando_informacion_mensaje)
+            art.animacion_barra_progreso(art.cargando_informacion_mensaje)   
+            art.animacion_cargando(art.colorear("Grupo cargado exitosamente!\nVolviendo al menu principial...", "verde"))
             return            
 
 def registro_modulos():
@@ -148,55 +149,60 @@ def registro_modulos():
             codigo = codigo.strip()
             if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
                 raise ValueError
-            print(art.colorear("Ingrese el nombre del modulo", "blanco"), art.colorear("Debe tener entre 4 y 55 letras", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
-            nombre = input()
-            if quiere_salir(nombre):
-                return
-            nombre = nombre.strip().replace(' ', '_').upper()
-            if not (not nombre.isnumeric()  and 3 <= len(nombre) <= 55):
-                raise ValueError
-            print(art.colorear("Ingrese la duracion del modulo en semanas", "blanco"), art.colorear("Debe tener entre 1 y 2 digitos", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
-            duracion = input()
-            if quiere_salir(duracion):
-                return
-            duracion = duracion.strip()
-            if not (duracion.isnumeric() and 1 <= int(duracion) <= 99):
-                raise ValueError
-            print(art.colorear("\nLos modulos puede comenzar a las 06:00 y el ultimo puede empezar a las 18:00 como maximo", "amarillo"))
-            print(art.colorear("Ingrese la fecha y hora de inicio del modulo", "blanco"), art.colorear("(YYYY-MM-DD HH:MM formato 24 horas)", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
-            respuesta = input()
-            if quiere_salir(respuesta):
-                return
-            fecha_hora_inicio = datetime.strptime(respuesta.strip(), "%Y-%m-%d %H:%M")
-            inicio_hora = fecha_hora_inicio.time()
-            if not (time(6, 0) <= inicio_hora <= time(18, 0)):
-                raise ValueError
-            print(art.colorear("\nLos modulos puede acabar desde las 07:00 y el ultimo puede acabar a las 23:00 como maximo", "amarillo"))
-            print(art.colorear("La clase debe durar entre 1 y 5 horas", "amarillo"))
-            print(art.colorear("Ingrese la hora en que acaba el modulo", "blanco"), art.colorear("HH:MM formato 24 horas", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
-            fin_hora = input()
-            if quiere_salir(fin_hora):
-                return
-            fin_hora = datetime.strptime(fin_hora.strip(), "%H:%M").time()
-            if not (time(7, 0) <= fin_hora <= time(23, 0)):
-                raise ValueError
-            fin_fecha = fecha_hora_inicio + timedelta(weeks=int(duracion))
-            fecha_hora_final = datetime.combine(fin_fecha.date(), fin_hora)
-            if fecha_hora_final <= fecha_hora_inicio:
-                raise ValueError
-            hoy = datetime.today()
-            tmp_inicial = datetime.combine(hoy, inicio_hora)
-            tmp_final = datetime.combine(hoy, fin_hora)
-            duracion_clase = tmp_final - tmp_inicial
-            if timedelta(hours=1) <= duracion_clase <= timedelta(hours=8):
-                horario = (str(fecha_hora_inicio), str(fecha_hora_final))
-
-            data.cargar_modulo(codigo, nombre, str(duracion), horario)
-            print(art.colorear("Modulo cargado exitosamente!\nVolviendo al menu principial...", "verde"))
-            art.animacion_barra_progreso(art.cargando_informacion_mensaje)   
-            return 
+            if data.revisar_codigo_existe(codigo, "modulos"):
+                print(art.colorear("El codigo ingresado ya esta asignado a un grupo!\nSi desea sobreescribirlo presione 1, de lo contrario presione cualquier tecla para ingresar un codigo diferente\n>>> ", "amarillo"), end='')
+                if input() == '1':
+                    print(art.colorear("Ingrese el nombre del modulo", "blanco"), art.colorear("Debe tener entre 4 y 55 letras", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
+                    nombre = input()
+                    if quiere_salir(nombre):
+                        return
+                    nombre = nombre.strip().replace(' ', '_').upper()
+                    if not (not nombre.isnumeric()  and 3 <= len(nombre) <= 55):
+                        raise ValueError
+                    print(art.colorear("Ingrese la duracion del modulo en semanas", "blanco"), art.colorear("Debe tener entre 1 y 2 digitos", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
+                    duracion = input()
+                    if quiere_salir(duracion):
+                        return
+                    duracion = duracion.strip()
+                    if not (duracion.isnumeric() and 1 <= int(duracion) <= 99):
+                        raise ValueError
+                    print(art.colorear("\nLos modulos puede comenzar a las 06:00 y el ultimo puede empezar a las 18:00 como maximo", "amarillo"))
+                    print(art.colorear("Ingrese la fecha y hora de inicio del modulo", "blanco"), art.colorear("(YYYY-MM-DD HH:MM formato 24 horas)", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
+                    respuesta = input()
+                    if quiere_salir(respuesta):
+                        return
+                    fecha_hora_inicio = datetime.strptime(respuesta.strip(), "%Y-%m-%d %H:%M")
+                    inicio_hora = fecha_hora_inicio.time()
+                    if not (time(6, 0) <= inicio_hora <= time(18, 0)):
+                        raise ValueError
+                    print(art.colorear("\nLos modulos puede acabar desde las 07:00 y el ultimo puede acabar a las 23:00 como maximo", "amarillo"))
+                    print(art.colorear("La clase debe durar entre 1 y 5 horas", "amarillo"))
+                    print(art.colorear("Ingrese la hora en que acaba el modulo", "blanco"), art.colorear("HH:MM formato 24 horas", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
+                    fin_hora = input()
+                    if quiere_salir(fin_hora):
+                        return
+                    fin_hora = datetime.strptime(fin_hora.strip(), "%H:%M").time()
+                    if not (time(7, 0) <= fin_hora <= time(23, 0)):
+                        raise ValueError
+                    fin_fecha = fecha_hora_inicio + timedelta(weeks=int(duracion))
+                    fecha_hora_final = datetime.combine(fin_fecha.date(), fin_hora)
+                    if fecha_hora_final <= fecha_hora_inicio:
+                        raise ValueError
+                    hoy = datetime.today()
+                    tmp_inicial = datetime.combine(hoy, inicio_hora)
+                    tmp_final = datetime.combine(hoy, fin_hora)
+                    duracion_clase = tmp_final - tmp_inicial
+                    if timedelta(hours=1) <= duracion_clase <= timedelta(hours=8):
+                        horario = (str(fecha_hora_inicio), str(fecha_hora_final))
+                else:
+                    continue
         except ValueError:
             art.animacion_cargando(art.dato_invalido_mensaje)
+        else:
+            data.cargar_modulo(codigo, nombre, str(duracion), horario)
+            art.animacion_barra_progreso(art.cargando_informacion_mensaje)   
+            art.animacion_cargando(art.colorear("Modulo cargado exitosamente!\nVolviendo al menu principial...", "verde"))
+            return
   
 def menu_estudiantes():
 
