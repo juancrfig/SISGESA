@@ -107,7 +107,7 @@
             }
         },
         "0009": {
-            "nombre": "FUNDAMENTOS DE LINUX",
+            "nombre": "FUNDAMENTOS_DE_LINUX",
             "duracion": 4,
             "horario": {
                 "inicio": "2024-01-18 06:00:00",
@@ -129,200 +129,168 @@
             "sexo": "F",
             "edad": 22,
             "grupo": "0001",
-            "modulos": [
-                "0002",
-                "0003",
-                "0004"
-            ]
+            "modulos": ["0002", "0005", "0007"]
         },
         "0002": {
             "nombre": "JUAN_PEREZ",
             "sexo": "M",
             "edad": 19,
             "grupo": "0001",
-            "modulos": [
-                "0002",
-                "0003",
-                "0004"
-            ]
+            "modulos": ["0001", "0006"]
         },
         "0003": {
             "nombre": "MARIO_CASTRO",
             "sexo": "M",
             "edad": 24,
             "grupo": "0001",
-            "modulos": [
-                "0002",
-                "0003",
-                "0004"
-            ]
+            "modulos": ["0004", "0007"]
         },
         "0004": {
             "nombre": "VALENTINA_LUNA",
             "sexo": "F",
             "edad": 20,
             "grupo": "0001",
-            "modulos": []
+            "modulos": ["0003", "0009"]
         },
         "0005": {
             "nombre": "CARLA_RAMIREZ",
             "sexo": "F",
             "edad": 21,
             "grupo": "0001",
-            "modulos": []
+            "modulos": ["0008", "0010"]
         },
         "0006": {
             "nombre": "CARLOS_SANCHEZ",
             "sexo": "M",
             "edad": 23,
             "grupo": "0001",
-            "modulos": []
+            "modulos": ["0009", "0010"]
         },
         "0007": {
             "nombre": "LUCIA_TORRES",
             "sexo": "F",
             "edad": 18,
             "grupo": "0001",
-            "modulos": []
+            "modulos": ["0001", "0003", "0005"]
         },
         "0008": {
             "nombre": "MIGUEL_DIAZ",
             "sexo": "M",
             "edad": 25,
             "grupo": "0001",
-            "modulos": []
+            "modulos": ["0004", "0006", "0008"]
         },
         "0009": {
             "nombre": "FERNANDA_VAZQUEZ",
             "sexo": "F",
             "edad": 27,
             "grupo": "0001",
-            "modulos": []
+            "modulos": ["0007", "0010"]
         },
         "0010": {
             "nombre": "DAVID_RAMIREZ",
             "sexo": "M",
             "edad": 21,
             "grupo": "0001",
-            "modulos": []
+            "modulos": ["0002", "0009"]
         },
         "0011": {
             "nombre": "JAVIER_LOPEZ",
             "sexo": "M",
             "edad": 22,
             "grupo": "0001",
-            "modulos": []
+            "modulos": ["0005", "0006"]
         },
         "0012": {
             "nombre": "ANA_MARTINEZ",
             "sexo": "F",
             "edad": 19,
             "grupo": "0001",
-            "modulos": []
+            "modulos": ["0008", "0010"]
         },
         "0013": {
             "nombre": "ROBERTO_RUIZ",
             "sexo": "M",
             "edad": 26,
             "grupo": "0001",
-            "modulos": []
+            "modulos": ["0001", "0003", "0007"]
         },
         "0014": {
             "nombre": "ISABEL_GARCIA",
             "sexo": "F",
             "edad": 23,
             "grupo": "0001",
-            "modulos": [
-                "0002",
-                "0003",
-                "0004"
-            ]
+            "modulos": ["0004", "0006", "0009"]
         },
         "0015": {
             "nombre": "MARTIN_HERRERA",
             "sexo": "M",
             "edad": 24,
             "grupo": "0001",
-            "modulos": [
-                "0002",
-                "0003",
-                "0004"
-            ]
+            "modulos": ["0001", "0007", "0010"]
         },
         "0016": {
             "nombre": "ANDREA_GUTIERREZ",
             "sexo": "F",
             "edad": 20,
             "grupo": "0001",
-            "modulos": [
-                "0002",
-                "0003",
-                "0004"
-            ]
+            "modulos": ["0005", "0009"]
         },
         "0017": {
             "nombre": "FELIPE_ORTIZ",
             "sexo": "M",
             "edad": 27,
             "grupo": "0001",
-            "modulos": [
-                "0002",
-                "0003",
-                "0004"
-            ]
+            "modulos": ["0002", "0004", "0010"]
         },
         "0018": {
             "nombre": "MARIANA_ALVAREZ",
             "sexo": "F",
             "edad": 18,
             "grupo": "0001",
-            "modulos": []
+            "modulos": ["0003", "0005"]
         },
         "0019": {
             "nombre": "JORGE_FLORES",
             "sexo": "M",
             "edad": 22,
             "grupo": "0001",
-            "modulos": []
+            "modulos": ["0006", "0008"]
         },
         "0020": {
             "nombre": "PAULA_REYES",
             "sexo": "F",
             "edad": 25,
             "grupo": "0001",
-            "modulos": []
+            "modulos": ["0001", "0002", "0009"]
         },
         "23654": {
             "nombre": "JUAN_FIGUEROA",
             "edad": 23,
             "sexo": "M",
-            "modulos": []
+            "modulos": ["0004", "0006"]
         }
     },
     "docentes": {
         "438845": {
             "nombre": "EDUARDO_FIALLOS",
-            "modulos": [
-                "0001"
-            ]
+            "modulos": ["0001", "0003", "0005"]
         },
         "384737": {
             "nombre": "ROCIO_VELANDIA",
-            "modulos": [
-                "00445"
-            ]
+            "modulos": ["0004", "0007"]
         },
         "4834762": {
             "nombre": "MARIA_VANEGAS",
-            "modulos": []
+            "modulos": ["0002", "0006"]
         },
         "6852294": {
             "nombre": "JUAN_REYES",
-            "modulos": []
+            "modulos": ["0009", "0010"]
         },
         "428295": {
             "nombre": "ESTEBAN_ESCOBAR",
-            "modulos": []
+            "modulos": ["0008", "0007", "0003"]
         }
     }
 }

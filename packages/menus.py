@@ -584,10 +584,15 @@ def consultar_info():
                     print("\n\nPresione cualquier tecla para volver")
                     input()
                 case "4":
-                    print(art.colorear("Ingrese el codigo del grupo que desea consultar\n>>> ", "blanco"), end='')
-                    respuesta = input()
+                    print(art.colorear("Ingrese la cedula del docente que desea consultar\n>>> ", "blanco"), end='')
+                    cedula = input()
                     if quiere_salir(respuesta):
                         return
+                    print(art.colorear("Ingrese el codigo del modulo que desea consultar\n>>> ", "blanco"), end='')
+                    modulo = input()
+                    if quiere_salir(respuesta):
+                        return
+                    data.consultar_estudiantes_a_cargo_docente_en_modulo(cedula.strip(), modulo.strip())
                 case _:
                     raise ValueError
         except ValueError:
