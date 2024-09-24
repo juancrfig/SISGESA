@@ -19,14 +19,16 @@ def registro_usuario():
         art.limpiar_pantalla()
         print(art.colorear("Bienvenido a SISGESA! El software perfecto para administrar y supervisar la asistencia en su institución educativa!", "blanco"))
         print(art.center_text(art.sisgesa))
-        print(art.colorear("Para salir digite el numero 1!\n", "rojo"))
+        print(art.colorear("Para salir digite la barra espaciadora!\n", "rojo"))
         print(art.colorear("Dado que es la primera vez que ingresa, debemos registrar el usuario que desea usar\n", "blanco"), art.colorear("\nEl nombre de usuario debe ser de al menos 4 caracteres y solo letras", "amarillo"))
         print(art.colorear("Ingrese el nombre de usuario que desea usar\n>>> ", "blanco"), end='')
         usuario = input()
+        if quiere_salir(usuario):
+            return
         if not (usuario.isalpha() and len(usuario) > 3):
             art.animacion_cargando(art.colorear("Ha ingresado un usuario invalido! Intentelo nuevamente...", "rojo"))
             continue
-        clave_inicial = data.nuevo_usuario(usuario)
+        clave_inicial = data.nuevo_usuario(usuario.strip())
         print(art.colorear(f"\nUsuario registrado exitosamente!\nSu contraseña es ", "blanco"), end='')
         print(art.colorear(clave_inicial, "amarillo"), end='')
         print(art.colorear(", recomendamos cambiarla para una mayor seguridad!", "blanco"))
@@ -104,6 +106,8 @@ def registro_grupos():
                 return 
             codigo = codigo.strip()
             if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
+                        print("codigo invalido")
+                        input()
                         raise ValueError
             if data.revisar_codigo_existe(codigo, "grupos"):
                 print(art.colorear("El codigo ingresado ya esta asignado a un grupo!\nAl continuar va a sobreescribirlo\n", "amarillo"), end='')
@@ -510,15 +514,13 @@ def registro_asistencia():
             if quiere_salir(respuesta):
                 return
             if respuesta.strip() == '1':
-                data.registrar_hora_asistencia(codigo.strip(), modulo.strip(), "llegada")
-                art.animacion_cargando(art.cargando_informacion_mensaje)
-                art.animacion_cargando(art.validacion_exito_mensaje)
-                art.colorear("Volviendo al menu principal...", "amarillo")
+                if data.registrar_hora_asistencia(codigo.strip(), modulo.strip(), "llegada"):
+                    art.animacion_barra_progreso(art.cargando_informacion_mensaje)
+                    continue
             if respuesta.strip() == '2':
-                data.registrar_hora_asistencia(codigo.strip(), modulo.strip(), "salida")
-                art.animacion_cargando(art.cargando_informacion_mensaje)
-                art.animacion_cargando(art.validacion_exito_mensaje)
-                art.colorear("Volviendo al menu principal...", "amarillo")
+                if data.registrar_hora_asistencia(codigo.strip(), modulo.strip(), "salida"):
+                    art.animacion_barra_progreso(art.cargando_informacion_mensaje)
+                    continue
             else:
                 raise ValueError
         except ValueError:

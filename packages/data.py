@@ -46,12 +46,12 @@ def crear_estructura_json():
         "alumnos": {},
         "docentes": {},
     }
-    with open(principal, 'a+') as file:
+    with open(principal, "+a") as file:
         file.seek(0)
         json.dump(data, file, indent=4)
 
     asistencia_estructura_json = {}
-    with open(asistencia, "w") as file:
+    with open(asistencia, "+w") as file:
         json.dump(asistencia_estructura_json, file, indent=4)
 
 def encriptador(texto):
@@ -345,6 +345,18 @@ def registrar_hora_asistencia(codigo, modulo, contexto):
         contexto (str): Determina si se registrará la llegada o la salida.
         Solo toma dos posibles valores: 'llegada' o 'salida'.
     """
-    with open(asistencia) as file:
-        data = json.load(file)
-    data = "o"    
+    dia_actual = datetime.today().strftime('%Y-%m-%d')
+    if contexto == 'llegada':
+        with open(asistencia) as file:
+            data = json.load(file)
+        data[modulo][dia_actual][codigo]["llegada"] = datetime.today().strftime('%H:%M:%S')
+        with open(asistencia, "w+") as file:
+            json.dump(data, file, indent=4)
+            return True
+    if contexto == 'salida':
+        with open(asistencia) as file:
+            data = json.load(file)
+            data[modulo][dia_actual][codigo]["salida"] = datetime.today().strftime('%H:%M:%S')
+            with open(asistencia, "w+") as file:
+                json.dump(data, file, indent=4)
+                return True

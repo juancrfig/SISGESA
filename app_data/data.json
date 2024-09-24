@@ -1,0 +1,32 @@
+{
+    "grupos": {
+        "0001": {
+            "nombre": "ALPHA_GROUP",
+            "sigla": "ALPHA"
+        }
+    },
+    "modulos": {
+        "0001": {
+            "nombre": "PYTHON_PARA_DUMMIES",
+            "duracion": 8,
+            "horario": {
+                "inicio": "2024-01-01 10:00:00",
+                "fin": "2024-02-26 15:00:00"
+            }
+        }
+    },
+    "alumnos": {
+        "0001": {
+            "nombre": "JUAN_FIGUEROA",
+            "edad": 23,
+            "sexo": "M",
+            "modulos": []
+        }
+    },
+    "docentes": {
+        "197463": {
+            "nombre": "ROCIO_JIMENEZ",
+            "modulos": []
+        }
+    }
+}
