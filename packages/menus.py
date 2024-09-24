@@ -482,11 +482,45 @@ def registro_docente():
     art.animacion_cargando(art.cargando_informacion_mensaje)
 
 def registro_asistencia():
-
-    art.limpiar_pantalla()
-    print(art.asistencia)
-    print(art.colorear("Ingresa el codigo del estudiante\n>>> ", "blanco"))
-    codigo = input()
+    while True:
+        try:
+            art.limpiar_pantalla()
+            print(art.asistencia)
+            print(art.salir_tecla_espaciadora_mensaje)
+            print(art.colorear("Ingresa el codigo del estudiante\n>>> ", "blanco"), end='')
+            codigo = input()
+            if quiere_salir(codigo):
+                return
+            if not data.revisar_codigo_existe(codigo.strip(), "alumnos"):
+                art.animacion_cargando(art.colorear("Has ingresado un codigo de un estudiante que no existe! Intenta nuevamente", "rojo"))
+                continue
+            print(art.colorear("Ingresa el codigo del modulo\n>>> ", "blanco"), end='')
+            modulo = input()
+            if quiere_salir(modulo):
+                return
+            if not data.revisar_codigo_existe(modulo, "modulos"):
+                art.animacion_cargando(art.colorear("Has ingresado un codigo de un modulo que no existe! Intenta nuevamente", "rojo"))
+                continue
+            art.animacion_cargando(art.validando_mensaje)
+            print(art.validacion_exito_mensaje)
+            print(art.colorear("Para registrar automaticamente la hora de entrada del estudiante usando la hora actual presione 1\nPara ingresar de la misma forma la hora de salida presione 2\n>>> ", "blanco"), end='')
+            respuesta = input()
+            if quiere_salir(respuesta):
+                return
+            if respuesta.strip() == '1':
+                data.registrar_hora_asistencia(codigo.strip(), modulo.strip(), "llegada")
+                art.animacion_cargando(art.cargando_informacion_mensaje)
+                art.animacion_cargando(art.validacion_exito_mensaje)
+                art.colorear("Volviendo al menu principal...", "amarillo")
+            if respuesta.strip() == '2':
+                data.registrar_hora_asistencia(codigo.strip(), modulo.strip(), "salida")
+                art.animacion_cargando(art.cargando_informacion_mensaje)
+                art.animacion_cargando(art.validacion_exito_mensaje)
+                art.colorear("Volviendo al menu principal...", "amarillo")
+            else:
+                raise ValueError
+        except ValueError:
+            art.animacion_cargando(art.dato_invalido_mensaje)
 
 def consultar_info():
     art.limpiar_pantalla()
