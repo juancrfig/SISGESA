@@ -106,32 +106,32 @@ def registro_grupos():
             if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
                         raise ValueError
             if data.revisar_codigo_existe(codigo, "grupos"):
-                print(art.colorear("El codigo ingresado ya esta asignado a un grupo!\nSi desea sobreescribirlo presione 1, de lo contrario presione cualquier tecla para ingresar un codigo diferente\n>>> ", "amarillo"), end='')
-                if input() == '1':
-                    print(art.colorear("Ingrese el nombre del grupo", "blanco"), art.colorear("(Debe tener entre 4 y 9 letras)\n", "amarillo"), art.colorear(">>> ", "blanco"), end='')
-                    nombre = input()
-                    if quiere_salir(nombre):
-                        return
-                    nombre = nombre.strip().replace(' ', '_').upper()
-                    if not (not nombre.isdigit() and 4 <= len(nombre) <= 20):
-                        raise ValueError
-                    print(art.colorear("Ingrese la sigla del grupo", "blanco"), art.colorear("(Debe tener entre 3 y 6 letras)\n", "amarillo"), art.colorear(">>> ", "blanco"), end='')
-                    sigla = input()
-                    if quiere_salir(sigla):
-                        return
-                    sigla = sigla.strip().upper()
-                    if not (sigla.isalpha() and 3 <= len(sigla) <= 6):
-                        raise ValueError
-                else:
-                    continue
+                print(art.colorear("El codigo ingresado ya esta asignado a un grupo!\nAl continuar va a sobreescribirlo\n", "amarillo"), end='')
+            print(art.colorear("Ingrese el nombre del grupo", "blanco"), art.colorear("(Debe tener entre 4 y 9 letras)", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
+            nombre = input()
+            if quiere_salir(nombre):
+                return
+            nombre = nombre.strip().replace(' ', '_').upper()
+            if not (not nombre.isdigit() and 4 <= len(nombre) <= 20):
+                raise ValueError
+            print(art.colorear("Ingrese la sigla del grupo", "blanco"), art.colorear("(Debe tener entre 3 y 6 letras)\n", "amarillo"), art.colorear(">>> ", "blanco"), end='')
+            sigla = input()
+            if quiere_salir(sigla):
+                return
+            sigla = sigla.strip().upper()
+            if not (sigla.isalpha() and 3 <= len(sigla) <= 6):
+                raise ValueError
         except ValueError:
             art.animacion_cargando(art.dato_invalido_mensaje)
             continue
         else:   
             data.cargar_grupo(codigo, nombre, sigla)
             art.animacion_barra_progreso(art.cargando_informacion_mensaje)   
-            art.animacion_cargando(art.colorear("Grupo cargado exitosamente!\nVolviendo al menu principial...", "verde"))
-            return            
+            art.animacion_cargando(art.colorear("Grupo cargado exitosamente!\nSi desea cargar otro grupo presione 1, de lo contrario volvera al menu principal.", "verde"))
+            if input() == '1':
+                continue
+            art.animacion_cargando(art.volviendo_mensaje)
+            return          
 
 def registro_modulos():
     """Función que pide al usuario los datos requeridos para registrar un grupo."""
@@ -150,162 +150,226 @@ def registro_modulos():
             if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
                 raise ValueError
             if data.revisar_codigo_existe(codigo, "modulos"):
-                print(art.colorear("El codigo ingresado ya esta asignado a un grupo!\nSi desea sobreescribirlo presione 1, de lo contrario presione cualquier tecla para ingresar un codigo diferente\n>>> ", "amarillo"), end='')
-                if input() == '1':
-                    print(art.colorear("Ingrese el nombre del modulo", "blanco"), art.colorear("Debe tener entre 4 y 55 letras", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
-                    nombre = input()
-                    if quiere_salir(nombre):
-                        return
-                    nombre = nombre.strip().replace(' ', '_').upper()
-                    if not (not nombre.isnumeric()  and 3 <= len(nombre) <= 55):
-                        raise ValueError
-                    print(art.colorear("Ingrese la duracion del modulo en semanas", "blanco"), art.colorear("Debe tener entre 1 y 2 digitos", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
-                    duracion = input()
-                    if quiere_salir(duracion):
-                        return
-                    duracion = duracion.strip()
-                    if not (duracion.isnumeric() and 1 <= int(duracion) <= 99):
-                        raise ValueError
-                    print(art.colorear("\nLos modulos puede comenzar a las 06:00 y el ultimo puede empezar a las 18:00 como maximo", "amarillo"))
-                    print(art.colorear("Ingrese la fecha y hora de inicio del modulo", "blanco"), art.colorear("(YYYY-MM-DD HH:MM formato 24 horas)", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
-                    respuesta = input()
-                    if quiere_salir(respuesta):
-                        return
-                    fecha_hora_inicio = datetime.strptime(respuesta.strip(), "%Y-%m-%d %H:%M")
-                    inicio_hora = fecha_hora_inicio.time()
-                    if not (time(6, 0) <= inicio_hora <= time(18, 0)):
-                        raise ValueError
-                    print(art.colorear("\nLos modulos puede acabar desde las 07:00 y el ultimo puede acabar a las 23:00 como maximo", "amarillo"))
-                    print(art.colorear("La clase debe durar entre 1 y 5 horas", "amarillo"))
-                    print(art.colorear("Ingrese la hora en que acaba el modulo", "blanco"), art.colorear("HH:MM formato 24 horas", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
-                    fin_hora = input()
-                    if quiere_salir(fin_hora):
-                        return
-                    fin_hora = datetime.strptime(fin_hora.strip(), "%H:%M").time()
-                    if not (time(7, 0) <= fin_hora <= time(23, 0)):
-                        raise ValueError
-                    fin_fecha = fecha_hora_inicio + timedelta(weeks=int(duracion))
-                    fecha_hora_final = datetime.combine(fin_fecha.date(), fin_hora)
-                    if fecha_hora_final <= fecha_hora_inicio:
-                        raise ValueError
-                    hoy = datetime.today()
-                    tmp_inicial = datetime.combine(hoy, inicio_hora)
-                    tmp_final = datetime.combine(hoy, fin_hora)
-                    duracion_clase = tmp_final - tmp_inicial
-                    if timedelta(hours=1) <= duracion_clase <= timedelta(hours=8):
-                        horario = (str(fecha_hora_inicio), str(fecha_hora_final))
-                else:
-                    continue
+                print(art.colorear("El codigo ingresado ya esta asignado a un modulo!\nAl continuar va a sobreescribirlo\n>>> ", "amarillo"), end='')
+            print(art.colorear("Ingrese el nombre del modulo", "blanco"), art.colorear("Debe tener entre 4 y 55 letras", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
+            nombre = input()
+            if quiere_salir(nombre):
+                return
+            nombre = nombre.strip().replace(' ', '_').upper()
+            if not (not nombre.isnumeric()  and 3 <= len(nombre) <= 55):
+                raise ValueError
+            print(art.colorear("Ingrese la duracion del modulo en semanas", "blanco"), art.colorear("Debe tener entre 1 y 2 digitos", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
+            duracion = input()
+            if quiere_salir(duracion):
+                return
+            duracion = duracion.strip()
+            if not (duracion.isnumeric() and 1 <= int(duracion) <= 99):
+                raise ValueError
+            print(art.colorear("\nLos modulos puede comenzar a las 06:00 y el ultimo puede empezar a las 18:00 como maximo", "amarillo"))
+            print(art.colorear("Ingrese la fecha y hora de inicio del modulo", "blanco"), art.colorear("(YYYY-MM-DD HH:MM formato 24 horas)", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
+            respuesta = input()
+            if quiere_salir(respuesta):
+                return
+            fecha_hora_inicio = datetime.strptime(respuesta.strip(), "%Y-%m-%d %H:%M")
+            inicio_hora = fecha_hora_inicio.time()
+            if not (time(6, 0) <= inicio_hora <= time(18, 0)):
+                raise ValueError
+            print(art.colorear("\nLos modulos puede acabar desde las 07:00 y el ultimo puede acabar a las 23:00 como maximo", "amarillo"))
+            print(art.colorear("La clase debe durar entre 1 y 5 horas", "amarillo"))
+            print(art.colorear("Ingrese la hora en que acaba el modulo", "blanco"), art.colorear("(HH:MM formato 24 horas)", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
+            fin_hora = input()
+            if quiere_salir(fin_hora):
+                return
+            fin_hora = datetime.strptime(fin_hora.strip(), "%H:%M").time()
+            if not (time(7, 0) <= fin_hora <= time(23, 0)):
+                raise ValueError
+            fin_fecha = fecha_hora_inicio + timedelta(weeks=int(duracion))
+            fecha_hora_final = datetime.combine(fin_fecha.date(), fin_hora)
+            if fecha_hora_final <= fecha_hora_inicio:
+                raise ValueError
+            hoy = datetime.today()
+            tmp_inicial = datetime.combine(hoy, inicio_hora)
+            tmp_final = datetime.combine(hoy, fin_hora)
+            duracion_clase = tmp_final - tmp_inicial
+            if timedelta(hours=1) <= duracion_clase <= timedelta(hours=8):
+                horario = (str(fecha_hora_inicio), str(fecha_hora_final))
+            else:
+                raise ValueError
         except ValueError:
             art.animacion_cargando(art.dato_invalido_mensaje)
         else:
             data.cargar_modulo(codigo, nombre, str(duracion), horario)
             art.animacion_barra_progreso(art.cargando_informacion_mensaje)   
-            art.animacion_cargando(art.colorear("Modulo cargado exitosamente!\nVolviendo al menu principial...", "verde"))
-            return
+            art.animacion_cargando(art.colorear("Modulo cargado exitosamente!\nSi desea cargar otro presione 1, de lo contrario volvera al menu principal.", "verde"))
+            if input() == '1':
+                continue
+            art.animacion_cargando(art.volviendo_mensaje)
+            return  
   
 def menu_estudiantes():
-
-    art.limpiar_pantalla()
-    print(art.pregunta_menu_alumno, end='')
-    answer = input()
-
-    match answer:
-        case '1':
-            registro_estudiantes()
-        case '2':
+    """Ofrece al usuario las opciones de agregar un nuevo alumno, asignar o editar
+    el grupo que tiene asignado, y editar sus módulos asignados.
+    """
+    while True:
+        try:
             art.limpiar_pantalla()
-            print(art.asignacion)
-            print(art.asignacion_mensaje1, end='')
-            codigo = input()
-            print(art.asignacion_mensaje2, end='')
-            grupo = input()
-            data.asignar_grupo_alumno(codigo, grupo)
-            art.animacion_cargando(art.cargando_informacion_mensaje)
-        case '3':
-            if asignacion_modulos() == 401:
-                return 401  
-        case _:
-            raise ValueError
+            print(art.colorear("Ingrese 1 para agregar un nuevo alumno\nIngrese 2 para asignar o editar el grupo asignado a un alumno\nIngrese 3 para editar los modulos asignados a un estudiante", "blanco"), art.colorear("\nPresione la barra espaciadora para volver al menu principal\n", "rojo"), art.colorear(">>> ", "blanco"), end='')
+            answer = input()
+            if quiere_salir(answer):
+                return
+            match answer:
+                case '1':
+                    registro_estudiantes()
+                case '2':
+                    while True:
+                        try:
+                            art.limpiar_pantalla()
+                            print(art.asignacion)
+                            print(art.volver_menu_principal_espaciadora)
+                            print(art.colorear("Ingrese el codigo del estudiante\n>>> ", "blanco"), end='')
+                            codigo = input()
+                            if quiere_salir(codigo):
+                                return
+                            if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
+                                raise ValueError
+                            print(art.colorear("Ingrese el codigo del grupo al que desea asignar al alumno\n>>> ", "blanco"), end='')
+                            grupo = input()
+                            if quiere_salir(grupo):
+                                return
+                            if not (grupo.isdigit() and 4 <= len(codigo) <= 9):
+                                raise ValueError
+                        except ValueError:
+                            art.animacion_cargando(art.dato_invalido_mensaje)
+                        else:
+                            data.asignar_grupo_alumno(codigo.strip(), grupo.strip())
+                            art.animacion_barra_progreso(art.cargando_informacion_mensaje)   
+                            art.animacion_cargando(art.colorear("Grupo cargado exitosamente!\nSi desea cargar otro presione 1, de lo contrario volvera al menu principal.", "verde"))
+                            if input() == '1':
+                                continue
+                            art.animacion_cargando(art.volviendo_mensaje)
+                            return 
+                case '3':
+                    asignacion_modulos()
+                case _:
+                    raise ValueError
+        except ValueError:
+            art.animacion_cargando(art.dato_invalido_mensaje)
 
 def registro_estudiantes():
-
-    art.limpiar_pantalla()
-    print(art.nuevo_alumno)
-    print(art.alumno_mensaje1, art.alumno_mensaje2)
-    print(art.alumno_mensaje3, end='')
-
-    codigo = input()
-    if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
-        raise ValueError
-    
-    print(art.alumno_mensaje4, end='')
-    nombre = input().strip().replace(' ', '_').upper()
-
-    if not (not nombre.isnumeric()  and 4 <= len(nombre) <= 55):
-        raise ValueError
-    
-    print(art.alumno_mensaje5, end='')
-    sexo = input().strip().upper()
-
-    if sexo not in ('M', 'F'):
-        raise ValueError
-    
-    print(art.alumno_mensaje6, end='')
-    edad = input()
-
-    if not (edad.isdigit() and 16 <= int(edad) <= 27):
-        raise ValueError
-    
-    data.cargar_alumno(codigo, nombre, sexo, edad)
-    art.animacion_cargando(art.cargando_informacion_mensaje)
-    return 0
-
+    """Muestra las instrucciones en pantalla para registrar un alumno."""
+    while True:
+        try:
+            art.limpiar_pantalla()
+            print(art.nuevo_alumno)
+            print(art.volver_menu_principal_espaciadora)
+            print(art.colorear("Para registrar un alumno debe ingresar los siguientes datos:", "blanco"))
+            print(art.colorear("> Codigo numerico\n> Nombre\n> Sexo\n> Edad", "blanco"))
+            print(art.colorear("Ingrese el codigo numerico", "blanco"), art.colorear("\nDebe tener entre 4 y 9 digitos", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
+            codigo = input()
+            if quiere_salir(codigo):
+                return
+            if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
+                raise ValueError
+            if data.revisar_codigo_existe(codigo, "alumnos"):
+                print(art.colorear("El codigo ingresado ya esta asignado a un alumno!\nAl continuar va a sobreescribirlo\n>>> ", "amarillo"), end='')
+            print(art.colorear("Ingrese el nombre del alumno", "blanco"), art.colorear("Debe tener entre 3 y 55 letras", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
+            nombre = input()
+            if quiere_salir(nombre):
+                return
+            nombre = nombre.strip().replace(' ', '_').upper()
+            if not (not nombre.isnumeric()  and 3 <= len(nombre) <= 55):
+                raise ValueError
+            print(art.colorear("Ingrese el sexo del alumno", "blanco"), art.colorear("Debe tener ser F o M", "amarillo"),  art.colorear("\n>>> ", "blanco"), end='')
+            sexo = input()
+            if quiere_salir(sexo):
+                return
+            sexo = sexo.strip().upper()
+            if sexo not in ('M', 'F'):
+                raise ValueError
+            print(art.colorear("Ingrese la edad del alumno", "blanco"), art.colorear("Debe tener entre 16 y 27 años", "amarillo"),  art.colorear("\n>>> ", "blanco"), end='')
+            edad = input()
+            if quiere_salir(edad):
+                return
+            edad = edad.strip()
+            if not (edad.isdigit() and 16 <= int(edad) <= 27):
+                raise ValueError
+        except ValueError:
+            art.animacion_cargando(art.dato_invalido_mensaje)
+        else:
+            data.cargar_alumno(codigo.strip(), nombre, sexo, edad)
+            art.animacion_barra_progreso(art.cargando_informacion_mensaje)   
+            art.animacion_cargando(art.colorear("Alumno cargado exitosamente!\nSi desea cargar otro presione 1, de lo contrario volvera al menu anterior.", "verde"))
+            if input() == '1':
+                continue
+            return
 
 def asignacion_modulos():
+    """Muestra los pasos a seguir para asignar modulos a un alumno."""
+    while True:
+        try:
+            art.limpiar_pantalla()
+            print(art.asignacion)
+            print(art.salir_tecla_espaciadora_mensaje)
+            print(art.colorear("Recuerde que puede asignar hasta 3 modulos por estudiante", "amarillo"))
+            print(art.colorear("Ingrese el codigo del alumno\n>>> ", "blanco"), end='')
+            codigo = input()
+            if quiere_salir(codigo):
+                return
+            codigo = codigo.strip()
+            if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
+                raise ValueError
+            if data.revisa_alumno_existe(codigo):
+                print(art.colorear("Para registrar alumno en un modulo ingrese 1\nPara eliminar modulos asociados con un alumno escriba 2\n>>> ", "blanco"), end='')
+                answer = input()
+                if quiere_salir(answer):
+                    return
+                if answer == '1':
+                    while True:
+                        modulos_actuales = data.revisa_alumno_cuantos_modulos(codigo)
+                        if len(modulos_actuales) == 3:
+                            art.animacion_cargando(art.colorear("El alumno ha alcanzado el limite de modulos a los que puede estar matriculado!", "rojo"))
+                            art.animacion_cargando("Saliendo...")
+                            return
+                        print(art.colorear("Para dejar de asignar modulos presione la barra espaciadora!", "rojo"))                   
+                        if len(data.revisa_alumno_cuantos_modulos(codigo)) >= 3:
+                            art.animacion_cargando(art.colorear("El alumno ha alcanzado el limite de modulos a los que puede estar matriculado!", "rojo"))
+                            print(art.colorear("Intentelo nuevamente", "amarillo"))
+                            print("Presione cualquier tecla para salir")
+                            input()
+                            return
+                        else:
+                            print(f"El alumno esta inscrito en los siguientes modulos: ", '-'.join(modulos_actuales))
+                            print(art.colorear("Ingrese el codigo del modulo en el que desea matricular al alumno\n>>> ", "blanco"), end='')
+                            modulo = input()
+                            if quiere_salir(modulo):
+                                return
+                            data.asignar_modulo(codigo.strip(), modulo.strip())
+                            art.animacion_barra_progreso(art.colorear("Asignando modulo...Un momento.", "verde"))
 
-    art.limpiar_pantalla()
-    print(art.asignacion)
-    print(art.asignacion_mensaje1, end='')
-    codigo = input()
-
-    if data.check_alumno_exists(codigo):
-        print(art.asignacion_mensaje3, end='')
-        answer = input()
-
-        if answer == '1':
-            while True:
-
-                if len(data.check_student_modules(codigo)) >= 3:
-                       
-                    print(art.volviendo_mensaje)
-                    art.animacion_cargando(art.asignacion_mensaje6)
-                    return 401
-                
-        elif answer == '2':
-
-            while True:
-
-                art.limpiar_pantalla()
-                print(art.borrar_modulo)
-
-                if len(data.check_student_modules(codigo)) == 0:
-
-                    print(art.asignacion_mensaje12)
-                    art.animacion_cargando(art.volviendo_mensaje)
-                    return 401
-                
-                print(art.asignacion_mensaje9)
-                print('-'.join(data.check_student_modules(codigo)))
-                print(art.asignacion_mensaje8, end='')
-                modulo = input()
-
-                if modulo.isspace():
-                    art.animacion_cargando(art.volviendo_mensaje)
-                    return 401
-
-                data.eliminar_modulo(codigo, modulo)
-                art.animacion_cargando(art.borrando)
+                elif answer == '2':
+                    while True:
+                        try:
+                            art.limpiar_pantalla()
+                            print(art.borrar_modulo)
+                            modulos_actuales = data.revisa_alumno_cuantos_modulos(codigo)
+                            print(art.salir_tecla_espaciadora_mensaje)
+                            print(f"El alumno esta inscrito en los siguientes modulos: ", '-'.join(modulos_actuales))
+                            print(art.colorear("Ingrese el codigo del modulo que desea eliminar\n>>> ", "blanco"), end='')
+                            modulo = input()
+                            if quiere_salir(modulo):
+                                return
+                            data.eliminar_modulo(codigo.strip(), modulo.strip())
+                            art.animacion_barra_progreso(art.colorear("Borrando modulo...Un momento.", "verde"))
+                        except ValueError:
+                            print(art.colorear("Intentelo nuevamente", "blanco"))
+                            art.animacion_cargando(art.dato_invalido_mensaje)
+                else:
+                    raise ValueError
+            else:
+                art.animacion_cargando(art.colorear("El codigo de estudiante no existe! Intentelo de nuevo", "rojo"))
+        except ValueError:
+            print(art.colorear("Intentelo nuevamente", "blanco"))
+            art.animacion_cargando(art.dato_invalido_mensaje)
 
 def asignar_modulo_docente():
     

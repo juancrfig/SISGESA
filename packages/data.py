@@ -144,7 +144,7 @@ def revisar_codigo_existe(codigo, llave):
     return False
 
 def cargar_grupo(codigo, nombre, sigla):
-    """Función para añadir un grupo al archivo JSON"""
+    """Función para añadir un grupo al archivo JSON."""
     with open(principal) as file:
         data = json.load(file)
 
@@ -154,7 +154,16 @@ def cargar_grupo(codigo, nombre, sigla):
         json.dump(data, file, indent=4)
 
 def cargar_modulo(codigo, nombre, duracion, horario):
-    """Función para añadir un módulo al archivo JSON"""
+    """Función para añadir un módulo al archivo JSON.
+    
+    Args:
+        codigo (str): Codigo del modulo que se desea agregar.
+        nombre (str): Nombre del modulo que se desea agregar.
+        duracion (str): Duracion del modulo en semanas.
+        horario (tuple): Contiene primero el valor de inicio del modulo, y
+        de segundo el valor de fin del modulo.
+        Ambos en formato YYYY-MM-DD HH:MM:SS .
+    """
     with open(principal) as file:
         data = json.load(file)
     
@@ -164,6 +173,7 @@ def cargar_modulo(codigo, nombre, duracion, horario):
         json.dump(data, file, indent=4)
 
 def cargar_alumno(codigo, nombre, sexo, edad):
+    """Función para añadir un alumno al archivo JSON."""
 
     with open(principal) as file:
         data = json.load(file)
@@ -173,13 +183,15 @@ def cargar_alumno(codigo, nombre, sexo, edad):
     with open(principal, 'w+') as file:
         json.dump(data, file, indent=4)
 
-def check_alumno_exists(codigo):
+def revisa_alumno_existe(codigo):
+    """Chequea si un alumno existe."""
 
     with open(principal) as file:
         data = json.load(file)
     
-    if data["alumnos"].get(codigo):
+    if data["alumnos"].get(codigo, False):
         return True
+    return False
     
 def asignar_grupo_alumno(codigo, grupo):
 
@@ -191,14 +203,15 @@ def asignar_grupo_alumno(codigo, grupo):
     with open(principal, 'w+') as file:
         json.dump(data, file, indent=4)
 
-def check_student_modules(codigo):
-
+def revisa_alumno_cuantos_modulos(codigo):
+    """Revisa si el alumno esta asignado a mas de 3 modulos."""
     with open(principal) as file:
         data = json.load(file)
 
     return data["alumnos"][codigo].get("modulos")
 
 def asignar_modulo(codigo, modulo):
+    """Asigna módulo a un alumno"""
 
     with open(principal) as file:
         data = json.load(file)
@@ -213,13 +226,6 @@ def asignar_modulo(codigo, modulo):
 
         else:
             return False
-
-def cuales_modulos(codigo):
-
-    with open(principal) as file:
-        data = json.load(file)
-
-    return art.asignacion_mensaje9 + data["alumnos"][codigo]["modulos"]
 
 def eliminar_modulo(codigo, modulo):
     

@@ -20,7 +20,7 @@ def main():
             if not menus.registro_usuario() == 'c':
                 break
         else:
-            menus.ingresar()
+            #menus.ingresar()
             while True:
                 try:
                     match menus.menu_principal(): 

@@ -2,7 +2,7 @@
     "grupos": {
         "0001": {
             "nombre": "GAMINES",
-            "sigla": "GAMI"
+            "sigla": "GAM"
         },
         "0002": {
             "nombre": "BETAS",
@@ -43,11 +43,11 @@
     },
     "modulos": {
         "0001": {
-            "nombre": "JAVASCRIPT",
-            "duracion": 7,
+            "nombre": "PYTHON",
+            "duracion": 4,
             "horario": {
                 "inicio": "2024-01-01 10:00:00",
-                "fin": "2024-02-19 14:00:00"
+                "fin": "2024-01-29 14:00:00"
             }
         },
         "0002": {
@@ -125,20 +125,25 @@
     },
     "alumnos": {
         "0001": {
-            "nombre": "SOFIA_GONZALEZ",
-            "sexo": "F",
-            "edad": 22,
-            "grupo": "0001",
+            "nombre": "JUANES",
+            "edad": 23,
+            "sexo": "M",
             "modulos": [
-                "0002"
-            ]
+                "0001",
+                "0003"
+            ],
+            "grupo": "0001"
         },
         "0002": {
             "nombre": "JUAN_PEREZ",
             "sexo": "M",
             "edad": 19,
-            "grupo": "0001",
-            "modulos": []
+            "grupo": "0002",
+            "modulos": [
+                "0001",
+                "0002",
+                "0005"
+            ]
         },
         "0003": {
             "nombre": "MARIO_CASTRO",
@@ -270,6 +275,18 @@
             "nombre": "JUAN_FIGUEROA",
             "edad": 23,
             "sexo": "M",
+            "modulos": []
+        },
+        "356456": {
+            "nombre": "JUANITA_PEREZ",
+            "edad": 20,
+            "sexo": "F",
+            "modulos": []
+        },
+        "242542": {
+            "nombre": "JANINA_FIGUEROA",
+            "edad": 26,
+            "sexo": "F",
             "modulos": []
         }
     },

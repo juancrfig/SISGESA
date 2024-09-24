@@ -19,6 +19,7 @@ reset = "\033[0m"
 
 # Variables de mensajes predefinidos
 salir_tecla_espaciadora_mensaje = f'{negrita}{rojo}Para salir presione la tecla espaciadora\n{reset}'
+volver_menu_principal_espaciadora = f"\n{rojo}Presione la barra espaciadora para volver al menu principal\n"
 volviendo_mensaje = f'{amarillo}{negrita}Regresando al menu anterior...{reset}'
 dato_invalido_mensaje = f'{rojo}{negrita}Ha ingresado un dato invalido...Vuelva a intentarlo, por favor.'
 validando_mensaje = f'{amarillo}{negrita}Validando informacion\nUn momento, por favor...{reset}'
@@ -85,46 +86,7 @@ def despedida():
     limpiar_pantalla()
     print(adios)
     sys.exit()
-
-volviendo_mensaje_mal_input = f'{blanco}{negrita}Se ha detectado un dato invalido. Volviendo al paso anterior...{reset}'
-borrando = f'{blanco}{negrita}Borrando la informacion...{reset}'
-
-alumno_mensaje1 = f'{negrita}{blanco}Para registrar un alumno debe ingresar los siguientes datos:{reset}'
-alumno_mensaje2 = f'\n{blanco}{negrita}> Codigo numerico\n> Nombre\n> Sexo\n> Edad{reset}'
-alumno_mensaje3 = f'{blanco}{negrita}Ingrese el codigo numerico ({amarillo}Debe tener entre 4 y 9 digitos{blanco})\n>>>{reset} '
-alumno_mensaje4 = f'{blanco}{negrita}Ingrese el nombre del alumno ({amarillo}Debe tener entre 3 y 55 letras{blanco})\n>>>{reset} '
-alumno_mensaje5 = f'{blanco}{negrita}Ingrese el sexo del alumno ({amarillo}Debe ser F o M{blanco})\n>>>{reset} '
-alumno_mensaje6 = f'{blanco}{negrita}Ingrese la edad del alumno ({amarillo}Debe ser entre 17 y 27{blanco})\n>>>{reset} '
-
-
-
-
-
-
-
-
-
-pregunta_menu_alumno = f'{negrita}{blanco}\nIngrese 1 para agregar un nuevo alumno\nIngrese 2 para asignar o editar el grupo asignado a un alumno\nIngrese 3 para editar los modulos asignados a un estudiante\n>>>{reset} '
-
-
-
-asignacion_mensaje1 = f'{negrita}{blanco}Ingrese el codigo del estudiante\n>>> {reset}'
-asignacion_mensaje2 = f'{negrita}{blanco}Ingrese el codigo del grupo al que desea asignar al alumno\n>>> {reset}'
-asignacion_mensaje3 = f'{negrita}{blanco}\nPara registrar alumno en un modulo ingrese 1\nPara eliminar modulos asociados con un estudiante escriba 2\n>>> {reset}'
-asignacion_mensaje4 = f'{negrita}{blanco}Ingrese el codigo del modulo al que desea asignar\n>>> {reset}'
-asignacion_mensaje5 = f'{negrita}{blanco}Recuerde que puede asignar hasta 3 modulos por estudiante\nPara {amarillo}parar {blanco}de asignar modulos presione la {amarillo}barra espaciadora{reset}'
-asignacion_mensaje6 = f'{negrita}{blanco}El alumno ha alcanzado el limite de modulos a los que puede estar matriculado!{reset}'
-asignacion_mensaje7 = f'{negrita}{blanco}El alumno se encuentra matriculado actualmente en al menos un modulo\n\nPara matricular al estudiante en mas modulos presione 2{reset}'
-asignacion_mensaje8 = f'{negrita}{blanco}\nIngrese el codigo del modulo que desea eliminar\nPara salir presione la tecla espaciadora\n>>> {reset}'
-asignacion_mensaje9 = f'{negrita}{blanco}El alumno esta inscrito actualmente en los siguientes modulos...\n{reset}'
-asignacion_mensaje10 = f'{negrita}{blanco}No se registran modulos asociados para el estudiante{reset}'
-asignacion_mensaje11 = f'{negrita}{blanco}Recuerde que puede asignar hasta 3 modulos por estudiante{reset}'
-asignacion_mensaje12 = f'{negrita}{blanco}El estudiante no esta asociado a ningun modulo!{reset}'
-asignacion_mensaje_error1 = f'{negrita}{blanco}El codigo de estudiante no existe!{reset}'
-
-
-
-
+    
 docentes_mensaje1 = f'{negrita}{blanco}Ingrese 1 para agregar un nuevo docente\nIngrese 2 para asignar un docente existente a un modulo\nIngrese 3 para borrar modulos asociados con un docentes\n>>>{reset} '
 docentes_mensaje2 = f'{negrita}{blanco}Para registrar un docente debe ingresar los siguientes datos:{reset}'
 docentes_mensaje3 = f'\n{blanco}{negrita}> Cedula\n> Nombre{reset}'
