@@ -18,9 +18,11 @@ azul = "\033[34m"
 reset = "\033[0m"
 
 # Variables de mensajes predefinidos
-salir_tecla_espaciadora_mensaje = f'{negrita}{amarillo}Para salir presione la tecla espaciadora'
+salir_tecla_espaciadora_mensaje = f'{negrita}{rojo}Para salir presione la tecla espaciadora\n{reset}'
 volviendo_mensaje = f'{amarillo}{negrita}Regresando al menu anterior...{reset}'
 dato_invalido_mensaje = f'{rojo}{negrita}Ha ingresado un dato invalido...Vuelva a intentarlo, por favor.'
+validando_mensaje = f'{amarillo}{negrita}Validando informacion\nUn momento, por favor...{reset}'
+validacion_exito_mensaje = f'{verde}{negrita}Validación exitosa!{reset}'
 
 
 def limpiar_pantalla():
@@ -79,30 +81,14 @@ def center_text(text, width=160):
 
 def despedida():
     """Genera una pantalla de despedida cuando el usuario sale del programa."""
+    animacion_cargando(colorear("Cerrando el programa\nUn momento, por favor...", "verde"))
     limpiar_pantalla()
     print(adios)
-
-
-
-cambio_clave_m1 = f'{negrita}{blanco}Ingrese su usuario\n>>>{reset} '
-cambio_clave_m2 = f'{negrita}{blanco}Ingrese la clave actual\n>>>{reset} '
-cambio_clave_m3 = f'{negrita}{blanco}Ingrese la nueva clave\n>>>{reset} '
-cambio_clave_m4 = f'{negrita}{blanco}Se ha cambiado la clave exitosamente!\nVolviendo al menú!{reset}'
-cambio_clave_m5 = f'{negrita}{blanco}Ingrese la nueva clave otra vez\n>>>{reset} '
-cambio_clave_m6 = f'{negrita}{blanco}Las claves no coinciden!\n>>>{reset} '
+    sys.exit()
 
 cargando_informacion_mensaje = f'{blanco}{negrita}Cargando la informacion...Un momento...{reset}'
-validacion_exito_mensaje = f'{blanco}{negrita}Validación exitosa!{reset}'
-seguridad_mensaje = f'{blanco}{negrita}Por razones de seguridad, volverá al menú anterior...{reset}'
 volviendo_mensaje_mal_input = f'{blanco}{negrita}Se ha detectado un dato invalido. Volviendo al paso anterior...{reset}'
 borrando = f'{blanco}{negrita}Borrando la informacion...{reset}'
-
-
-
-error_archivo_m1 = f'''\033c{blanco}{negrita}Alguien a averiado el archivo en el que se guardaba la informacion!\n
-No te preocupes, hemos creado un nuevo archivo para que vuelvas a intentarlo!\n
-({amarillo}Tenias un respaldo de la informacion, cierto? D:{blanco}){reset}'''
-
 
 alumno_mensaje1 = f'{negrita}{blanco}Para registrar un alumno debe ingresar los siguientes datos:{reset}'
 alumno_mensaje2 = f'\n{blanco}{negrita}> Codigo numerico\n> Nombre\n> Sexo\n> Edad{reset}'
@@ -191,7 +177,7 @@ def getch():
 def ingresar_clave():
     """Falta todavía entender la función!!!"""
 
-    password = ""
+    clave = ""
     
     while True:
         char = getch()
@@ -199,18 +185,18 @@ def ingresar_clave():
             print() 
             break
         elif char == '\x7f':
-            if password:
-                password = password[:-1]
+            if clave:
+                clave = clave[:-1]
                 print('\b \b', end='', flush=True)
         else:
-            password += char
+            clave += char
             print('*', end='', flush=True)
 
-    return password
+    return clave
 
 def animacion_barra_progreso(message, duration=3):
     print(f"\n{message}")
-    width = 40
+    width = 38
     start_time = time.time()
 
     # Progress bar animation
@@ -218,28 +204,23 @@ def animacion_barra_progreso(message, duration=3):
         elapsed = time.time() - start_time
         filled = int(width * elapsed / duration)
         bar = f"[{'=' * filled}{' ' * (width - filled)}]"
-        percent = int(100 * elapsed / duration)
+        percent = min(100, int(100 * elapsed / duration))  # Ensures it never goes beyond 100%
         print(f"\r{bar} {percent}%", end="", flush=True)
         time.sleep(0.1)
 
-    # Loading symbols animation
-    loading_symbols = ['|', '/', '-', '\\']  # Define loading symbols here
-    while time.time() - start_time < duration:
-        for symbol in loading_symbols:
-            sys.stdout.write(f"\r{symbol}")
-            sys.stdout.flush()
-            time.sleep(0.2)
+    bar = f"[{'=' * width}]"
+    print(f"\r{bar} 100%")
 
-def animacion_cargando(message, duration=3):
-    print(f"\n{message}")
+
+def animacion_cargando(message, duration=1):
+    print(f"\n{message}\n")
+    marcador = ['⬛⬛⬛', '⬛⬛⬜', '⬛⬜⬛', '⬜⬛⬛']
     start_time = time.time()
-    
+
     while time.time() - start_time < duration:
-        for i in range(4):
-            print(f"\r{'.' * i}", end="", flush=True)
-            time.sleep(0.2)
-        for i in range(4, 0, -1):
-            print(f"\r{'.' * i}", end="", flush=True)
+        for char in marcador:
+            sys.stdout.write(f"\r{char}")
+            sys.stdout.flush()
             time.sleep(0.2)
 
 # Arte ASCII para los diferentes menus del programa.

@@ -16,9 +16,9 @@ from packages import art
 
 # Creación de variables que contienen las rutas de los archivos que se usarán.
 principal = './app_data/data.json'
-clave = './app_data/credenciales.json'
+credenciales = './app_data/credenciales.json'
       
-def primera_vez():
+def primera_vez(archivo=credenciales):
     """Comprueba si es la primera vez que se ejecuta el programa.
 
     Intenta abrir el archivo "clave" para determinar si el programa ha sido ejecutado antes. 
@@ -27,12 +27,12 @@ def primera_vez():
     En el caso que el archivo no exista, lo crea automaticamente.
 
     Args:
-        clave (str): La ruta del archivo que contiene la clave o información.
+        archivo (str): La ruta del archivo que contiene la clave o información.
 
     Returns:
         bool: True si es la primera vez que se ejecuta el programa, False en caso contrario.
     """
-    with open(clave, 'a+') as file:
+    with open(archivo, 'a+') as file:
         file.seek(0)
         return not bool(file.readlines())
 
@@ -63,8 +63,8 @@ def encriptador(texto):
     hash_objeto = hashlib.sha256(data)
     return hash_objeto.hexdigest()
 
-def nuevo_usuario(usuario, clave_inicial="SISGESA", archivo_final='crojoenciales.json'):
-    """Crea un nuevo usuario y guarda sus crojoenciales en un archivo JSON.
+def nuevo_usuario(usuario, clave_inicial="SISGESA", archivo_final=credenciales):
+    """Crea un nuevo usuario y guarda sus credenciales en un archivo JSON.
 
     Esta función toma el nombre de usuario y una clave inicial, y 
     guarda esta información en un archivo JSON después de encriptar la clave.
@@ -73,8 +73,8 @@ def nuevo_usuario(usuario, clave_inicial="SISGESA", archivo_final='crojoenciales
         usuario (str): El nombre del nuevo usuario.
         clave_inicial (str, optional): La clave inicial del usuario, 
             por defecto es "SISGESA".
-        clave (str, optional): El nombre del archivo donde se guardarán 
-            las crojoenciales, por defecto es 'crojoenciales.json'.
+        archivo_final (str, optional): El nombre del archivo donde se guardarán 
+            las credenciales, por defecto es 'credenciales.json'.
     
     Returns:
         str : La clave inicial del usuario
@@ -83,38 +83,47 @@ def nuevo_usuario(usuario, clave_inicial="SISGESA", archivo_final='crojoenciales
         "usuario": usuario,
         "clave": encriptador(clave_inicial)
     }
-    with open(clave, 'w+' ) as file:
+    with open(archivo_final, 'w+' ) as file:
         json.dump(usuario_y_clave, file)
     
     return clave_inicial
 
-def validacion_usuario_clave(user, password):
+def validacion_usuario_clave(usuario, clave):
     """Revisa si el usuario y la contraseña ingresada coinciden con la base de datos.
 
-    Esta función abre el archivo json en el que se guardan las crojoenciales del usuario, de
+    Esta función abre el archivo json en el que se guardan las credenciales del usuario, de
     esta manera compara la información ingresada por el usuario para autorizar el ingreso o no.
 
     Args:
-        user (str): El nombre de usuario ingresado al intentar iniciar sesión.
-        password (str): La representación hexadecimal del hash SHA-256 de la clave ingresada
+        usuario (str): El nombre de usuario ingresado al intentar iniciar sesión.
+        clave (str): La representación hexadecimal del hash SHA-256 de la clave ingresada
 
     Returns:
         bool : True si la validación es exitosa, False si no. 
     """
-    with open(clave) as file:
+    with open(credenciales) as file:
         data = json.load(file)  
-    if user == data['usuario'] and encriptador(password) == data['clave']:
+    if usuario == data['usuario'] and encriptador(clave) == data['clave']:
         return True
     return False
 
-def change_password(user, password):
+def cambiar_clave(usuario, clave):
+    """Cambia la clave del usuario en la base de datos. 
+    
+    La nueva clave es encriptada.
+    
+    Args:
+        usuario (str): El nombre de usuario que fue ingresado en el
+        menú de cambio de clave.
+        clave (str): La nueva clave que desea el usuario.
+    """
     
     info = {
-        'user': user,
-        'password': encriptador(password)
+        'usuario': usuario,
+        'clave': encriptador(clave)
     }
 
-    with open(clave, 'w+') as file:
+    with open(credenciales, 'w+') as file:
         json.dump(info, file)
 
 def cargar_grupo(codigo, nombre, sigla):

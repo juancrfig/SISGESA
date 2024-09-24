@@ -17,10 +17,10 @@ def main():
     while True:
         if data.primera_vez():
             data.crear_estructura_json()
-            if menus.registro_usuario() == 1:
+            if not menus.registro_usuario() == 'c':
                 break
         else:
-            #menus.ingresar()
+            menus.ingresar()
             while True:
                 try:
                     match menus.menu_principal(): 
@@ -39,15 +39,13 @@ def main():
                         case 7:
                             menus.generar_informe()
                         case 8:
-                            menus.cambio_contra()
+                            menus.cambio_clave()
                         case 9:
                             art.despedida()
-                            return 0
                         case _:
                             raise ValueError
                 except ValueError:
                     art.animacion_cargando(art.dato_invalido_mensaje)
-    art.animacion_cargando(art.colorear("Cerrando el programa\nUn momento, por favor...", "verde"))
     art.despedida()
 
 if __name__ == '__main__':

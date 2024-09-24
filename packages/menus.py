@@ -15,21 +15,24 @@ def registro_usuario():
     Returns:
         1 (int): Para señalar que el usuario desea continuar en el programa, en vez de salir.
     """
-    art.limpiar_pantalla()
-    print(art.colorear("Bienvenido a SISGESA! El software perfecto para administrar y supervisar la asistencia en su institución educativa!", "blanco"))
-    print(art.center_text(art.sisgesa))
-    print(art.colorear("Dado que es la primera vez que ingresa, debemos registrar el usuario que desea usar.\nIngrese a continuación el nombre de usuario\n>>> ", "blanco"), end='')
-    
-    usuario = input()
-    clave_inicial = data.nuevo_usuario(usuario)
+    while True:
+        art.limpiar_pantalla()
+        print(art.colorear("Bienvenido a SISGESA! El software perfecto para administrar y supervisar la asistencia en su institución educativa!", "blanco"))
+        print(art.center_text(art.sisgesa))
+        print(art.colorear("Para salir digite el numero 1!\n", "rojo"))
+        print(art.colorear("Dado que es la primera vez que ingresa, debemos registrar el usuario que desea usar\n", "blanco"), art.colorear("\nEl nombre de usuario debe ser de al menos 4 caracteres y solo letras", "amarillo"))
+        print(art.colorear("Ingrese el nombre de usuario que desea usar\n>>> ", "blanco"), end='')
+        usuario = input()
+        if not (usuario.isalpha() and len(usuario) > 3):
+            art.animacion_cargando(art.colorear("Ha ingresado un usuario invalido! Intentelo nuevamente...", "rojo"))
+            continue
+        clave_inicial = data.nuevo_usuario(usuario)
+        print(art.colorear(f"\nUsuario registrado exitosamente!\nSu contraseña es ", "blanco"), end='')
+        print(art.colorear(clave_inicial, "amarillo"), end='')
+        print(art.colorear(", recomendamos cambiarla para una mayor seguridad!", "blanco"))
+        print(art.colorear("\nPRESIONE 'C' para continuar o cualquier otra tecla para salir\n>>> ", "amarillo"), end='')
 
-    print(art.colorear(f"\nUsuario registrado exitosamente!\nSu contraseña es ", "blanco"), end='')
-    print(art.colorear(clave_inicial, "amarillo"), end='')
-    print(art.colorear(", recomendamos cambiarla para una mayor seguridad!", "blanco"))
-    print("\nPRESIONE 'C' para continuar o cualquier otra tecla para salir")
-    
-    if not input().lower() == 'c':
-        return 1
+        return input().lower()
 
 def ingresar():
     """Función para manejar el inicio de sesión del usuario.
@@ -43,13 +46,23 @@ def ingresar():
     while True:
         art.limpiar_pantalla()
         print(art.center_text(art.sisgesa), '\n')
+        print(art.colorear("Presione la tecla espaciadora para salir\n", "amarillo"))
         usuario = input(art.mensaje_ingresar_usuario)
+        if usuario.isspace():
+            art.despedida()
         print()
         print(art.mensaje_ingresar_contraseña, end='')
-
-        if data.validacion_usuario_clave(usuario, art.ingresar_clave()):
+        clave =  art.ingresar_clave()
+        if clave.isspace():
+            art.despedida()
+        art.animacion_barra_progreso(art.colorear(art.validando_mensaje, "amarillo"))
+        if data.validacion_usuario_clave(usuario, clave):
+            print(art.colorear(art.validacion_exito_mensaje, "verde"))
+            art.animacion_cargando(art.colorear("Ingresando a SISGESA", "verde"))
             return True
-        print(art.animacion_cargando(art.dato_invalido_mensaje))
+        else:
+            art.animacion_cargando(art.dato_invalido_mensaje)
+            continue
     
 def menu_principal():
     """Función que imprime en pantalla el menú principal del programa.
@@ -92,6 +105,7 @@ def registro_grupos():
             codigo = codigo.strip()
             if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
                 raise ValueError
+            
             print(art.colorear("Ingrese el nombre del grupo", "blanco"), art.colorear("(Debe tener entre 4 y 9 letras)\n", "amarillo"), art.colorear(">>> ", "blanco"), end='')
             nombre = input()
             if quiere_salir(nombre):
@@ -402,33 +416,42 @@ def generar_informe():
     print(art.generar_informe)
     input("Llegaste a la generación de informes!")
 
-def cambio_contra():
-
-    art.limpiar_pantalla()
-    print(art.cambio_de_clave)
-    print(art.cambio_clave_m1, end='')
-    user = input()
-    print(art.cambio_clave_m2, end='')
-    password = art.ingresar_clave()
-
-    if data.validacion_usuario_clave(user, password) == 0:
-        print(art.validacion_exito_mensaje)
-        print(art.cambio_clave_m3, end='')
-        new_pass = art.ingresar_clave()
-        print(art.cambio_clave_m5, end='')
-        new_pass2 = art.ingresar_clave()
-
-        if new_pass != new_pass2:
-            print(art.seguridad_mensaje)
-            art.animacion_cargando(art.cambio_clave_m6)
-            return 401
-        
-        data.change_password(user, new_pass)
-        print(art.cambio_clave_m4)
-        art.animacion_cargando('')
-        return 0
-
-    else:
-        print(art.seguridad_mensaje)
-        art.animacion_cargando(art.error_archivo_m1)
-        return 401
+def cambio_clave():
+    """Función que pide al usuario los datos requeridos para cambiar la clave."""
+    while True:
+        try:
+            art.limpiar_pantalla()
+            print(art.cambio_de_clave)
+            print(art.salir_tecla_espaciadora_mensaje)
+            print(art.colorear("Ingrese su usuario\n>>> ", "blanco"), end='')
+            usuario = input()
+            if quiere_salir(usuario):
+                break
+            print(art.colorear("Ingrese la clave actual\n>>> ", "blanco"), end='')
+            clave = art.ingresar_clave()
+            if quiere_salir(clave):
+                break
+            art.animacion_barra_progreso(art.validando_mensaje)
+            if data.validacion_usuario_clave(usuario, clave):
+                print(art.validacion_exito_mensaje)
+                print(art.colorear("La clave solo puede tener caracteres alfanumericos y debe ser de al menos 4 caracteres", "amarillo"))
+                print(art.colorear("\nIngrese la nueva clave\n>>> ", "blanco"), end='')
+                nueva_clave = art.ingresar_clave()
+                if quiere_salir(nueva_clave):
+                    break
+                print(art.colorear("\nIngrese la nueva clave otra vez\n>>> ", "blanco"), end='')
+                nueva_clave2 = art.ingresar_clave()                           
+                if quiere_salir(nueva_clave2):
+                    break
+                if not (nueva_clave.isalnum() and nueva_clave2.isalnum() and len(nueva_clave) >= 4 and len(nueva_clave2) >= 4):
+                    print(art.colorear("Ha ingresado una clave invalida! Intente nuevamente", "rojo"))
+                if nueva_clave != nueva_clave2:
+                    art.animacion_cargando(art.colorear("Las claves no coinciden!\nIntentelo nuevamente...", "rojo"))
+                    continue
+                data.cambiar_clave(usuario, nueva_clave)
+                art.animacion_cargando(art.colorear("Se ha cambiado la clave exitosamente!\nVolviendo al menú!", "verde"))
+                break
+            else:
+                art.animacion_cargando(art.colorear("Ha ingresado un usuario y/o clave incorrecto!\nIntentelo nuevamente!", "rojo"))
+        except ValueError:
+            art.animacion_cargando(art.dato_invalido_mensaje)
