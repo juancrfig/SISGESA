@@ -203,12 +203,12 @@ def asignar_grupo_alumno(codigo, grupo):
     with open(principal, 'w+') as file:
         json.dump(data, file, indent=4)
 
-def revisa_alumno_cuantos_modulos(codigo):
+def revisa_alumno_cuantos_modulos(codigo, person="alumno"):
     """Revisa si el alumno esta asignado a mas de 3 modulos."""
     with open(principal) as file:
         data = json.load(file)
 
-    return data["alumnos"][codigo].get("modulos")
+    return data[person][codigo].get("modulos")
 
 def asignar_modulo(codigo, modulo):
     """Asigna módulo a un alumno"""
@@ -249,12 +249,20 @@ def cargar_docente(cedula, nombre):
     with open(principal, 'w+') as file:
         json.dump(data, file, indent=4)
 
-def cuales_modulos_docente(cedula):
-
+def docente_existe(cedula):
+    """Retorna la lista de modulos del docente"""
     with open(principal) as file:
         data = json.load(file)
+    
+    if data["docentes"].get(cedula, False):
+        return True
+    return False
 
-    return data["docentes"][cedula]["modulos"]
+def cuales_modulos_docente(cedula):
+    with open(principal) as file:
+        data = json.load(file)
+    
+    return data["docentes"][cedula]
 
 def asignar_modulo_docente(cedula, modulo):
 

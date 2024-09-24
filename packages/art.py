@@ -86,14 +86,13 @@ def despedida():
     limpiar_pantalla()
     print(adios)
     sys.exit()
-    
+
 docentes_mensaje1 = f'{negrita}{blanco}Ingrese 1 para agregar un nuevo docente\nIngrese 2 para asignar un docente existente a un modulo\nIngrese 3 para borrar modulos asociados con un docentes\n>>>{reset} '
 docentes_mensaje2 = f'{negrita}{blanco}Para registrar un docente debe ingresar los siguientes datos:{reset}'
 docentes_mensaje3 = f'\n{blanco}{negrita}> Cedula\n> Nombre{reset}'
 docentes_mensaje4 = f'{blanco}{negrita}Ingrese la cedula ({amarillo}Debe tener entre 1 y 10 digitos{blanco})\n>>>{reset} '
 docentes_mensaje5 = f'{blanco}{negrita}Ingrese el nombre del docente ({amarillo}Debe tener entre 3 y 55 letras{blanco})\n>>>{reset} '
 docentes_mensaje6 = f'{blanco}{negrita}El docente tiene asignados los siguientes modulos...{reset} '
-docentes_mensaje7 = f'{blanco}{negrita}Ingrese la cedula del docente\n>>>{reset} '
 docentes_mensaje8 = f'{blanco}{negrita}El docente tiene ya asignada la cantidad maxima de modulos {amarillo}(3){blanco}!{reset} '
 docentes_mensaje9 = f'{blanco}{negrita}El docente no tiene ningun modulo asignado!{blanco}!{reset} '
 

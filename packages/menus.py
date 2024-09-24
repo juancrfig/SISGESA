@@ -374,83 +374,92 @@ def asignacion_modulos():
 def asignar_modulo_docente():
     
     while True:
-
-        art.limpiar_pantalla()
-        print(art.asignacion)
-        print(art.salir_tecla_espaciadora_mensaje)
-        print(art.docentes_mensaje7, end='')
-        cedula = input()
-
-        if cedula.isspace():
-            break
-
-        if len(data.cuales_modulos_docente(cedula)) == 3:
-            print(art.docentes_mensaje8)
-            art.animacion_cargando(art.volviendo_mensaje)
-            return 401
-        else:
-            print(art.asignacion_mensaje4, end='')
-            modulo = input()
-            data.asignar_modulo_docente(cedula, modulo)
-            art.animacion_cargando(art.cargando_informacion_mensaje)
+        try:
+            art.limpiar_pantalla()
+            print(art.asignacion)
+            print(art.salir_tecla_espaciadora_mensaje)
+            print(art.colorear("Ingrese la cedula del docente\n>>> ", "blanco"), end='')
+            cedula = input()
+            if cedula.isspace():
+                break
+            if quiere_salir(cedula):
+                return
+            if data.docente_existe(cedula):
+                modulos_actuales = data.cuales_modulos_docente(cedula.strip())["modulos"]
+                if len(modulos_actuales) == 3:
+                    art.animacion_cargando("El docente tiene asignada la  maxima cantidad de modulos!")
+                    return
+                else:
+                    print("El docente tiene asignados los siguientes modulos")
+                    print(data.cuales_modulos_docente(cedula.strip())["modulos"])
+                    print("Ingrese el codigo del modulo que quiere asignar...")
+                    modulo = input()
+                    if quiere_salir(modulo):
+                        return
+                    data.asignar_modulo_docente(cedula.strip(), modulo.strip())
+                    art.animacion_barra_progreso(art.cargando_informacion_mensaje)
+                    continue
+            else:
+                art.animacion_cargando("El docente no existe!")
+                continue
+        except ValueError:
+            print(art.colorear("Intentelo nuevamente", "blanco"))
+            art.animacion_cargando(art.dato_invalido_mensaje)
 
 def docentes():
-
-    art.limpiar_pantalla()
-    print(art.nuevo_docente)
-    print(art.docentes_mensaje1, end='')
-    answer = input()
-
-    if answer == '1':
-
-        registro_docente()
-
-    elif answer == '2':
-
-        asignar_modulo_docente()
-        return 401
-    
-    elif answer == '3':
-
-        eliminar_modulo_docente()
-        return 401
-
-    else:
-        raise ValueError
+    while True:
+        try:
+            art.limpiar_pantalla()
+            print(art.nuevo_docente)
+            print(art.volver_menu_principal_espaciadora)
+            print(art.docentes_mensaje1, end='')
+            answer = input()
+            if quiere_salir(answer):
+                return
+            if answer == '1':            
+                registro_docente()
+            elif answer == '2':           
+                asignar_modulo_docente()
+            elif answer == '3':            
+                eliminar_modulo_docente()
+            else:
+                raise ValueError
+        except ValueError:
+            art.animacion_cargando(art.dato_invalido_mensaje)
+            continue
 
 
 def eliminar_modulo_docente():
-
-    art.limpiar_pantalla()
-    print(art.borrar_modulo)
-    print(art.docentes_mensaje7, end='')
-    cedula = input()
-
     while True:
+        try:
+            art.limpiar_pantalla()
+            print(art.borrar_modulo)
+            print(art.colorear("Ingrese la cedula del docente\n>>> ", "blanco"), end='')
+            cedula = input().strip()
+            if data.docente_existe(cedula):
+                while True:
+                 art.limpiar_pantalla()
+                 print(art.borrar_modulo)
+                 if len(data.cuales_modulos_docente(cedula)) == 0:
+                     print(art.docentes_mensaje9)
+                     art.animacion_cargando(art.volviendo_mensaje)
+                     break
+                 print(art.docentes_mensaje6)
+                 print('-'.join(data.cuales_modulos_docente(cedula)["modulos"]))
+                 print(art.colorear("Ingrese el codigo del modulo que desea eliminar\n>>> ", "amarillo"), end='')
+                 modulo = input()
 
-        art.limpiar_pantalla()
-        print(art.borrar_modulo)
-        if len(data.cuales_modulos_docente(cedula)) == 0:
+                 if modulo.isspace():
+                     return 401
 
-            print(art.docentes_mensaje9)
-            art.animacion_cargando(art.volviendo_mensaje)
-            return 401
-        
-        print(art.docentes_mensaje6)
-        print('-'.join(data.cuales_modulos_docente(cedula)))
-        print(art.asignacion_mensaje8, end='')
-        modulo = input()
+                 data.borrar_modulo_docente(cedula, modulo)
+                 art.animacion_barra_progreso("Borrando modulo. Un momento")
+            else:
+                raise ValueError
+        except ValueError:
+            art.animacion_cargando(art.dato_invalido_mensaje)
+            continue
 
-        if modulo.isspace():
-            return 401
-        
-        data.borrar_modulo_docente(cedula, modulo)
-        art.animacion_cargando(art.borrando)
-
-
-
-
-  
 
 def registro_docente():
 
@@ -469,9 +478,8 @@ def registro_docente():
     if not (not nombre.isdigit() and 3 <= len(nombre) <= 55):
         raise ValueError
     
-    data.cargar_docente(cedula, nombre)
+    data.cargar_docente(cedula.strip(), nombre.strip())
     art.animacion_cargando(art.cargando_informacion_mensaje)
-    return 0    
 
 def registro_asistencia():
 
