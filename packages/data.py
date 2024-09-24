@@ -429,3 +429,22 @@ def consultar_alumnos_en_modulo(modulo):
         if modulo in modulos_alumno:
             alumnos.append(codigo)
     return alumnos
+
+def consultar_docentes_imparten_modulo(modulo):
+    """Consulta los docentes que imparten un modulo elegido.
+    
+    Args:
+        modulo (str): El codigo del modulo que se desea consultar.
+
+    Returns:
+        alumnos (list): La lista con los codigos de los docentes
+        registrados en el módulo elegido.
+    """
+    docentes = []
+    with open(principal) as file:
+        data = json.load(file)
+    for codigo in data["docentes"].keys():
+        modulos_alumno = data["docentes"][codigo].get("modulos")
+        if modulo in modulos_alumno:
+            docentes.append(codigo)
+    return docentes
