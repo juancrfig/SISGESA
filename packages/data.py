@@ -12,12 +12,11 @@ Imports:
 """
 import json
 import hashlib
-from datetime import datetime, timedelta, time
 from packages import art
 
 # Creación de variables que contienen las rutas de los archivos que se usarán.
 principal = './app_data/data.json'
-clave = './app_data/crojoenciales.json'
+clave = './app_data/credenciales.json'
       
 def primera_vez():
     """Comprueba si es la primera vez que se ejecuta el programa.
@@ -128,60 +127,8 @@ def cargar_grupo(codigo, nombre, sigla):
     with open(principal, 'w+') as file:
         json.dump(data, file, indent=4)
 
-def pedir_horario(weeks):
-
-    while True:
-
-        print(art.modulo_mensaje6, end='')
-        user_input_inicio = input()
-
-        try:
-            # Parse the input using strptime with the correct format
-            inicio_clase = datetime.strptime(user_input_inicio, "%Y-%m-%d %H:%M")
-            inicio_hora = inicio_clase.time()
-            
-            if not (time(5, 0) <= inicio_hora <= time(18, 0)): 
-                art.animacion_cargando(art.modulo_mensaje11)
-                raise ValueError           
-            while True:
-
-                print(art.modulo_mensaje7, end='')
-
-                fin_hora = datetime.strptime(input(), "%H:%M").time()
-                if not (time(6, 0) <= fin_hora <= time(23, 0)):
-                    art.animacion_cargando(art.modulo_mensaje12)
-                    raise ValueError
-
-                fin_fecha = inicio_clase + timedelta(weeks=int(weeks))
-
-                fin_clase = datetime.combine(fin_fecha.date(), fin_hora)
-
-                if fin_clase <= inicio_clase:
-                    art.animacion_cargando(art.modulo_mensaje9)
-                    raise ValueError
-                else:
-
-                    hoy = datetime.today()
-                    tmp_inicial = datetime.combine(hoy, inicio_hora)
-                    tmp_final = datetime.combine(hoy, fin_hora)
-                    duracion = tmp_final - tmp_inicial
-
-                    if timedelta(hours=1) <= duracion <= timedelta(hours=8):
-
-                        inicio_clase, fin_clase = str(inicio_clase), str(fin_clase)
-                        return (inicio_clase, fin_clase)
-                    else:
-                        art.animacion_cargando(art.modulo_mensaje10)
-                        raise ValueError
-
-
-        except ValueError:
-            # Catch any format errors and ask again
-            art.animacion_cargando(art.volviendo_mensaje_mal_input)
-
-
 def cargar_modulo(codigo, nombre, duracion, horario):
-
+    """Función para añadir un módulo al archivo JSON"""
     with open(principal) as file:
         data = json.load(file)
     

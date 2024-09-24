@@ -104,24 +104,6 @@ No te preocupes, hemos creado un nuevo archivo para que vuelvas a intentarlo!\n
 ({amarillo}Tenias un respaldo de la informacion, cierto? D:{blanco}){reset}'''
 
 
-
-modulo_mensaje1 = f'{negrita}{blanco}Para registrar un modulo debe ingresar los siguientes datos:{reset}'
-modulo_mensaje2 = f'\n{blanco}{negrita}> Codigo numerico\n> Nombre\n> Duracion en semanas\n> Horario{reset}'
-modulo_mensaje3 = f'{blanco}{negrita}Ingrese el codigo numerico ({amarillo}Debe tener entre 4 y 9 digitos{blanco})\n>>>{reset} '
-modulo_mensaje4 = f'{blanco}{negrita}Ingrese el nombre del modulo ({amarillo}Debe tener entre 4 y 55 letras{blanco})\n>>>{reset} '
-modulo_mensaje5 = f'{blanco}{negrita}Ingrese la duracion del modulo en semanas ({amarillo}Debe tener entre 1 y 2 digitos{blanco})\n>>>{reset} '
-modulo_mensaje6 = f'{blanco}{negrita}Ingrese la fecha y hora de inicio del modulo ({amarillo}"YYYY-MM-DD HH:MM" formato 24 horas"{blanco})\n>>>{reset} '
-modulo_mensaje7 = f'{blanco}{negrita}Ingrese el horario de fin del modulo ({amarillo}"HH:MM" formato 24 horas"{blanco})\n>>>{reset} '
-modulo_mensaje8 = f'{blanco}{negrita}Formato invalido. Por favor, ingrese fecha y hora en formato {negrita}{amarillo}"YYYY-MM-DD HH:MM".{reset} '
-modulo_mensaje9 = f'{blanco}{negrita}La hora de fin de la clase no puede ser antes que la de inicio D: {negrita}{amarillo}.{reset} '
-modulo_mensaje10 = f'{blanco}{negrita}La clase debe durar entre 1 y 8 horas {negrita}{amarillo}.{reset} '
-modulo_mensaje11 = f'{blanco}{negrita}Los modulos puede comenzar a las 05:00 y el ultimo puede empezar a las 18:00 como maximo{negrita}{amarillo}.{reset} '
-modulo_mensaje12 = f'{blanco}{negrita}Los modulos puede acabar desde las 06:00 y el ultimo puede acabar a las 23:00 como maximo{negrita}{amarillo}.{reset} '
-
-
-
-
-
 alumno_mensaje1 = f'{negrita}{blanco}Para registrar un alumno debe ingresar los siguientes datos:{reset}'
 alumno_mensaje2 = f'\n{blanco}{negrita}> Codigo numerico\n> Nombre\n> Sexo\n> Edad{reset}'
 alumno_mensaje3 = f'{blanco}{negrita}Ingrese el codigo numerico ({amarillo}Debe tener entre 4 y 9 digitos{blanco})\n>>>{reset} '

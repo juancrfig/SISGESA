@@ -6,6 +6,7 @@ para manejar el inicio de sesión y otras interacciones con el usuario.
 
 El módulo importa el módulo 'art' para añadir efectos estéticos a las funciones.
 """
+from datetime import datetime, timedelta, time
 from packages import art, data
 
 def registro_usuario():
@@ -39,15 +40,16 @@ def ingresar():
     Raises:
         ValueError: Si el nombre de usuario o la contraseña son inválidos.
     """
-    art.limpiar_pantalla()
-    print(art.center_text(art.sisgesa), '\n')
-    usuario = input(art.mensaje_ingresar_usuario)
-    print()
-    print(art.mensaje_ingresar_contraseña, end='')
+    while True:
+        art.limpiar_pantalla()
+        print(art.center_text(art.sisgesa), '\n')
+        usuario = input(art.mensaje_ingresar_usuario)
+        print()
+        print(art.mensaje_ingresar_contraseña, end='')
 
-    if data.validacion_usuario_clave(usuario, art.ingresar_clave()):
-        return True
-    return False
+        if data.validacion_usuario_clave(usuario, art.ingresar_clave()):
+            return True
+        print(art.animacion_cargando(art.dato_invalido_mensaje))
     
 def menu_principal():
     """Función que imprime en pantalla el menú principal del programa.
@@ -76,19 +78,19 @@ def quiere_salir(text):
 
 def registro_grupos():
     """Función que pide al usuario los datos requeridos para registrar un grupo."""
-    art.limpiar_pantalla()
-    print(art.nuevo_grupo)
-    print(art.colorear("Recuerde que si desea volver al menu principial en cualquier momento solo debe presionar la barra espaciadora\n", "rojo"))
-    print(art.colorear("Para registrar un grupo debe ingresar los siguientes datos:", "blanco"))
-    print(art.colorear("> Codigo numerico\n> Nombre\n> Sigla\n", "blanco"))
-    print(art.colorear("Ingrese el codigo numerico", "blanco"), art.colorear("(Debe tener entre 4 y 9 digitos)\n", "amarillo"), art.colorear(">>> ", "blanco"), end='')
-
     while True:
         try:
+            art.limpiar_pantalla()
+            print(art.nuevo_grupo)
+            print(art.colorear("Recuerde que si desea volver al menu principial en cualquier momento solo debe presionar la barra espaciadora\n", "rojo"))
+            print(art.colorear("Para registrar un grupo debe ingresar los siguientes datos:", "blanco"))
+            print(art.colorear("> Codigo numerico\n> Nombre\n> Sigla\n", "blanco"))
+            print(art.colorear("Ingrese el codigo numerico", "blanco"), art.colorear("(Debe tener entre 4 y 9 digitos)\n", "amarillo"), art.colorear(">>> ", "blanco"), end='')
             codigo = input()
             if quiere_salir(codigo):
                 return 
-            if not (codigo.strip().isdigit() and 4 <= len(codigo.strip()) <= 9):
+            codigo = codigo.strip()
+            if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
                 raise ValueError
             print(art.colorear("Ingrese el nombre del grupo", "blanco"), art.colorear("(Debe tener entre 4 y 9 letras)\n", "amarillo"), art.colorear(">>> ", "blanco"), end='')
             nombre = input()
@@ -107,40 +109,77 @@ def registro_grupos():
         except ValueError:
             art.animacion_cargando(art.dato_invalido_mensaje)
             continue
-    
-    data.cargar_grupo(codigo, nombre, sigla)
-    art.animacion_cargando(art.cargando_informacion_mensaje)
-    return 0
+        else:   
+            data.cargar_grupo(codigo, nombre, sigla)
+            art.animacion_cargando(art.cargando_informacion_mensaje)
+            return
 
 def registro_modulos():
-    art.limpiar_pantalla()
-    print(art.nuevo_modulo)
-    print(art.modulo_mensaje1, art.modulo_mensaje2)
-    print(art.modulo_mensaje3, end='')
-    codigo = input()
+    """Función que pide al usuario los datos requeridos para registrar un grupo."""
+    while True:
+        try:
+            art.limpiar_pantalla()
+            print(art.nuevo_modulo)
+            print(art.colorear("Recuerde que si desea volver al menu principial en cualquier momento solo debe presionar la barra espaciadora\n", "rojo"))
+            print(art.colorear("Para registrar un modulo debe ingresar los siguientes datos:", "blanco"))
+            print(art.colorear("> Codigo numerico\n> Nombre\n> Duracion en semanas\n> Horario", "blanco"))
+            print(art.colorear("Ingrese el codigo numerico", "blanco"), art.colorear("(Debe tener entre 4 y 9 digitos)", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
+            codigo = input()
+            if quiere_salir(codigo):
+                return
+            codigo = codigo.strip()
+            if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
+                raise ValueError
+            print(art.colorear("Ingrese el nombre del modulo", "blanco"), art.colorear("Debe tener entre 4 y 55 letras", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
+            nombre = input()
+            if quiere_salir(nombre):
+                return
+            nombre = nombre.strip().replace(' ', '_').upper()
+            if not (not nombre.isnumeric()  and 3 <= len(nombre) <= 55):
+                raise ValueError
+            print(art.colorear("Ingrese la duracion del modulo en semanas", "blanco"), art.colorear("Debe tener entre 1 y 2 digitos", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
+            duracion = input()
+            if quiere_salir(duracion):
+                return
+            duracion = duracion.strip()
+            if not (duracion.isnumeric() and 1 <= int(duracion) <= 99):
+                raise ValueError
+            print(art.colorear("\nLos modulos puede comenzar a las 06:00 y el ultimo puede empezar a las 18:00 como maximo", "amarillo"))
+            print(art.colorear("Ingrese la fecha y hora de inicio del modulo", "blanco"), art.colorear("(YYYY-MM-DD HH:MM formato 24 horas)", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
+            respuesta = input()
+            if quiere_salir(respuesta):
+                return
+            fecha_hora_inicio = datetime.strptime(respuesta.strip(), "%Y-%m-%d %H:%M")
+            inicio_hora = fecha_hora_inicio.time()
+            if not (time(6, 0) <= inicio_hora <= time(18, 0)):
+                raise ValueError
+            print(art.colorear("\nLos modulos puede acabar desde las 07:00 y el ultimo puede acabar a las 23:00 como maximo", "amarillo"))
+            print(art.colorear("La clase debe durar entre 1 y 5 horas", "amarillo"))
+            print(art.colorear("Ingrese la hora en que acaba el modulo", "blanco"), art.colorear("HH:MM formato 24 horas", "amarillo"), art.colorear("\n>>> ", "blanco"), end='')
+            fin_hora = input()
+            if quiere_salir(fin_hora):
+                return
+            fin_hora = datetime.strptime(fin_hora.strip(), "%H:%M").time()
+            if not (time(7, 0) <= fin_hora <= time(23, 0)):
+                raise ValueError
+            fin_fecha = fecha_hora_inicio + timedelta(weeks=int(duracion))
+            fecha_hora_final = datetime.combine(fin_fecha.date(), fin_hora)
+            if fecha_hora_final <= fecha_hora_inicio:
+                raise ValueError
+            hoy = datetime.today()
+            tmp_inicial = datetime.combine(hoy, inicio_hora)
+            tmp_final = datetime.combine(hoy, fin_hora)
+            duracion_clase = tmp_final - tmp_inicial
+            if timedelta(hours=1) <= duracion_clase <= timedelta(hours=8):
+                horario = (str(fecha_hora_inicio), str(fecha_hora_final))
 
-    if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
-        raise ValueError
-
-    print(art.modulo_mensaje4, end='')
-    nombre = input().strip().replace(' ', '_').upper()
-
-    if not (not nombre.isnumeric()  and 3 <= len(nombre) <= 55):
-        raise ValueError
-    
-    print(art.modulo_mensaje5, end='')
-    duracion = input()
-
-    if not (duracion.isnumeric() and 1 <= int(duracion) <= 99):
-        raise ValueError
-
-    horario = data.pedir_horario(duracion)
-
-    
-    data.cargar_modulo(codigo, nombre, duracion, horario)
-    art.animacion_cargando(art.cargando_informacion_mensaje)
-    return 0
-
+            data.cargar_modulo(codigo, nombre, str(duracion), horario)
+            print(art.colorear("Modulo cargado exitosamente!\nVolviendo al menu principial...", "verde"))
+            art.animacion_barra_progreso(art.cargando_informacion_mensaje)   
+            return 
+        except ValueError:
+            art.animacion_cargando(art.dato_invalido_mensaje)
+  
 def menu_estudiantes():
 
     art.limpiar_pantalla()
