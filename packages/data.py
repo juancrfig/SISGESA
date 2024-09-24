@@ -210,7 +210,7 @@ def asignar_grupo_alumno(codigo, grupo):
     with open(principal, 'w+') as file:
         json.dump(data, file, indent=4)
 
-def revisa_alumno_cuantos_modulos(codigo, person="alumno"):
+def revisa_alumno_cuantos_modulos(codigo, person="alumnos"):
     """Revisa si el alumno esta asignado a mas de 3 modulos."""
     with open(principal) as file:
         data = json.load(file)
@@ -229,8 +229,15 @@ def asignar_modulo(codigo, modulo):
             with open(principal, 'w+') as file:
                 json.dump(data, file, indent=4)
 
-            return True
+            with open(asistencia) as file:
+                data = json.load(file)
 
+            for clase in data[modulo]:
+                data[modulo][clase][codigo] = {}
+            
+            with open(asistencia, "+w") as file:
+                json.dump(data, file, indent=4)
+            return True
         else:
             return False
 
@@ -372,8 +379,16 @@ def revisar_datos_asistencia(modulo, fecha, alumno):
         tuple: La tupla contiene las cadenas "salida" y/o "llegada"
         simbolizando los datos de asistencia que faltan del alumno.
         Si la tupla está vacia significa que no hacen falta datos.
+        bool: Regresa False si no hacen falta datos para registrar
+        la asistencia del estudiante.
     """
     with open(asistencia) as file:
         data = json.load(file)
 
-    
+    match len(data[modulo][fecha][alumno].keys()):
+        case 0:
+            return 0
+        case 1:
+            return 1
+        case 2:
+            return False
