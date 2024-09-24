@@ -509,14 +509,16 @@ def registro_asistencia():
                 continue
             art.animacion_cargando(art.validando_mensaje)
             print(art.validacion_exito_mensaje)
-            print(art.colorear("Para registrar automaticamente la hora de entrada del estudiante usando la hora actual presione 1\nPara ingresar de la misma forma la hora de salida presione 2\n>>> ", "blanco"), end='')
+            fecha_hoy = datetime.today().strftime('%Y-%m-%d')
+            datos_asistencia = data.revisar_datos_asistencia(modulo, fecha_hoy, codigo)
+            print(art.colorear("Registraremos automaticamente la hora de entrada del estudiante usando la hora actual\nPresione cualquier tecla menos la barra espaciadora para iniciar el registro\n>>> ", "blanco"), end='')
             respuesta = input()
             if quiere_salir(respuesta):
                 return
-            if respuesta.strip() == '1':
-                if data.registrar_hora_asistencia(codigo.strip(), modulo.strip(), "llegada"):
-                    art.animacion_barra_progreso(art.cargando_informacion_mensaje)
-                    continue
+            if data.registrar_hora_asistencia(codigo.strip(), modulo.strip(), "llegada"):
+                art.animacion_barra_progreso(art.cargando_informacion_mensaje)
+                continue
+            print(art.colorear("A continuacion presione cualquier tecla menos la barra espaciadora para registrar la hora de salida del estudiante\n>>> ", "blanco"))
             if respuesta.strip() == '2':
                 if data.registrar_hora_asistencia(codigo.strip(), modulo.strip(), "salida"):
                     art.animacion_barra_progreso(art.cargando_informacion_mensaje)

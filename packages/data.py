@@ -360,3 +360,20 @@ def registrar_hora_asistencia(codigo, modulo, contexto):
             with open(asistencia, "w+") as file:
                 json.dump(data, file, indent=4)
                 return True
+            
+def revisar_datos_asistencia(modulo, fecha, alumno):
+    """Revisa si un estudiante ya registró su hora de llegada y/o de salida.
+    
+    Args:
+        modulo (str): El código del módulo que se desea revisar.
+        alumno (str): El código del alumno que se desea revisar.
+
+    Returns:
+        tuple: La tupla contiene las cadenas "salida" y/o "llegada"
+        simbolizando los datos de asistencia que faltan del alumno.
+        Si la tupla está vacia significa que no hacen falta datos.
+    """
+    with open(asistencia) as file:
+        data = json.load(file)
+
+    
