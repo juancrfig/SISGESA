@@ -199,6 +199,8 @@ def registro_modulos():
             art.animacion_cargando(art.dato_invalido_mensaje)
         else:
             data.cargar_modulo(codigo, nombre, str(duracion), horario)
+            dias = data.generar_dias_modulo(fecha_hora_inicio, fecha_hora_final)
+            data.registrar_dias_modulo(codigo, dias)
             art.animacion_barra_progreso(art.cargando_informacion_mensaje)   
             art.animacion_cargando(art.colorear("Modulo cargado exitosamente!\nSi desea cargar otro presione 1, de lo contrario volvera al menu principal.", "verde"))
             if input() == '1':

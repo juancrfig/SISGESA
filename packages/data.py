@@ -46,14 +46,11 @@ def crear_estructura_json():
         "alumnos": {},
         "docentes": {},
     }
-    with open(principal, 'w') as file:
+    with open(principal, 'a+') as file:
+        file.seek(0)
         json.dump(data, file, indent=4)
 
-    asistencia_estructura_json = {
-        "modulo": {
-            "dias": {}
-        }
-    }
+    asistencia_estructura_json = {}
     with open(asistencia, "w") as file:
         json.dump(asistencia_estructura_json, file, indent=4)
 
@@ -294,6 +291,48 @@ def borrar_modulo_docente(cedula, modulo):
     with open(principal, "w+") as file:
         json.dump(data, file, indent=4)
 
+def generar_dias_modulo(inicio, fin):
+    """Genera una lista que contiene los dias que se dictará el módulo
+    
+    Args:
+        inicio (str): Fecha en formato YYYY-MM-DD HH:MM:SS que simboliza el dia
+        y hora de inicio del módulo.
+        fin (str): Fecha en formato YYYY-MM-DD HH:MM:SS que simboliza el dia y 
+        hora de finalización del módulo.
+
+    Returns:
+        dias (list): Una lista que contiene los dias que se dictará el módulo,
+        sin contar los días que sean fin de semana.
+    """
+    dias = []
+    fecha_actual = inicio
+    while fecha_actual <= fin:
+        # Revisa si es un dia de la semana (Lunes=0, Domingo=6)
+        if fecha_actual.weekday() < 5:  # Monday to Friday
+            dias.append(fecha_actual.strftime("%Y-%m-%d"))
+        # Se mueve al siguiente día
+        fecha_actual += timedelta(days=1)
+    return dias
+
+def registrar_dias_modulo(modulo, dias):
+    """Registra en la estructura JSON de asistencia los días de cada módulo
+    
+    Args:
+        dias (list): Una lista que contiene los dias que se dictará cada módulo.
+    """
+    dias = {date: {} for date in dias}
+
+    try:
+        with open(asistencia, "a+") as file:
+            file.seek(0)
+            data = json.load(file)
+    except FileNotFoundError:
+        data = {}
+
+    data[modulo] = dias
+    with open(asistencia, "w+") as file:
+        json.dump(data, file, indent=4)
+
 def registrar_hora_asistencia(codigo, modulo, contexto):
     """Registra automáticamente en el JSON la asistencia del estudiante.
     
@@ -308,31 +347,4 @@ def registrar_hora_asistencia(codigo, modulo, contexto):
     """
     with open(asistencia) as file:
         data = json.load(file)
-    data = "o"
-
-def generar_dias_modulo(inicio, fin):
-    """Genera una lista que contiene los dias que se dictará el módulo
-    
-    Args:
-        inicio (str): Fecha en formato YYYY-MM-DD HH:MM:SS que simboliza el dia
-        y hora de inicio del módulo.
-        fin (str): Fecha en formato YYYY-MM-DD HH:MM:SS que simboliza el dia y 
-        hora de finalización del módulo.
-
-    Returns:
-        dias (list): Una lista que contiene los dias que se dictará el módulo,
-        sin contar los días que sean fin de semana.
-    """
-    # Convierte el texto a datetime
-    fecha_inicio = datetime.strptime(inicio, "%Y-%m-%d %H:%M:%S")
-    fecha_fin = datetime.strptime(fin, "%Y-%m-%d %H:%M:%S")
-    dias = []
-    fecha_actual = fecha_inicio
-    while fecha_actual <= fecha_fin:
-        # Revisa si es un dia de la semana (Lunes=0, Domingo=6)
-        if fecha_actual.weekday() < 5:  # Monday to Friday
-            dias.append(fecha_actual.strftime("%Y-%m-%d"))
-            # Se mueve al siguiente día
-            fecha_actual += timedelta(days=1)
-    return dias
-    
+    data = "o"    
