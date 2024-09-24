@@ -540,9 +540,47 @@ def registro_asistencia():
             art.animacion_cargando(art.dato_invalido_mensaje)
 
 def consultar_info():
-    art.limpiar_pantalla()
-    print(art.consultas)
-    input("Llegaste a la consulta de información!")
+    while True:
+        try:
+            art.limpiar_pantalla()
+            print(art.consultas)
+            print(art.tabla_consultas)
+            print(art.salir_tecla_espaciadora_mensaje)
+            print(art.colorear("Ingrese la opcion que desea consultar\n>>> ", "blanco"), end='')
+            respuesta = input()
+            if quiere_salir(respuesta):
+                return
+            match respuesta.strip():
+                case "1":
+                    print(art.colorear("Ingrese el codigo del grupo que desea consultar\n>>> ", "blanco"), end='')
+                    grupo = input()
+                    if quiere_salir(grupo):
+                        return
+                    alumnos = data.consultar_alumnos_en_grupo(grupo.strip())
+                    print(f"Para el grupo {grupo} se registran los siguientes codigos de alumnos:\n")
+                    print(', '.join(alumnos))
+                    print("\n\nPresione cualquier tecla para volver")
+                    input()
+                    
+                case "2":
+                    print(art.colorear("Ingrese el codigo del modulo que desea consultar\n>>> ", "blanco"), end='')
+                    respuesta = input()
+                    if quiere_salir(respuesta):
+                        return                    
+                case "3":
+                    print(art.colorear("Ingrese el codigo del grupo que desea consultar\n>>> ", "blanco"), end='')
+                    respuesta = input()
+                    if quiere_salir(respuesta):
+                        return
+                case "4":
+                    print(art.colorear("Ingrese el codigo del grupo que desea consultar\n>>> ", "blanco"), end='')
+                    respuesta = input()
+                    if quiere_salir(respuesta):
+                        return
+                case _:
+                    raise ValueError
+        except ValueError:
+            art.animacion_cargando(art.dato_invalido_mensaje)
 
 def generar_informe():
     art.limpiar_pantalla()

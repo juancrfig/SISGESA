@@ -337,3 +337,14 @@ prompt_symbol = f'{negrita}{blanco}>>> {reset}'.rjust(85)
 mensaje_ingresar_usuario = f'{x}\n\n{prompt_symbol}'
 y = f'{negrita}{blanco}Ingrese su contraseña{reset}'.center(170)
 mensaje_ingresar_contraseña = f'{y}\n\n{prompt_symbol}'
+
+tabla_consultas = """
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                           \033[1;34mOpciones de consulta\033[0m                               │
+├──────────────────────────────────────────────────────────────────────────────┤
+│ \033[1;37m1  - Consultar los estudiantes matriculados en un grupo\033[0m                      │
+│ \033[1;37m2  - Consultar los estudiantes inscritos en un módulo\033[0m                        │
+│ \033[1;37m3  - Consultar los docentes que imparten un módulo\033[0m                           │
+│ \033[1;37m4  - Consultar los estudiantes a cargo de un docente en un módulo\033[0m            │
+└──────────────────────────────────────────────────────────────────────────────┘
+"""
