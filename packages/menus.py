@@ -564,9 +564,15 @@ def consultar_info():
                     
                 case "2":
                     print(art.colorear("Ingrese el codigo del modulo que desea consultar\n>>> ", "blanco"), end='')
-                    respuesta = input()
-                    if quiere_salir(respuesta):
-                        return                    
+                    modulo = input()
+                    if quiere_salir(modulo):
+                        return
+                    alumnos = data.consultar_alumnos_en_modulo(modulo.strip())
+                    print(f"Para el modulo {modulo} se registran los siguientes codigos de alumnos:\n")
+                    print(', '.join(alumnos))
+                    print("\n\nPresione cualquier tecla para volver")
+                    input()
+
                 case "3":
                     print(art.colorear("Ingrese el codigo del grupo que desea consultar\n>>> ", "blanco"), end='')
                     respuesta = input()
