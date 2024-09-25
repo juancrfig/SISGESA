@@ -236,12 +236,16 @@ def menu_estudiantes():
                             codigo = input()
                             if quiere_salir(codigo):
                                 return
+                            if not data.revisa_alumno_existe(codigo.strip()):
+                                raise ValueError
                             if not (codigo.isdigit() and 4 <= len(codigo) <= 9):
                                 raise ValueError
                             print(art.colorear("Ingrese el codigo del grupo al que desea asignar al alumno\n>>> ", "blanco"), end='')
                             grupo = input()
                             if quiere_salir(grupo):
                                 return
+                            if not data.revisar_codigo_existe(grupo.strip(), "grupos"):
+                                raise ValueError
                             if not (grupo.isdigit() and 4 <= len(codigo) <= 9):
                                 raise ValueError
                         except ValueError:
@@ -440,8 +444,12 @@ def eliminar_modulo_docente():
         try:
             art.limpiar_pantalla()
             print(art.borrar_modulo)
+            print(art.salir_tecla_espaciadora_mensaje)
             print(art.colorear("Ingrese la cedula del docente\n>>> ", "blanco"), end='')
-            cedula = input().strip()
+            cedula = input()
+            if quiere_salir(cedula):
+                return
+            cedula = cedula.strip()
             if data.docente_existe(cedula):
                 while True:
                  art.limpiar_pantalla()
@@ -471,9 +479,13 @@ def registro_docente():
 
     art.limpiar_pantalla()
     print(art.nuevo_docente)
+    print(art.salir_tecla_espaciadora_mensaje)
     print(art.docentes_mensaje2, art.docentes_mensaje3)
     print(art.docentes_mensaje4, end='')
     cedula = input()
+    if quiere_salir(cedula):
+        return
+    cedula = cedula.strip()
 
     if not (cedula.isdigit() and 1 <= len(cedula) <= 10):
         raise ValueError

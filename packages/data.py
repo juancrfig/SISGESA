@@ -201,14 +201,16 @@ def revisa_alumno_existe(codigo):
     return False
     
 def asignar_grupo_alumno(codigo, grupo):
+    try:
+        with open(principal) as file:
+            data = json.load(file)
 
-    with open(principal) as file:
-        data = json.load(file)
-
-    data["alumnos"][codigo]["grupo"] = grupo
-
-    with open(principal, 'w+') as file:
-        json.dump(data, file, indent=4)
+        data["alumnos"][codigo]["grupo"] = grupo
+    except KeyError:
+        art.animacion_cargando(art.dato_invalido_mensaje)
+    else:
+        with open(principal, 'w+') as file:
+            json.dump(data, file, indent=4)
 
 def revisa_alumno_cuantos_modulos(codigo, person="alumnos"):
     """Revisa si el alumno esta asignado a mas de 3 modulos."""
@@ -461,16 +463,20 @@ def consultar_estudiantes_a_cargo_docente_en_modulo(cedula, modulo):
         alumnos (list): Una lista que contiene los alumnos que están
         asignados en el módulo ingresado y reciben clases del docente ingresado.
     """
-    alumnos = []
-    with open(principal) as file:
-        info = json.load(file)
-    if modulo in info["docentes"][cedula]["modulos"]:
-        print(f"El docente {info['docentes'][cedula]['nombre']} imparte el modulo {modulo}.")
-        print(f"Los estudiantes que tiene a cargo son:")
-        alumnos = consultar_alumnos_en_modulo(modulo)
-        print(', '.join(alumnos))
-        print("\n\nPresione cualquier tecla para volver")
-        input()
-    else:
-        print(f"El docente {info['docentes'][cedula]['nombre']} no imparte el modulo {modulo}")
+    try:
+        alumnos = []
+        with open(principal) as file:
+            info = json.load(file)
+        if modulo in info["docentes"][cedula]["modulos"]:
+            print(f"El docente {info['docentes'][cedula]['nombre']} imparte el modulo {modulo}.")
+            print(f"Los estudiantes que tiene a cargo son:")
+            alumnos = consultar_alumnos_en_modulo(modulo)
+            print(', '.join(alumnos))
+            print("\n\nPresione cualquier tecla para volver")
+            input()
+        else:
+            print(f"El docente {info['docentes'][cedula]['nombre']} no imparte el modulo {modulo}")
+    except KeyError:
+        print("Parece que el docente y/o el modulo ingresado no estan registrados")
+        art.animacion_cargando(art.dato_invalido_mensaje)
     
