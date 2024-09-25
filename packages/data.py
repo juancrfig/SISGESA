@@ -490,6 +490,12 @@ def alumnos_asistencia_perfecta(alumno, modulo):
             return False
     return True 
 
+def cuales_modulos_alumno(codigo):
+    with open(principal) as file:
+        data = json.load(file)
+    
+    return data["alumnos"][codigo]["modulos"]   
+
 
 def porcentaje_asistencias(modulo, dia):
 

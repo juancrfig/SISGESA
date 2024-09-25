@@ -645,29 +645,29 @@ def estudiantes_sin_faltas_mes():
             if quiere_salir(codigo):
                 return
             if data.revisa_alumno_existe(codigo.strip()):
-                print("Ingrese el codigo del modulo que desea revisar\n>>> ", end='')
-                modulo = input()
-                if quiere_salir(modulo):
-                    return
-                if data.revisar_codigo_existe(modulo.strip(), "modulos"):
-                    if data.alumnos_asistencia_perfecta(codigo.strip(), modulo.strip()):
-                        art.animacion_cargando("Chequeando informacion...")
-                        print(art.colorear("\n\nEl alumno tiene una asistencia perfecta!!!", "verde"))
-                    else:
-                         print(art.colorear("\n\nEl alumno no tiene una asistencia perfecta.", "rojo"))                       
-                    print("\nPresione cualquier tecla para continuar")
-                    if quiere_salir(input()):
-                        return
-                    continue
-                else:
-                    art.animacion_cargando("El modulo no existe!")
-                    raise ValueError
+                modulos_asignados_alumno = data.cuales_modulos_alumno(codigo)
+                art.animacion_cargando("Chequeando informacion...")
+                try:
+                    for m in modulos_asignados_alumno:
+                        if not data.alumnos_asistencia_perfecta(codigo.strip(), m):
+                            print(art.colorear("\n\nEl alumno no tiene una asistencia perfecta.", "rojo"))
+                            print("\nPresione cualquier tecla para continuar")
+                            if quiere_salir(input()):
+                                return
+                            continue
+                        else:
+                            print(art.colorear("\n\nEl alumno tiene una asistencia perfecta!!!", "verde"))   
+                            if quiere_salir(input()):
+                                return
+                            continue 
+                except KeyError:
+                    print("Se intentó chequear la asistencia de un estudiante para un modulo que no esta registrado en la base de datos!")
+                    print("Verifique la informacion que hay registrada sobre los modulos en la base de datos e intente nuevamente!")
+                    art.animacion_cargando("Volviendo")
+                    continue            
             else:
                 art.animacion_cargando("El alumno no existe!")
-                continue
-            respuesta = input()
-            if quiere_salir(respuesta):
-                return    
+                raise ValueError
         except ValueError:
             art.animacion_cargando(art.dato_invalido_mensaje)
 
