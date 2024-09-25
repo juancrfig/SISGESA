@@ -626,11 +626,48 @@ def generar_informe():
                 case '2':
                     pass
                 case '3':
-                    pass
+                    estudiantes_sin_faltas_mes()
                 case '4':
                     asistencia_porcentaje_dia()
                 case _:
                     raise ValueError
+        except ValueError:
+            art.animacion_cargando(art.dato_invalido_mensaje)
+
+def estudiantes_sin_faltas_mes():
+    while True:
+        try:
+            art.limpiar_pantalla()
+            print(art.generar_informe)
+            print(art.salir_tecla_espaciadora_mensaje)
+            print("Ingrese el codigo del estudiante\n>>> ", end='')
+            codigo = input()
+            if quiere_salir(codigo):
+                return
+            if data.revisa_alumno_existe(codigo.strip()):
+                print("Ingrese el codigo del modulo que desea revisar\n>>> ", end='')
+                modulo = input()
+                if quiere_salir(modulo):
+                    return
+                if data.revisar_codigo_existe(modulo.strip(), "modulos"):
+                    if data.alumnos_asistencia_perfecta(codigo.strip(), modulo.strip()):
+                        art.animacion_cargando("Chequeando informacion...")
+                        print(art.colorear("\n\nEl alumno tiene una asistencia perfecta!!!", "verde"))
+                    else:
+                         print(art.colorear("\n\nEl alumno no tiene una asistencia perfecta.", "rojo"))                       
+                    print("\nPresione cualquier tecla para continuar")
+                    if quiere_salir(input()):
+                        return
+                    continue
+                else:
+                    art.animacion_cargando("El modulo no existe!")
+                    raise ValueError
+            else:
+                art.animacion_cargando("El alumno no existe!")
+                continue
+            respuesta = input()
+            if quiere_salir(respuesta):
+                return    
         except ValueError:
             art.animacion_cargando(art.dato_invalido_mensaje)
 

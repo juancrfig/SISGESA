@@ -480,6 +480,17 @@ def consultar_estudiantes_a_cargo_docente_en_modulo(cedula, modulo):
         print("Parece que el docente y/o el modulo ingresado no estan registrados")
         art.animacion_cargando(art.dato_invalido_mensaje)
 
+def alumnos_asistencia_perfecta(alumno, modulo):
+
+    with open(asistencia) as file:
+        data = json.load(file)
+
+    for dia in data[modulo].keys():
+        if alumno not in data[modulo][dia].keys():
+            return False
+    return True 
+
+
 def porcentaje_asistencias(modulo, dia):
 
     # Calcula la cantidad de alumnos matriculados al modulo ingresado

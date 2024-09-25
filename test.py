@@ -1,4 +1,5 @@
 import json
+from packages import data
 
 principal = './app_data/data.json'
 asistencia = './app_data/asistencia.json'
@@ -7,23 +8,22 @@ modulo = "0001"
 dia = "2024-01-15"
 
 
-def porcentaje_asistencias(modulo, dia):
+def alumnos_asistencia_perfecta(alumno, modulo):
 
-    # Calcula la cantidad de alumnos matriculados al modulo ingresado
-    with open(principal) as file:
-        data = json.load(file)  
-    alumnos = 0
-    for codigo in data["alumnos"].keys():
-        for m in data["alumnos"][codigo]["modulos"]:
-            if m == modulo:
-                alumnos += 1
-    
-    # Calcula la cantidad de estudiantes que asistieron en el dia solicitado
     with open(asistencia) as file:
         data = json.load(file)
-    asistencias_dia =len(data[modulo][dia].keys())
 
-    porcentaje_asistencia = (asistencias_dia / alumnos) * 100
-    return porcentaje_asistencia
+    for dia in data[modulo].keys():
+        if alumno not in data[modulo][dia].keys():
+            return False
+    return True 
 
-print(porcentaje_asistencias(modulo, dia))
+if data.revisar_codigo_existe(modulo, "modulos"):
+    if alumnos_asistencia_perfecta("0001", modulo):
+        print("Asistencia perfecta!")
+    else:
+        print("Asistencia no perfecta!")
+else:
+    print("El modulo no existe")
+    
+    
