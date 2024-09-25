@@ -622,7 +622,10 @@ def generar_informe():
                 return
             match respuesta:
                 case '1':
-                    informe_alumnos_tarde()
+                    if informe_alumnos_tarde():
+                        print("El estudiante llego tarde al menos una vez en el mes ingresado!")
+                        input("Ingrese cualquier tecla para continuar")
+                        continue
                 case '2':
                     pass
                 case '3':
@@ -706,6 +709,19 @@ def informe_alumnos_tarde():
             codigo = input(art.colorear("Ingrese el codigo del alumno\n>>> ", "blanco"))
             if quiere_salir(codigo):
                 return
+            
+            modulos_asignados = data.cuales_modulos_alumno(codigo.strip())
+            print(art.colorear("Ingrese el mes que desea revisar por retardos\n (FORMATO MM)\n>>> ", "amarillo"), end='')
+            mes = input()
+            if quiere_salir(mes):
+                return
+            mes = mes.strip()
+            if not (mes.isdigit() and mes <= 12):
+                art.animacion_cargando("Ha ingresado un formato de mes invalido!")
+                continue
+            for mod in modulos_asignados:
+                if data.revisar_retardo_en_mes(mod, mes, codigo.strip()):
+                    return True
             
         except ValueError:
             art.animacion_cargando(art.dato_invalido_mensaje)

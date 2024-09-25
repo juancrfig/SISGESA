@@ -515,3 +515,30 @@ def porcentaje_asistencias(modulo, dia):
 
     porcentaje_asistencia = (asistencias_dia / alumnos) * 100
     return round(porcentaje_asistencia, 2)
+
+def revisar_retardo_en_mes(modulo, mes):
+    
+    with open(asistencia) as file:
+        data = json.load(file)
+
+    
+def obtener_hora_inicio_modulo(modulo):
+    with open(principal) as file:
+        data = json.load(file)
+
+    fecha_con_hora_inicio = data["modulos"][modulo]["horario"]["inicio"]
+    fecha_con_hora_inicio = fecha_con_hora_inicio.split()
+    return fecha_con_hora_inicio[1]
+
+def revisar_retardo_en_mes(modulo, mes, alumno=''):
+    
+    hora_inicio = obtener_hora_inicio_modulo(modulo) 
+
+    with open(asistencia) as file:
+        data = json.load(file)
+    for fecha in data[modulo].keys():
+        if fecha.split("-")[1] == mes:
+            for llave in data[modulo][fecha][alumno].keys():
+                if data[modulo][fecha][alumno]["llegada"] > hora_inicio:
+                   return True 
+    
