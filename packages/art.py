@@ -348,3 +348,17 @@ tabla_consultas = """
 │ \033[1;37m4  - Consultar los estudiantes a cargo de un docente en un módulo\033[0m            │
 └──────────────────────────────────────────────────────────────────────────────┘
 """
+tabla_informes = """
++----------------------------------------------------------------+
+| 1. Estudiantes que han llegado tarde a un módulo en un mes     |
+|    específico                                                  |
++----------------------------------------------------------------+
+| 2. Estudiantes que se retiraron antes de la finalización       |
+|    de una sesión en un mes específico                          |
++----------------------------------------------------------------+
+| 3. Estudiantes que no han faltado a ningún módulo durante      |
+|    un mes                                                      |
++----------------------------------------------------------------+
+| 4. Porcentaje de asistencia por módulo                         |
++----------------------------------------------------------------+
+"""

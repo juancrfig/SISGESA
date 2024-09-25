@@ -522,7 +522,7 @@ def registro_asistencia():
 
             # La fecha en la que se registrará la asistencia
             fecha_hoy = datetime.today().strftime('%Y-%m-%d')
-            if not data.revisar_datos_asistencia(modulo, fecha_hoy, codigo):
+            if data.revisar_datos_asistencia(modulo, fecha_hoy, codigo) == 2:
                 print(art.colorear("El estudiante ya tiene registrados sus dos datos de asistencia para esta clase!", "amarillo"))
                 answer = input(art.colorear("Oprima espacio volver al menu principial\nOprima cualquier otra tecla para ingresar otro dato de asistencia\n>>> ", "amarillo"))
                 if quiere_salir(answer):
@@ -539,7 +539,7 @@ def registro_asistencia():
                     continue
             
             if data.revisar_datos_asistencia(modulo, fecha_hoy, codigo) == 1: 
-                print(art.colorear("A continuacion presione cualquier tecla menos la barra espaciadora para registrar la hora de salida del estudiante\n>>> ", "blanco"))
+                print(art.colorear("A continuacion presione cualquier tecla menos la barra espaciadora para registrar la hora de salida del estudiante\n>>> ", "blanco"), end='')
                 answer = input()
                 if quiere_salir(answer):
                     return
@@ -611,9 +611,67 @@ def consultar_info():
             art.animacion_cargando(art.dato_invalido_mensaje)
 
 def generar_informe():
-    art.limpiar_pantalla()
-    print(art.generar_informe)
-    input("Llegaste a la generación de informes!")
+    while True:
+        try:
+            art.limpiar_pantalla()
+            print(art.generar_informe)
+            print(art.salir_tecla_espaciadora_mensaje)
+            print(art.tabla_informes)
+            respuesta = input(art.colorear("Ingresa la opcion deseada\n>>> ", "blanco"))
+            if quiere_salir(respuesta):
+                return
+            match respuesta:
+                case '1':
+                    informe_alumnos_tarde()
+                case '2':
+                    pass
+                case '3':
+                    pass
+                case '4':
+                    asistencia_porcentaje_dia()
+                case _:
+                    raise ValueError
+        except ValueError:
+            art.animacion_cargando(art.dato_invalido_mensaje)
+
+def asistencia_porcentaje_dia():
+    while True:
+        try:
+            art.limpiar_pantalla()
+            print(art.generar_informe)
+            print(art.salir_tecla_espaciadora_mensaje)
+            modulo = input(art.colorear("Ingrese el codigo del modulo\n>>> ", "blanco"))
+            if quiere_salir(modulo):
+                return
+            print("Ingrese el dia de clase que quiere revisar la asistencia\nFormato (YYYY-MM-DD)\n>>>", end='')
+            dia = input()
+            if quiere_salir(dia):
+                return
+            porcentaje = data.porcentaje_asistencias(modulo.strip(), dia.strip())
+            art.animacion_barra_progreso(art.cargando_informacion_mensaje)
+            print(f"\n\nEl porcentaje de asistencias para el dia {dia} en el modulo {modulo} fue de {porcentaje}%")
+            print("\n\n Para salir presione espacio, de lo contrario presione cualquier tecla para consultar la asistencia de otro dia y/o modulo")
+            respuesta = input()
+            if quiere_salir(respuesta):
+                return
+            continue
+            
+        except ValueError:
+            art.animacion_cargando(art.dato_invalido_mensaje)
+
+def informe_alumnos_tarde():
+    """Genera las instrucciones en pantalla para generar el informe de alumnos con retraso"""
+    while True:
+        try:
+            art.limpiar_pantalla()
+            print(art.generar_informe)
+            print(art.salir_tecla_espaciadora_mensaje)
+            codigo = input(art.colorear("Ingrese el codigo del alumno\n>>> ", "blanco"))
+            if quiere_salir(codigo):
+                return
+            
+        except ValueError:
+            art.animacion_cargando(art.dato_invalido_mensaje)
 
 def cambio_clave():
     """Función que pide al usuario los datos requeridos para cambiar la clave."""
