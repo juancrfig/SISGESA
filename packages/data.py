@@ -387,14 +387,18 @@ def revisar_datos_asistencia(modulo, fecha, alumno):
     with open(asistencia) as file:
         data = json.load(file)
 
-    match len(data[modulo][fecha][alumno].keys()):
-        case 0:
-            return 0
-        case 1:
-            return 1
-        case 2:
-            return False
-        
+    try:
+        match len(data[modulo][fecha][alumno].keys()):
+            case 0:
+                return 0
+            case 1:
+                return 1
+            case 2:
+                return False
+    except KeyError:
+        print("Esta intentando registrar la asistencia de un estudiante pero el modulo seleccionado no tiene clases asociadas para el dia de hoy")
+        input("Presione cualquier tecla para continuar")
+        return 42
 def consultar_alumnos_en_grupo(grupo):
     """Consulta qué alumnos están en un grupo.
     

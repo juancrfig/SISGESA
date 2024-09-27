@@ -522,6 +522,8 @@ def registro_asistencia():
 
             # La fecha en la que se registrará la asistencia
             fecha_hoy = datetime.today().strftime('%Y-%m-%d')
+            if data.revisar_datos_asistencia(modulo, fecha_hoy, codigo) == 42:
+                continue
             if data.revisar_datos_asistencia(modulo, fecha_hoy, codigo) == 2:
                 print(art.colorear("El estudiante ya tiene registrados sus dos datos de asistencia para esta clase!", "amarillo"))
                 answer = input(art.colorear("Oprima espacio volver al menu principial\nOprima cualquier otra tecla para ingresar otro dato de asistencia\n>>> ", "amarillo"))
@@ -548,7 +550,7 @@ def registro_asistencia():
                     continue
             else:
                 raise ValueError
-        except ValueError:
+        except (ValueError, KeyError):
             art.animacion_cargando(art.dato_invalido_mensaje)
 
 def consultar_info():

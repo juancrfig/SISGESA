@@ -1,8 +1,8 @@
 {
     "grupos": {
         "0001": {
-            "nombre": "ALPHAS",
-            "sigla": "ALP"
+            "nombre": "PYTHON1",
+            "sigla": "PYT"
         },
         "0002": {
             "nombre": "BETAS",
@@ -43,11 +43,11 @@
     },
     "modulos": {
         "0001": {
-            "nombre": "INTRODUCCION_A_PYTHON",
-            "duracion": 4,
+            "nombre": "PYTHONNN",
+            "duracion": 8,
             "horario": {
-                "inicio": "2024-01-15 06:00:00",
-                "fin": "2024-02-12 12:00:00"
+                "inicio": "2024-01-01 10:00:00",
+                "fin": "2024-02-26 15:00:00"
             }
         },
         "0002": {
